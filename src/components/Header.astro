@@ -1,0 +1,61 @@
+---
+import { site } from '@/data/site';
+import { withBase } from '@/utils/paths';
+
+const currentPath = Astro.url.pathname;
+const resumeHref = site.resumePath
+  ? withBase(site.resumePath)
+  : withBase('/about/#resume');
+
+const navItems = [
+  { label: 'Projects', href: withBase('/#projects'), match: '/projects/' },
+  { label: 'About', href: withBase('/about/'), match: '/about/' },
+  { label: 'Resume', href: resumeHref, match: '/resume' },
+];
+
+const isActive = (match: string) => currentPath.includes(match);
+---
+
+<header class="site-header">
+  <div class="site-header__inner page-shell">
+    <a class="brand" href={withBase('/')} aria-label="Bae Cheolgyu 홈으로 이동">
+      <span class="brand__name">{site.name}</span>
+      <span class="brand__role">{site.role}</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="주요 메뉴">
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            aria-current={isActive(item.match) ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a href={site.githubUrl} rel="noreferrer" target="_blank">
+        GitHub<span class="sr-only"> (새 창)</span>
+      </a>
+    </nav>
+
+    <details class="mobile-nav">
+      <summary>Menu</summary>
+      <nav aria-label="모바일 메뉴">
+        {
+          navItems.map((item) => (
+            <a
+              href={item.href}
+              aria-current={isActive(item.match) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          ))
+        }
+        <a href={site.githubUrl} rel="noreferrer" target="_blank">
+          GitHub<span class="sr-only"> (새 창)</span>
+        </a>
+      </nav>
+    </details>
+  </div>
+</header>

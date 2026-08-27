@@ -1,0 +1,83 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { withBase } from '@/utils/paths';
+
+interface Props {
+  kind?: 'placeholder' | 'image' | 'video';
+  src?: string | ImageMetadata;
+  poster?: string;
+  alt: string;
+  label: string;
+  direction?: string;
+  aspectRatio?: 'landscape' | 'wide' | 'portrait';
+  variant?: string;
+  eager?: boolean;
+}
+
+const {
+  kind = 'placeholder',
+  src,
+  poster,
+  alt,
+  label,
+  direction,
+  aspectRatio = 'landscape',
+  variant = '01',
+  eager = false,
+} = Astro.props;
+
+const isOptimizedImage = typeof src === 'object' && src !== null;
+---
+
+<figure
+  class:list={['media-frame', `media-frame--${aspectRatio}`]}
+  data-variant={variant}
+>
+  <div class="media-frame__surface">
+    {
+      kind === 'image' && src ? (
+        isOptimizedImage ? (
+          <Image
+            src={src as ImageMetadata}
+            alt={alt}
+            widths={[640, 960, 1280, 1600]}
+            sizes="(max-width: 760px) 100vw, 58vw"
+            loading={eager ? 'eager' : 'lazy'}
+            format="webp"
+          />
+        ) : (
+          <img
+            src={withBase(src as string)}
+            alt={alt}
+            width="1600"
+            height="1000"
+            loading={eager ? 'eager' : 'lazy'}
+            decoding="async"
+          />
+        )
+      ) : kind === 'video' && typeof src === 'string' ? (
+        <video
+          src={withBase(src)}
+          poster={poster ? withBase(poster) : undefined}
+          aria-label={alt}
+          controls
+          playsinline
+          preload="metadata"
+        />
+      ) : (
+        <div class="media-placeholder" role="img" aria-label={alt}>
+          <span class="media-placeholder__axis media-placeholder__axis--x" />
+          <span class="media-placeholder__axis media-placeholder__axis--y" />
+          <span class="media-placeholder__target" />
+          <span class="media-placeholder__path" />
+          <span class="media-placeholder__index">{variant}</span>
+        </div>
+      )
+    }
+  </div>
+  <figcaption>
+    <span>{label}</span>
+    {direction && <span>{direction}</span>}
+  </figcaption>
+</figure>

@@ -1,0 +1,57 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import MediaFrame from '@/components/MediaFrame.astro';
+import ProjectRow from '@/components/ProjectRow.astro';
+import { projects } from '@/data/projects';
+import { site } from '@/data/site';
+import { withBase } from '@/utils/paths';
+
+const resumeHref = site.resumePath
+  ? withBase(site.resumePath)
+  : withBase('/about/#resume');
+---
+
+<BaseLayout>
+  <section class="hero page-shell" aria-labelledby="home-title">
+    <div class="hero__copy">
+      <h1 class="hero__title" id="home-title">
+        <span>Robot</span>
+        <span>Software</span>
+        <span>Engineer</span>
+      </h1>
+      <p class="hero__intro">
+        Perception, navigation, manipulation, and AI를<br />
+        실제 로봇 동작으로 연결하는 소프트웨어를 개발합니다.
+      </p>
+      <div class="hero__actions">
+        <a class="action-link" href="#projects">View projects <span aria-hidden="true">↓</span></a>
+        <a class="action-link" href={resumeHref}>Resume <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+
+    <div class="hero__visual">
+      <MediaFrame
+        alt="대표 로봇 프로젝트 이미지 또는 영상을 배치할 자리"
+        label="PRIMARY ROBOT PROJECT / ASSET SLOT"
+        direction="BEST FIELD IMAGE OR CONTROL DEMO"
+        aspectRatio="portrait"
+        variant="00"
+        eager={true}
+      />
+    </div>
+  </section>
+
+  <section class="project-index" id="projects" aria-label="로봇 프로젝트 목록">
+    <div class="page-shell project-index__marker" aria-hidden="true">
+      <span>Project index / 01—04</span>
+      <span>Robotic systems</span>
+    </div>
+    <div class="page-shell">
+      {
+        projects.map((project, index) => (
+          <ProjectRow project={project} reverse={index % 2 === 1} />
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

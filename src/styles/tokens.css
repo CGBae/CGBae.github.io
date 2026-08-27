@@ -1,0 +1,16 @@
+:root {
+  --paper: #f2eee6;
+  --ink: #15202b;
+  --muted: #62615d;
+  --rust: #a4472a;
+  --line: #c9c3b8;
+
+  --font-serif: Georgia, 'Times New Roman', 'Noto Serif KR', serif;
+  --font-sans: 'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo',
+    'Segoe UI', sans-serif;
+
+  --page-width: 1240px;
+  --page-gutter: clamp(1.25rem, 4vw, 3.75rem);
+  --section-space: clamp(5.5rem, 10vw, 10rem);
+  --rule: 1px solid var(--line);
+}

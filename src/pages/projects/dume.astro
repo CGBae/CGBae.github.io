@@ -1,0 +1,81 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ProjectHero from '@/components/ProjectHero.astro';
+import { projectBySlug } from '@/data/projects';
+import { withBase } from '@/utils/paths';
+
+const project = projectBySlug.dume;
+---
+
+<BaseLayout
+  title={`${project.title} — Bae Cheolgyu`}
+  description={project.description}
+  bodyClass="project-page project-page--dume"
+>
+  <ProjectHero project={project} note="AI COPILOT / PAGE DRAFT" />
+
+  <section class="project-note">
+    <div class="project-note__inner page-shell">
+      <h2>Context needs proof</h2>
+      <div class="project-note__copy">
+        <p>
+          대화 UI, 조립 매뉴얼, 현재 작업 문맥이 실제로 연결되는 방식을 분석 문서와
+          화면 자료로 확인한 뒤 상세 서사를 작성합니다.
+        </p>
+        <p>이 초안은 LLM 동작, 검색 방식 또는 성능을 임의로 가정하지 않습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="project-question page-shell" aria-labelledby="dume-question">
+    <h2 id="dume-question">Question to prove</h2>
+    <blockquote>{project.futureQuestion}</blockquote>
+  </section>
+
+  <section class="project-metadata page-shell" aria-label="프로젝트 초안 상태">
+    <dl>
+      <div><dt>Role</dt><dd>[프로젝트 분석 후 반영]</dd></div>
+      <div><dt>Status</dt><dd>Project analysis pending</dd></div>
+      <div><dt>Content source</dt><dd>project-page-spec.md 예정</dd></div>
+    </dl>
+  </section>
+
+  <section class="content-slots page-shell" aria-labelledby="dume-slots">
+    <div class="content-slots__heading">
+      <h2 id="dume-slots">Interaction record slots</h2>
+      <p>
+        UI와 작업 문맥을 먼저 보여주고, 확인된 기술 설명을 그 뒤에 배치할 수 있도록
+        비워 둔 영역입니다.
+      </p>
+    </div>
+    <div class="slot-list">
+      <div class="slot-list__item">
+        <span>01</span><strong>User conversation</strong><p>[실제 대화 UI 자료 삽입]</p>
+      </div>
+      <div class="slot-list__item">
+        <span>02</span><strong>Manual context</strong><p>[매뉴얼과 작업 문맥 근거 삽입]</p>
+      </div>
+      <div class="slot-list__item">
+        <span>03</span><strong>Assistance outcome</strong><p>[검증된 작업 도움 사례 삽입]</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="project-resources page-shell" aria-labelledby="dume-resources">
+    <div class="project-resources__heading">
+      <h2 id="dume-resources">Demo / source</h2>
+      <p>자료 소유권과 공개 가능 범위를 확인한 후 연결합니다.</p>
+    </div>
+    <dl class="resource-list">
+      <div><dt>Demo</dt><dd>[프로젝트 분석 후 연결]</dd></div>
+      <div><dt>GitHub</dt><dd>[공개 저장소 여부 사용자 확인 필요]</dd></div>
+      <div><dt>Source note</dt><dd>docs/portfolio-source/dume/project-page-spec.md</dd></div>
+    </dl>
+  </section>
+
+  <nav class="next-project page-shell" aria-label="다음 프로젝트">
+    <a href={withBase('/projects/palpa/')}>
+      <span>Next project / 04</span><strong>PALPA</strong>
+    </a>
+  </nav>
+</BaseLayout>

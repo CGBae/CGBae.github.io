@@ -1,0 +1,84 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ProjectHero from '@/components/ProjectHero.astro';
+import { projectBySlug } from '@/data/projects';
+import { withBase } from '@/utils/paths';
+
+const project = projectBySlug.turtlebot4;
+---
+
+<BaseLayout
+  title={`${project.title} — Bae Cheolgyu`}
+  description={project.description}
+  bodyClass="project-page project-page--turtlebot"
+>
+  <ProjectHero project={project} note="AMR / PAGE DRAFT" />
+
+  <section class="project-note">
+    <div class="project-note__inner page-shell">
+      <h2>Analysis pending</h2>
+      <div class="project-note__copy">
+        <p>
+          이 페이지는 정보 구조와 미디어 위치만 잡은 초안입니다. 좌표계, 구현 범위,
+          검증 결과와 개인 기여도는 아직 확정하지 않았습니다.
+        </p>
+        <p>
+          `docs/portfolio-source/turtlebot4/project-page-spec.md`를 받은 뒤 실제 근거로
+          교체합니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="project-metadata page-shell" aria-label="프로젝트 초안 상태">
+    <dl>
+      <div><dt>Role</dt><dd>[프로젝트 분석 후 반영]</dd></div>
+      <div><dt>Status</dt><dd>Project analysis pending</dd></div>
+      <div><dt>Content source</dt><dd>project-page-spec.md 예정</dd></div>
+    </dl>
+  </section>
+
+  <section class="project-question page-shell" aria-labelledby="turtle-question">
+    <h2 id="turtle-question">Question to prove</h2>
+    <blockquote>{project.futureQuestion}</blockquote>
+  </section>
+
+  <section class="content-slots page-shell" aria-labelledby="turtle-slots">
+    <div class="content-slots__heading">
+      <h2 id="turtle-slots">Open content slots</h2>
+      <p>
+        실제 분석 문서에서 확인된 순서와 증거에 맞춰 재배치할 영역입니다. 아래 이름은
+        시각 방향을 위한 가설이며 사실 서술이 아닙니다.
+      </p>
+    </div>
+    <div class="slot-list">
+      <div class="slot-list__item">
+        <span>01</span><strong>Target observation</strong><p>[탐지 결과와 입력 자료 삽입]</p>
+      </div>
+      <div class="slot-list__item">
+        <span>02</span><strong>Coordinate / goal reasoning</strong><p>[분석 후 설명·도식 삽입]</p>
+      </div>
+      <div class="slot-list__item">
+        <span>03</span><strong>Robot behavior evidence</strong><p>[실행 영상·결과 삽입]</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="project-resources page-shell" aria-labelledby="turtle-resources">
+    <div class="project-resources__heading">
+      <h2 id="turtle-resources">Demo / source</h2>
+      <p>검증된 공개 URL만 연결하며, 현재는 깨진 링크를 만들지 않습니다.</p>
+    </div>
+    <dl class="resource-list">
+      <div><dt>Demo</dt><dd>[프로젝트 분석 후 연결]</dd></div>
+      <div><dt>GitHub</dt><dd>[공개 저장소 여부 사용자 확인 필요]</dd></div>
+      <div><dt>Source note</dt><dd>docs/portfolio-source/turtlebot4/project-page-spec.md</dd></div>
+    </dl>
+  </section>
+
+  <nav class="next-project page-shell" aria-label="다음 프로젝트">
+    <a href={withBase('/projects/automatic-fueling/')}>
+      <span>Next project / 02</span><strong>Automatic Fueling Robot</strong>
+    </a>
+  </nav>
+</BaseLayout>

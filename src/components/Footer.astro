@@ -1,0 +1,42 @@
+---
+import { site } from '@/data/site';
+import { withBase } from '@/utils/paths';
+
+const resumeHref = site.resumePath
+  ? withBase(site.resumePath)
+  : withBase('/about/#resume');
+---
+
+<footer class="site-footer" id="contact">
+  <div class="page-shell site-footer__inner">
+    <div class="site-footer__identity">
+      <p>{site.name}</p>
+      <p>{site.role}</p>
+    </div>
+
+    <div class="site-footer__links" aria-label="연락처">
+      <div>
+        <span>Email</span>
+        {
+          site.email ? (
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+          ) : (
+            <strong>{site.emailLabel}</strong>
+          )
+        }
+      </div>
+      <div>
+        <span>GitHub</span>
+        <a href={site.githubUrl} rel="noreferrer" target="_blank">
+          CGBae<span class="sr-only"> (새 창)</span>
+        </a>
+      </div>
+      <div>
+        <span>Resume</span>
+        <a href={resumeHref}>{site.resumePath ? 'PDF' : '준비 중'}</a>
+      </div>
+    </div>
+
+    <p class="site-footer__note">Portfolio draft · Content under review</p>
+  </div>
+</footer>

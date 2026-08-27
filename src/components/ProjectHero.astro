@@ -1,0 +1,35 @@
+---
+import type { Project } from '@/data/projects';
+import MediaFrame from './MediaFrame.astro';
+
+interface Props {
+  project: Project;
+  note?: string;
+}
+
+const { project, note = 'Project page draft' } = Astro.props;
+---
+
+<section class="project-hero page-shell">
+  <div class="project-hero__heading">
+    <p class="eyebrow">{project.number} / {note}</p>
+    <h1>{project.title}</h1>
+  </div>
+  <div class="project-hero__summary">
+    <p class="project-hero__stack">{project.subtitle.join(' · ')}</p>
+    <p>{project.description}</p>
+  </div>
+  <div class="project-hero__media">
+    <MediaFrame
+      kind={project.asset.kind}
+      src={project.asset.src}
+      poster={project.asset.poster}
+      alt={project.asset.alt}
+      label={project.asset.label}
+      direction={project.visualDirection}
+      aspectRatio="wide"
+      variant={project.number}
+      eager={true}
+    />
+  </div>
+</section>

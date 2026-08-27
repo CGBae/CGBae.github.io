@@ -1,0 +1,84 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ProjectHero from '@/components/ProjectHero.astro';
+import { projectBySlug } from '@/data/projects';
+import { withBase } from '@/utils/paths';
+
+const project = projectBySlug['automatic-fueling'];
+---
+
+<BaseLayout
+  title={`${project.title} — Bae Cheolgyu`}
+  description={project.description}
+  bodyClass="project-page project-page--fueling"
+>
+  <ProjectHero project={project} note="MANIPULATION / PAGE DRAFT" />
+
+  <section class="project-metadata page-shell" aria-label="프로젝트 초안 상태">
+    <dl>
+      <div><dt>Role</dt><dd>[프로젝트 분석 후 반영]</dd></div>
+      <div><dt>Status</dt><dd>Project analysis pending</dd></div>
+      <div><dt>Content source</dt><dd>project-page-spec.md 예정</dd></div>
+    </dl>
+  </section>
+
+  <section class="project-question page-shell" aria-labelledby="fuel-question">
+    <h2 id="fuel-question">Question to prove</h2>
+    <blockquote>{project.futureQuestion}</blockquote>
+  </section>
+
+  <section class="project-note">
+    <div class="project-note__inner page-shell">
+      <h2>Evidence first</h2>
+      <div class="project-note__copy">
+        <p>
+          시뮬레이션 화면, Pose 추정 근거, 접근·정렬·삽입 동작 자료가 확인된 뒤 페이지의
+          기술 흐름을 결정합니다.
+        </p>
+        <p>
+          현재의 단계 이름은 제공된 초기 시각 방향만 반영한 가설이며 구현 사실을
+          추가하지 않습니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-slots page-shell" aria-labelledby="fuel-slots">
+    <div class="content-slots__heading">
+      <h2 id="fuel-slots">Motion evidence slots</h2>
+      <p>
+        `docs/portfolio-source/automatic-fueling/project-page-spec.md`의 섹션 정의에 따라
+        제목과 순서를 다시 정합니다.
+      </p>
+    </div>
+    <div class="slot-list">
+      <div class="slot-list__item">
+        <span>A</span><strong>Visual target</strong><p>[ArUco / Pose 자료 삽입]</p>
+      </div>
+      <div class="slot-list__item">
+        <span>B</span><strong>Executable motion</strong><p>[Motion Planning 설명 삽입]</p>
+      </div>
+      <div class="slot-list__item">
+        <span>C</span><strong>Result / demo</strong><p>[Isaac Sim 또는 실제 동작 자료 삽입]</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="project-resources page-shell" aria-labelledby="fuel-resources">
+    <div class="project-resources__heading">
+      <h2 id="fuel-resources">Demo / source</h2>
+      <p>공개 범위와 URL이 확인되기 전에는 링크를 노출하지 않습니다.</p>
+    </div>
+    <dl class="resource-list">
+      <div><dt>Demo</dt><dd>[프로젝트 분석 후 연결]</dd></div>
+      <div><dt>GitHub</dt><dd>[공개 저장소 여부 사용자 확인 필요]</dd></div>
+      <div><dt>Source note</dt><dd>docs/portfolio-source/automatic-fueling/project-page-spec.md</dd></div>
+    </dl>
+  </section>
+
+  <nav class="next-project page-shell" aria-label="다음 프로젝트">
+    <a href={withBase('/projects/dume/')}>
+      <span>Next project / 03</span><strong>DUM-E</strong>
+    </a>
+  </nav>
+</BaseLayout>
