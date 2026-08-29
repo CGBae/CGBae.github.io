@@ -1,0 +1,109 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1440' height='760' viewBox='0 0 1440 760' role='img' aria-labelledby='title desc'>
+  <title id='title'>ArUco pose에서 로봇 motion까지의 변환 흐름</title>
+  <desc id='desc'>ArUco pose, mode offset, target lock, camera-to-world 변환, nozzle waypoint와 link_6 offset, RMPFlow 명령을 잇는 코드 기반 다이어그램.</desc>
+  <defs>
+    <style>
+      .sans{font-family:Pretendard,Noto Sans KR,Inter,Arial,sans-serif}.mono{font-family:JetBrains Mono,Consolas,monospace}
+      .ink{fill:#162033}.muted{fill:#627087}.faint{fill:#8B97AA}.label{font-size:12px;font-weight:700;letter-spacing:1.6px}
+      .title{font-size:31px;font-weight:750;letter-spacing:-.8px}.subtitle{font-size:15px}.card-title{font-size:16px;font-weight:720}
+      .card-body{font-size:12.5px}.card-code{font-size:11.5px;font-weight:550}.step{font-size:11px;font-weight:750}
+      .arrow-label{font-size:10px;font-weight:650}.formula{font-size:14px;font-weight:650}.note{font-size:12px;font-weight:520}
+      .hairline{stroke:#D9E0EA;stroke-width:1.25}.connector{stroke:#9DA9BA;stroke-width:1.5;fill:none}
+    </style>
+    <marker id='arrow' viewBox='0 0 10 10' refX='8.5' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0 0 10 5 0 10z' fill='#7D899B'/></marker>
+  </defs>
+  <rect width='1440' height='760' fill='#F7F9FC'/><rect x='28' y='28' width='1384' height='704' rx='18' fill='#FFF' stroke='#E1E6EE'/>
+  <text x='64' y='68' class='sans label' fill='#0D9488'>AUTOMATIC FUELING ROBOT · 01</text>
+  <text x='64' y='111' class='sans title ink'>Pose에서 실행 가능한 Motion까지</text>
+  <text x='64' y='141' class='sans subtitle muted'>검출 좌표를 바로 goal로 쓰지 않고, 기준점·좌표계·도구 geometry를 단계적으로 변환했습니다.</text>
+  <rect x='1190' y='56' width='174' height='30' rx='6' fill='#F3F6FA' stroke='#DCE3EC'/><circle cx='1208' cy='71' r='4' fill='#5B5BD6'/>
+  <text x='1220' y='75' class='sans step muted'>CODE-DERIVED DIAGRAM</text>
+  <text x='52' y='203' class='sans label' fill='#0D9488'>PERCEPTION</text><line x1='52' y1='216' x2='610' y2='216' stroke='#BEE4DF' stroke-width='2'/>
+  <text x='640' y='203' class='sans label' fill='#5B5BD6'>TARGET BRIDGE</text><line x1='640' y1='216' x2='1006' y2='216' stroke='#D8D5F4' stroke-width='2'/>
+  <text x='1032' y='203' class='sans label' fill='#248A63'>MOTION</text><line x1='1032' y1='216' x2='1388' y2='216' stroke='#C9E7DA' stroke-width='2'/>
+  <g transform='translate(52 240)'>
+    <rect width='170' height='248' rx='10' fill='#FFF' stroke='#CBD6E2'/><rect width='170' height='4' rx='2' fill='#2563EB'/>
+    <circle cx='24' cy='30' r='12' fill='#EAF1FF'/><text x='24' y='34' text-anchor='middle' class='sans step' fill='#2563EB'>01</text>
+    <path d='M24 69h30l8 8v28H24z' fill='none' stroke='#2563EB' stroke-width='1.8'/><circle cx='43' cy='88' r='7' fill='none' stroke='#2563EB' stroke-width='1.8'/>
+    <text x='20' y='132' class='sans card-title ink'>Camera Input</text><text x='20' y='158' class='sans card-body muted'>RGB image</text>
+    <text x='20' y='178' class='sans card-body muted'>CameraInfo K / D</text><line x1='20' y1='198' x2='150' y2='198' class='hairline'/>
+    <text x='20' y='221' class='mono card-code' fill='#2563EB'>/rgb</text><text x='20' y='239' class='mono card-code' fill='#2563EB'>/camera_info</text>
+  </g>
+  <g transform='translate(248 240)'>
+    <rect width='170' height='248' rx='10' fill='#FFF' stroke='#CBD6E2'/><rect width='170' height='4' rx='2' fill='#0D9488'/>
+    <circle cx='24' cy='30' r='12' fill='#E8F7F5'/><text x='24' y='34' text-anchor='middle' class='sans step' fill='#0D9488'>02</text>
+    <rect x='22' y='64' width='39' height='39' fill='none' stroke='#0D9488' stroke-width='2'/>
+    <rect x='28' y='70' width='10' height='10' fill='#0D9488'/><rect x='45' y='70' width='10' height='10' fill='#0D9488'/><rect x='28' y='87' width='10' height='10' fill='#0D9488'/>
+    <text x='20' y='132' class='sans card-title ink'>ArUco Pose</text><text x='20' y='158' class='sans card-body muted'>DICT_4X4_50 · ID 0</text>
+    <text x='20' y='178' class='sans card-body muted'>3D pose estimation</text><line x1='20' y1='198' x2='150' y2='198' class='hairline'/>
+    <text x='20' y='221' class='mono card-code' fill='#0D9488'>rvec · tvec</text><text x='20' y='239' class='mono card-code faint'>estimatePose…()</text>
+  </g>
+  <g transform='translate(444 240)'>
+    <rect width='170' height='248' rx='10' fill='#FFF' stroke='#CBD6E2'/><rect width='170' height='4' rx='2' fill='#0D9488'/>
+    <circle cx='24' cy='30' r='12' fill='#E8F7F5'/><text x='24' y='34' text-anchor='middle' class='sans step' fill='#0D9488'>03</text>
+    <circle cx='39' cy='84' r='15' fill='#E8F7F5' stroke='#0D9488' stroke-width='1.6'/>
+    <circle cx='76' cy='72' r='4' fill='#0D9488'/><circle cx='87' cy='87' r='4' fill='#0D9488'/><circle cx='70' cy='102' r='4' fill='#0D9488'/>
+    <path d='M52 80 72 73M53 89 82 88M50 96 66 101' stroke='#0D9488' stroke-width='1.4'/>
+    <text x='20' y='132' class='sans card-title ink'>Mode Target</text><text x='20' y='158' class='sans card-body muted'>door · cap · hole</text>
+    <text x='20' y='178' class='sans card-body muted'>marker-frame offset</text><line x1='20' y1='198' x2='150' y2='198' class='hairline'/>
+    <text x='20' y='221' class='mono card-code' fill='#0D9488'>R · o<tspan baseline-shift='sub' font-size='9'>mode</tspan> + t</text>
+    <text x='20' y='239' class='sans card-body faint'>camera-frame target</text>
+  </g>
+  <g transform='translate(640 240)'>
+    <rect width='170' height='248' rx='10' fill='#FFF' stroke='#CBD6E2'/><rect width='170' height='4' rx='2' fill='#5B5BD6'/>
+    <circle cx='24' cy='30' r='12' fill='#EFEEFC'/><text x='24' y='34' text-anchor='middle' class='sans step' fill='#5B5BD6'>04</text>
+    <path d='M24 91c9-18 20-27 34-27 15 0 23 10 31 28' fill='none' stroke='#5B5BD6' stroke-width='1.8'/>
+    <circle cx='58' cy='88' r='8' fill='#EFEEFC' stroke='#5B5BD6' stroke-width='1.8'/><path d='M55 88l3 3 6-8' fill='none' stroke='#5B5BD6' stroke-width='1.8'/>
+    <text x='20' y='132' class='sans card-title ink'>Detector Lock</text><text x='20' y='158' class='sans card-body muted'>8-point buffer</text>
+    <text x='20' y='178' class='sans card-body muted'>≥ 3 frames · σ ≤ .035 m</text><line x1='20' y1='198' x2='150' y2='198' class='hairline'/>
+    <text x='20' y='221' class='mono card-code' fill='#5B5BD6'>PoseStamped</text><text x='20' y='239' class='mono card-code faint'>target_locked</text>
+  </g>
+  <g transform='translate(836 240)'>
+    <rect width='170' height='248' rx='10' fill='#FFF' stroke='#CBD6E2'/><rect width='170' height='4' rx='2' fill='#5B5BD6'/>
+    <circle cx='24' cy='30' r='12' fill='#EFEEFC'/><text x='24' y='34' text-anchor='middle' class='sans step' fill='#5B5BD6'>05</text>
+    <path d='M29 103V67M29 103h42M29 103l20-22' fill='none' stroke='#5B5BD6' stroke-width='1.8'/>
+    <path d='M29 67l-4 8h8zM71 103l-8-4v8zM49 81l-1 9 8-5z' fill='#5B5BD6'/>
+    <text x='20' y='132' class='sans card-title ink'>World Target Lock</text><text x='20' y='158' class='sans card-body muted'>manual axis mapping</text>
+    <text x='20' y='178' class='sans card-body muted'>5 samples · σ ≤ .025 m</text><line x1='20' y1='198' x2='150' y2='198' class='hairline'/>
+    <text x='20' y='221' class='mono card-code' fill='#5B5BD6'>(−x, −z, −y)</text><text x='20' y='239' class='sans card-body faint'>gate + reference Z</text>
+  </g>
+  <g transform='translate(1032 240)'>
+    <rect width='170' height='248' rx='10' fill='#FFF' stroke='#CBD6E2'/><rect width='170' height='4' rx='2' fill='#248A63'/>
+    <circle cx='24' cy='30' r='12' fill='#EAF6F0'/><text x='24' y='34' text-anchor='middle' class='sans step' fill='#248A63'>06</text>
+    <line x1='25' y1='87' x2='100' y2='87' stroke='#248A63' stroke-width='1.8'/>
+    <circle cx='31' cy='87' r='5' fill='#FFF' stroke='#248A63' stroke-width='2'/><circle cx='53' cy='87' r='5' fill='#FFF' stroke='#248A63' stroke-width='2'/>
+    <circle cx='75' cy='87' r='5' fill='#FFF' stroke='#248A63' stroke-width='2'/><circle cx='99' cy='87' r='6' fill='#248A63'/>
+    <text x='20' y='132' class='sans card-title ink'>Tip → link_6</text><text x='20' y='158' class='sans card-body muted'>far · mid · near · insert</text>
+    <text x='20' y='178' class='sans card-body muted'>fixed 105° port axis</text><line x1='20' y1='198' x2='150' y2='198' class='hairline'/>
+    <text x='20' y='221' class='mono card-code' fill='#248A63'>+ n · 0.63 m</text><text x='20' y='239' class='mono card-code faint'>z offset −0.25 m</text>
+  </g>
+  <g transform='translate(1228 240)'>
+    <rect width='160' height='248' rx='10' fill='#FFF' stroke='#CBD6E2'/><rect width='160' height='4' rx='2' fill='#248A63'/>
+    <circle cx='24' cy='30' r='12' fill='#EAF6F0'/><text x='24' y='34' text-anchor='middle' class='sans step' fill='#248A63'>07</text>
+    <circle cx='40' cy='87' r='15' fill='none' stroke='#248A63' stroke-width='1.8'/><path d='M40 72v30M25 87h30M52 76 28 98' stroke='#248A63' stroke-width='1.4'/>
+    <text x='20' y='132' class='sans card-title ink'>Robot Action</text><text x='20' y='158' class='sans card-body muted'>60 Hz speed limit</text>
+    <text x='20' y='178' class='sans card-body muted'>fixed EE quaternion</text><line x1='20' y1='198' x2='140' y2='198' class='hairline'/>
+    <text x='20' y='221' class='mono card-code' fill='#248A63'>RMPFlow</text><text x='20' y='239' class='mono card-code faint'>ArticulationAction</text>
+  </g>
+  <g class='sans'>
+    <path d='M222 366H246' class='connector' marker-end='url(#arrow)'/><text x='234' y='350' text-anchor='middle' class='arrow-label faint'>detect</text>
+    <path d='M418 366H442' class='connector' marker-end='url(#arrow)'/><text x='430' y='350' text-anchor='middle' class='arrow-label faint'>offset</text>
+    <path d='M614 366H638' class='connector' marker-end='url(#arrow)'/><text x='626' y='350' text-anchor='middle' class='arrow-label faint'>filter</text>
+    <path d='M810 366H834' class='connector' marker-end='url(#arrow)'/><text x='822' y='350' text-anchor='middle' class='arrow-label faint'>map</text>
+    <path d='M1006 366H1030' class='connector' marker-end='url(#arrow)'/><text x='1018' y='350' text-anchor='middle' class='arrow-label faint'>plan</text>
+    <path d='M1202 366H1226' class='connector' marker-end='url(#arrow)'/><text x='1214' y='350' text-anchor='middle' class='arrow-label faint'>track</text>
+  </g>
+  <rect x='52' y='526' width='1336' height='126' rx='10' fill='#F8FAFC' stroke='#D9E0EA'/>
+  <text x='76' y='554' class='sans label muted'>THE TRANSFORMATION CHAIN</text>
+  <text x='76' y='592' class='mono formula' fill='#0D9488'>p<tspan baseline-shift='sub' font-size='10'>target</tspan><tspan baseline-shift='super' font-size='10'>C</tspan> = R<tspan baseline-shift='sub' font-size='10'>M→C</tspan> · o<tspan baseline-shift='sub' font-size='10'>mode</tspan><tspan baseline-shift='super' font-size='10'>M</tspan> + t<tspan baseline-shift='sub' font-size='10'>M</tspan><tspan baseline-shift='super' font-size='10'>C</tspan></text>
+  <path d='M448 586h44' class='connector' marker-end='url(#arrow)'/>
+  <text x='520' y='592' class='mono formula' fill='#5B5BD6'>p<tspan baseline-shift='sub' font-size='10'>target</tspan><tspan baseline-shift='super' font-size='10'>W</tspan> = t<tspan baseline-shift='sub' font-size='10'>camera</tspan><tspan baseline-shift='super' font-size='10'>W</tspan> + [−x<tspan baseline-shift='sub' font-size='10'>C</tspan>, −z<tspan baseline-shift='sub' font-size='10'>C</tspan>, −y<tspan baseline-shift='sub' font-size='10'>C</tspan>]</text>
+  <path d='M996 586h44' class='connector' marker-end='url(#arrow)'/>
+  <text x='1068' y='592' class='mono formula' fill='#248A63'>p<tspan baseline-shift='sub' font-size='10'>link6</tspan> = p<tspan baseline-shift='sub' font-size='10'>tip</tspan> + n<tspan baseline-shift='sub' font-size='10'>out</tspan>·0.63 + [0,0,−0.25]</text>
+  <line x1='76' y1='614' x2='1364' y2='614' class='hairline'/>
+  <circle cx='84' cy='633' r='3.5' fill='#0D9488'/><text x='96' y='637' class='sans note muted'>marker pose는 door·cap·hole 기준점 계산에 사용</text>
+  <circle cx='502' cy='633' r='3.5' fill='#5B5BD6'/><text x='514' y='637' class='sans note muted'>camera→world는 TF2가 아닌 USD camera origin + 수동 축 매핑</text>
+  <circle cx='1030' cy='633' r='3.5' fill='#248A63'/><text x='1042' y='637' class='sans note muted'>motion insertion axis는 world-fixed 105°</text>
+  <text x='52' y='697' class='sans note faint'>Reconstructed from aruco_marker_detector.py and multi_robot_oiling.py · current default execution path</text>
+  <text x='1388' y='697' text-anchor='end' class='mono note' fill='#7D899B'>VISION → TARGET → MOTION</text>
+</svg>

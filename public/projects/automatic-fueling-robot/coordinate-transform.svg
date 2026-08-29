@@ -1,0 +1,89 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1440' height='780' viewBox='0 0 1440 780' role='img' aria-labelledby='title desc'>
+  <title id='title'>Camera target을 Isaac Sim world target으로 변환하는 좌표 연결</title>
+  <desc id='desc'>ROS camera frame의 x y z를 world frame의 마이너스 x, 마이너스 z, 마이너스 y로 재배열하고 USD camera origin을 더한 뒤 gate와 sample lock을 적용하는 코드 기반 다이어그램.</desc>
+  <defs>
+    <style>
+      .sans{font-family:Pretendard,Noto Sans KR,Inter,Arial,sans-serif}.mono{font-family:JetBrains Mono,Consolas,monospace}
+      .ink{fill:#162033}.muted{fill:#627087}.faint{fill:#8B97AA}.label{font-size:12px;font-weight:700;letter-spacing:1.6px}
+      .title{font-size:31px;font-weight:750;letter-spacing:-.8px}.subtitle{font-size:15px}.panel-title{font-size:17px;font-weight:720}
+      .body{font-size:13px}.small{font-size:11.5px;font-weight:520}.formula{font-size:18px;font-weight:650}.mono-small{font-size:12px;font-weight:550}
+      .hairline{stroke:#D9E0EA;stroke-width:1.25}.axis{stroke-width:2;fill:none}.dash{stroke-dasharray:6 6}
+    </style>
+    <marker id='a-blue' viewBox='0 0 10 10' refX='8.5' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0 0 10 5 0 10z' fill='#2563EB'/></marker>
+    <marker id='a-indigo' viewBox='0 0 10 10' refX='8.5' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0 0 10 5 0 10z' fill='#5B5BD6'/></marker>
+  </defs>
+  <rect width='1440' height='780' fill='#F7F9FC'/><rect x='28' y='28' width='1384' height='724' rx='18' fill='#FFF' stroke='#E1E6EE'/>
+  <text x='64' y='68' class='sans label' fill='#5B5BD6'>AUTOMATIC FUELING ROBOT · 02</text>
+  <text x='64' y='111' class='sans title ink'>Camera Target을 World Target으로 연결한 방식</text>
+  <text x='64' y='141' class='sans subtitle muted'>USD camera 위치와 scene에 맞춘 축 재배열을 결합해 manipulation target을 구성했습니다.</text>
+  <rect x='1190' y='56' width='174' height='30' rx='6' fill='#F3F6FA' stroke='#DCE3EC'/><circle cx='1208' cy='71' r='4' fill='#5B5BD6'/>
+  <text x='1220' y='75' class='sans small muted'>CODE-DERIVED DIAGRAM</text>
+  <g transform='translate(52 205)'>
+    <rect width='340' height='330' rx='10' fill='#FAFCFF' stroke='#CBD6E2'/>
+    <text x='22' y='34' class='sans label' fill='#2563EB'>INPUT FRAME</text>
+    <text x='22' y='66' class='sans panel-title ink'>ROS Camera coordinates</text>
+    <text x='22' y='91' class='sans body muted'>ArUco detector가 발행한 target position</text>
+    <g transform='translate(105 220)'>
+      <circle r='5' fill='#162033'/>
+      <path d='M0 0H112' class='axis' stroke='#2563EB' marker-end='url(#a-blue)'/>
+      <path d='M0 0V80' class='axis' stroke='#0D9488'/><path d='M-5 72 0 82 5 72z' fill='#0D9488'/>
+      <path d='M0 0 74-74' class='axis' stroke='#5B5BD6' marker-end='url(#a-indigo)'/>
+      <text x='122' y='5' class='mono mono-small' fill='#2563EB'>+x<tspan baseline-shift='sub' font-size='9'>C</tspan> right</text>
+      <text x='8' y='84' class='mono mono-small' fill='#0D9488'>+y<tspan baseline-shift='sub' font-size='9'>C</tspan> down</text>
+      <text x='77' y='-78' class='mono mono-small' fill='#5B5BD6'>+z<tspan baseline-shift='sub' font-size='9'>C</tspan> forward</text>
+      <circle cx='70' cy='-18' r='6' fill='#2563EB'/><path d='M5-3 65-16' stroke='#9BB7F2' stroke-width='1.5' class='dash'/>
+      <text x='80' y='-16' class='mono mono-small ink'>p<tspan baseline-shift='sub' font-size='9'>C</tspan> = [x<tspan baseline-shift='sub' font-size='9'>C</tspan>, y<tspan baseline-shift='sub' font-size='9'>C</tspan>, z<tspan baseline-shift='sub' font-size='9'>C</tspan>]</text>
+    </g>
+  </g>
+  <path d='M392 370h20' stroke='#9DA9BA' stroke-width='1.5' marker-end='url(#a-indigo)'/>
+
+  <g transform='translate(414 205)'>
+    <rect width='600' height='330' rx='10' fill='#FBFAFF' stroke='#D4D2EC'/>
+    <text x='24' y='34' class='sans label' fill='#5B5BD6'>SCENE-SPECIFIC BRIDGE</text>
+    <text x='24' y='66' class='sans panel-title ink'>Origin translation + manual axis mapping</text>
+    <rect x='24' y='92' width='552' height='60' rx='7' fill='#FFF' stroke='#E0DEEF'/>
+    <text x='42' y='116' class='sans small muted'>USD camera prim에서 world origin을 읽음</text>
+    <text x='42' y='140' class='mono mono-small' fill='#5B5BD6'>t<tspan baseline-shift='sub' font-size='9'>camera</tspan><tspan baseline-shift='super' font-size='9'>W</tspan> = ExtractTranslation(GetLocalToWorldTransform(camera))</text>
+    <rect x='24' y='169' width='552' height='88' rx='7' fill='#FFF' stroke='#E0DEEF'/>
+    <text x='42' y='194' class='sans small muted'>벽면 camera 배치에 맞춰 변위를 재배열</text>
+    <text x='42' y='229' class='mono formula' fill='#5B5BD6'>Δp<tspan baseline-shift='super' font-size='11'>W</tspan> = [ −x<tspan baseline-shift='sub' font-size='11'>C</tspan>, −z<tspan baseline-shift='sub' font-size='11'>C</tspan>, −y<tspan baseline-shift='sub' font-size='11'>C</tspan> ]</text>
+    <text x='24' y='294' class='mono formula ink'>p<tspan baseline-shift='sub' font-size='11'>target</tspan><tspan baseline-shift='super' font-size='11'>W</tspan> = t<tspan baseline-shift='sub' font-size='11'>camera</tspan><tspan baseline-shift='super' font-size='11'>W</tspan> + Δp<tspan baseline-shift='super' font-size='11'>W</tspan></text>
+  </g>
+  <path d='M1014 370h20' stroke='#9DA9BA' stroke-width='1.5' marker-end='url(#a-indigo)'/>
+
+  <g transform='translate(1036 205)'>
+    <rect width='352' height='330' rx='10' fill='#FAFCFF' stroke='#CBD6E2'/>
+    <text x='22' y='34' class='sans label' fill='#5B5BD6'>OUTPUT FRAME</text>
+    <text x='22' y='66' class='sans panel-title ink'>Isaac Sim world target</text>
+    <text x='22' y='91' class='sans body muted'>camera origin에 mapped delta를 더한 위치</text>
+    <g transform='translate(104 228)'>
+      <circle r='5' fill='#162033'/>
+      <path d='M0 0H112' class='axis' stroke='#2563EB' marker-end='url(#a-blue)'/>
+      <path d='M0 0V-94' class='axis' stroke='#0D9488'/><path d='M-5-86 0-96 5-86z' fill='#0D9488'/>
+      <path d='M0 0 72 56' class='axis' stroke='#5B5BD6' marker-end='url(#a-indigo)'/>
+      <text x='120' y='5' class='mono mono-small' fill='#2563EB'>+x<tspan baseline-shift='sub' font-size='9'>W</tspan></text>
+      <text x='8' y='-92' class='mono mono-small' fill='#0D9488'>+z<tspan baseline-shift='sub' font-size='9'>W</tspan></text>
+      <text x='78' y='62' class='mono mono-small' fill='#5B5BD6'>+y<tspan baseline-shift='sub' font-size='9'>W</tspan></text>
+      <circle cx='76' cy='-38' r='7' fill='#5B5BD6'/><path d='M5-3 70-35' stroke='#B4AFE7' stroke-width='1.5' class='dash'/>
+      <text x='87' y='-40' class='mono mono-small ink'>p<tspan baseline-shift='sub' font-size='9'>target</tspan><tspan baseline-shift='super' font-size='9'>W</tspan></text>
+    </g>
+  </g>
+  <rect x='52' y='560' width='1336' height='132' rx='10' fill='#F8FAFC' stroke='#D9E0EA'/>
+  <text x='76' y='588' class='sans label muted'>TARGET CONDITIONING AFTER TRANSFORM</text>
+  <line x1='496' y1='574' x2='496' y2='672' class='hairline'/><line x1='938' y1='574' x2='938' y2='672' class='hairline'/>
+  <circle cx='82' cy='620' r='13' fill='#EFEEFC'/><text x='82' y='624' text-anchor='middle' class='sans small' fill='#5B5BD6'>A</text>
+  <text x='108' y='616' class='sans panel-title ink'>Hole depth correction</text>
+  <text x='108' y='641' class='mono mono-small' fill='#5B5BD6'>p<tspan baseline-shift='sub' font-size='9'>center</tspan> = p<tspan baseline-shift='sub' font-size='9'>detected</tspan> − n<tspan baseline-shift='sub' font-size='9'>out</tspan> · 0.05 m</text>
+  <text x='108' y='662' class='sans small faint'>hole mode에서 mouth surface → center</text>
+  <circle cx='526' cy='620' r='13' fill='#EFEEFC'/><text x='526' y='624' text-anchor='middle' class='sans small' fill='#5B5BD6'>B</text>
+  <text x='552' y='616' class='sans panel-title ink'>Reference gate</text>
+  <text x='552' y='641' class='mono mono-small' fill='#5B5BD6'>half extent = [0.35, 0.35, 0.18] m</text>
+  <text x='552' y='662' class='sans small faint'>default path는 Z를 USD reference에 고정</text>
+  <circle cx='968' cy='620' r='13' fill='#EFEEFC'/><text x='968' y='624' text-anchor='middle' class='sans small' fill='#5B5BD6'>C</text>
+  <text x='994' y='616' class='sans panel-title ink'>Stable world target</text>
+  <text x='994' y='641' class='mono mono-small' fill='#5B5BD6'>5 valid samples · ‖σ‖ ≤ 0.025 m</text>
+  <text x='994' y='662' class='sans small faint'>accepted samples의 mean을 manipulation에 사용</text>
+  <rect x='52' y='710' width='6' height='18' rx='3' fill='#D89B25'/>
+  <text x='70' y='724' class='sans small muted'>Implementation boundary — TF2가 아니며, USD transform의 full rotation 대신 camera translation과 scene-calibrated axis mapping을 사용합니다.</text>
+  <text x='1388' y='724' text-anchor='end' class='mono small faint'>p<tspan baseline-shift='sub' font-size='9'>C</tspan> → p<tspan baseline-shift='sub' font-size='9'>W</tspan></text>
+</svg>
