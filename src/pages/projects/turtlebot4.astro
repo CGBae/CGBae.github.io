@@ -67,7 +67,7 @@ const sequence = [
       <div class="hero-demo__surface">
         <video class="autoplay-media" src={media.heroVideo} poster={media.heroPoster}
           aria-label="Isaac Sim에서 M0609 로봇팔이 차량 주유구를 향해 노즐을 단계적으로 접근시키고 삽입하는 장면"
-          autoplay muted loop playsinline controls preload="metadata"></video>
+          muted loop playsinline controls preload="metadata"></video>
         <img class="motion-fallback" src={media.heroPoster}
           alt="Isaac Sim에서 M0609 로봇팔이 차량 주유구를 향해 노즐을 단계적으로 접근시키는 장면"
           width="929" height="526" loading="eager" decoding="async" />
@@ -220,7 +220,7 @@ const sequence = [
       <figure class="evidence-figure motion-video">
         <video class="autoplay-media" src={media.waypointVideo} poster={media.approachFilmstrip}
           aria-label="개발 장면에서 colored staged waypoint가 순서대로 표시되고 로봇팔이 각 목표에 반응하는 영상"
-          autoplay muted loop playsinline controls preload="metadata"></video>
+          muted loop playsinline controls preload="metadata"></video>
         <img class="motion-fallback" src={media.approachFilmstrip}
           alt="개발 단계의 colored waypoint와 dual-arm motion filmstrip"
           width="1920" height="360" loading="lazy" decoding="async" />
@@ -795,8 +795,27 @@ const sequence = [
     .alignment-comparison { overflow-x: auto; }
     .comparison-labels, .alignment-comparison > img { min-width: 760px; }
   }
-  @media (prefers-reduced-motion: reduce) {
-    .autoplay-media { display: none; }
-    .motion-fallback { display: block; }
-  }
 </style>
+
+<script>
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const autoplayVideos = document.querySelectorAll<HTMLVideoElement>('.autoplay-media');
+
+  const syncVideoPlayback = () => {
+    autoplayVideos.forEach((video) => {
+      video.autoplay = !motionPreference.matches;
+
+      if (motionPreference.matches) {
+        video.pause();
+        return;
+      }
+
+      void video.play().catch(() => {
+        // Browser policies can still require the visible native controls.
+      });
+    });
+  };
+
+  syncVideoPlayback();
+  motionPreference.addEventListener('change', syncVideoPlayback);
+</script>
