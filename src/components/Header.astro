@@ -8,12 +8,18 @@ const resumeHref = site.resumePath
   : withBase('/about/#resume');
 
 const navItems = [
-  { label: 'Projects', href: withBase('/#projects'), match: '/projects/' },
-  { label: 'About', href: withBase('/about/'), match: '/about/' },
-  { label: 'Resume', href: resumeHref, match: '/resume' },
+  {
+    label: 'Projects',
+    href: withBase('/#projects'),
+    active: currentPath === withBase('/') || currentPath.includes('/projects/'),
+  },
+  {
+    label: 'About',
+    href: withBase('/about/'),
+    active: currentPath.includes('/about/'),
+  },
+  { label: 'Resume', href: resumeHref, active: currentPath.includes('/resume') },
 ];
-
-const isActive = (match: string) => currentPath.includes(match);
 ---
 
 <header class="site-header">
@@ -28,7 +34,7 @@ const isActive = (match: string) => currentPath.includes(match);
         navItems.map((item) => (
           <a
             href={item.href}
-            aria-current={isActive(item.match) ? 'page' : undefined}
+            aria-current={item.active ? 'page' : undefined}
           >
             {item.label}
           </a>
@@ -46,7 +52,7 @@ const isActive = (match: string) => currentPath.includes(match);
           navItems.map((item) => (
             <a
               href={item.href}
-              aria-current={isActive(item.match) ? 'page' : undefined}
+              aria-current={item.active ? 'page' : undefined}
             >
               {item.label}
             </a>

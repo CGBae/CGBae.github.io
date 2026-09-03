@@ -5,14 +5,28 @@ import MediaFrame from './MediaFrame.astro';
 
 interface Props {
   project: Project;
-  reverse?: boolean;
 }
 
-const { project, reverse = false } = Astro.props;
+const { project } = Astro.props;
+const titleId = 'project-' + project.slug + '-title';
+const projectHref = withBase('/projects/' + project.slug + '/');
 ---
 
-<article class:list={['project-row', { 'project-row--reverse': reverse }]}> 
-  <div class="project-row__number" aria-hidden="true">{project.number}</div>
+<article class="project-row" aria-labelledby={titleId}>
+  <div class="project-row__copy">
+    <p class="project-row__kicker">
+      <span>Project</span>
+      <span aria-hidden="true">{project.number}</span>
+    </p>
+    <h3 id={titleId}>
+      <a href={projectHref}>{project.title}</a>
+    </h3>
+    <p class="project-row__stack">{project.subtitle.join(' · ')}</p>
+    <p class="project-row__description">{project.description}</p>
+    <a class="text-link" href={projectHref}>
+      프로젝트 상세 보기 <span aria-hidden="true">↗</span>
+    </a>
+  </div>
   <div class="project-row__media">
     <MediaFrame
       kind={project.asset.kind}
@@ -23,15 +37,7 @@ const { project, reverse = false } = Astro.props;
       direction={project.visualDirection}
       aspectRatio={project.asset.aspectRatio}
       variant={project.number}
+      showIndex={false}
     />
-  </div>
-  <div class="project-row__copy">
-    <p class="project-row__kicker">Project {project.number}</p>
-    <h2>{project.title}</h2>
-    <p class="project-row__stack">{project.subtitle.join(' · ')}</p>
-    <p class="project-row__description">{project.description}</p>
-    <a class="text-link" href={withBase(`/projects/${project.slug}/`)}>
-      View project <span aria-hidden="true">↗</span>
-    </a>
   </div>
 </article>

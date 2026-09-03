@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import MediaFrame from '@/components/MediaFrame.astro';
 import ProjectRow from '@/components/ProjectRow.astro';
 import { projects } from '@/data/projects';
 import { site } from '@/data/site';
@@ -11,45 +10,44 @@ const resumeHref = site.resumePath
   : withBase('/about/#resume');
 ---
 
-<BaseLayout>
-  <section class="hero page-shell" aria-labelledby="home-title">
-    <div class="hero__copy">
-      <h1 class="hero__title" id="home-title">
-        <span>Robot</span>
-        <span>Software</span>
-        <span>Engineer</span>
+<BaseLayout bodyClass="home-page">
+  <section class="home-intro page-shell" aria-labelledby="home-title">
+    <p class="home-intro__label">Bae Cheolgyu · Portfolio</p>
+    <div class="home-intro__grid">
+      <h1 id="home-title">
+        Robot software,<br />
+        <span>from perception to motion.</span>
       </h1>
-      <p class="hero__intro">
-        Perception, navigation, manipulation, and AI를<br />
-        실제 로봇 동작으로 연결하는 소프트웨어를 개발합니다.
-      </p>
-      <div class="hero__actions">
-        <a class="action-link" href="#projects">View projects <span aria-hidden="true">↓</span></a>
-        <a class="action-link" href={resumeHref}>Resume <span aria-hidden="true">↗</span></a>
+      <div class="home-intro__summary">
+        <p class="home-intro__role">Robot Software Engineer</p>
+        <p>
+          Perception, navigation, manipulation, and AI를 실제 로봇 동작으로
+          연결하는 소프트웨어를 개발합니다.
+        </p>
+        <nav class="home-intro__links" aria-label="포트폴리오 바로가기">
+          <a href="#projects">프로젝트 보기 <span aria-hidden="true">↓</span></a>
+          <a href={withBase('/about/')}>About <span aria-hidden="true">↗</span></a>
+          <a href={resumeHref}>Resume <span aria-hidden="true">↗</span></a>
+        </nav>
       </div>
-    </div>
-
-    <div class="hero__visual">
-      <MediaFrame
-        alt="대표 로봇 프로젝트 이미지 또는 영상을 배치할 자리"
-        label="PRIMARY ROBOT PROJECT / ASSET SLOT"
-        direction="BEST FIELD IMAGE OR CONTROL DEMO"
-        aspectRatio="portrait"
-        variant="00"
-        eager={true}
-      />
     </div>
   </section>
 
   <section class="project-index" id="projects" aria-label="로봇 프로젝트 목록">
-    <div class="page-shell project-index__marker" aria-hidden="true">
-      <span>Project index / 01—04</span>
-      <span>Robotic systems</span>
-    </div>
-    <div class="page-shell">
+    <header class="page-shell project-index__header">
+      <p class="eyebrow">Projects · 4</p>
+      <div>
+        <h2>Project index</h2>
+        <p>
+          이동 로봇, 로봇팔, 작업 보조 AI, 로봇 제어 프로젝트를 선택해
+          구현 과정과 기술적 판단을 확인할 수 있습니다.
+        </p>
+      </div>
+    </header>
+    <div class="page-shell project-index__list">
       {
-        projects.map((project, index) => (
-          <ProjectRow project={project} reverse={index % 2 === 1} />
+        projects.map((project) => (
+          <ProjectRow project={project} />
         ))
       }
     </div>

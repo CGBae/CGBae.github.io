@@ -13,6 +13,7 @@ interface Props {
   aspectRatio?: 'landscape' | 'wide' | 'portrait';
   variant?: string;
   eager?: boolean;
+  showIndex?: boolean;
 }
 
 const {
@@ -25,6 +26,7 @@ const {
   aspectRatio = 'landscape',
   variant = '01',
   eager = false,
+  showIndex = true,
 } = Astro.props;
 
 const isOptimizedImage = typeof src === 'object' && src !== null;
@@ -71,7 +73,7 @@ const isOptimizedImage = typeof src === 'object' && src !== null;
           <span class="media-placeholder__axis media-placeholder__axis--y" />
           <span class="media-placeholder__target" />
           <span class="media-placeholder__path" />
-          <span class="media-placeholder__index">{variant}</span>
+          {showIndex && <span class="media-placeholder__index">{variant}</span>}
         </div>
       )
     }

@@ -54,9 +54,10 @@ export const projects: Project[] = [
     futureQuestion:
       '카메라에서 얻은 목표 Pose를 어떻게 실행 가능한 로봇팔 Motion으로 바꾸었는가?',
     asset: {
-      kind: 'placeholder',
-      alt: 'Isaac Sim의 로봇팔과 주유구 자세 추정 장면을 보여줄 이미지 자리',
-      label: 'AUTOMATIC FUELING / SIMULATION ASSET',
+      kind: 'image',
+      src: '/projects/automatic-fueling-robot/hero-nozzle-poster.webp',
+      alt: 'Isaac Sim에서 로봇팔이 차량 주유구를 향해 노즐을 접근시키는 장면',
+      label: 'AUTOMATIC FUELING / FINAL SIMULATION',
       aspectRatio: 'landscape',
     },
   },
