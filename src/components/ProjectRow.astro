@@ -14,12 +14,11 @@ const projectHref = withBase('/projects/' + project.slug + '/');
 
 <article class="project-row" aria-labelledby={titleId}>
   <div class="project-row__copy">
-    <p class="project-row__kicker">
-      <span>Project</span>
-      <span aria-hidden="true">{project.number}</span>
-    </p>
+    <p class="project-row__kicker">{project.category}</p>
     <h3 id={titleId}>
-      <a href={projectHref}>{project.title}</a>
+      <a href={projectHref} aria-label={project.title}>
+        {project.homeTitle.map((line) => <span>{line}</span>)}
+      </a>
     </h3>
     <p class="project-row__stack">{project.subtitle.join(' · ')}</p>
     <p class="project-row__description">{project.description}</p>

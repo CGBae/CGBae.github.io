@@ -9,6 +9,8 @@ export interface Project {
   slug: ProjectSlug;
   title: string;
   shortTitle: string;
+  homeTitle: string[];
+  category: string;
   subtitle: string[];
   description: string;
   visualDirection: string;
@@ -29,6 +31,8 @@ export const projects: Project[] = [
     slug: 'turtlebot4',
     title: 'TurtleBot4 Autonomous Navigation',
     shortTitle: 'TurtleBot4',
+    homeTitle: ['TurtleBot4', 'Autonomous Navigation'],
+    category: 'AUTONOMOUS MOBILE ROBOT',
     subtitle: ['Nav2', 'TF2', 'Target Localization', 'ROS2'],
     description:
       '탐지한 목표의 위치를 로봇이 사용할 수 있는 좌표와 Navigation Goal로 변환해 탐색·접근·몰이·복귀 동작으로 연결한 AMR 프로젝트.',
@@ -47,6 +51,8 @@ export const projects: Project[] = [
     slug: 'automatic-fueling',
     title: 'Automatic Fueling Robot',
     shortTitle: 'Automatic Fueling Robot',
+    homeTitle: ['Automatic', 'Fueling Robot'],
+    category: 'ROBOT MANIPULATION SIMULATION',
     subtitle: ['ArUco', 'Pose Estimation', 'Isaac Sim', 'Motion Planning'],
     description:
       '시각적으로 추정한 주유구 위치를 로봇팔의 접근·정렬·삽입 동작으로 연결하는 자동 주유 로봇 프로젝트.',
@@ -66,6 +72,8 @@ export const projects: Project[] = [
     slug: 'dume',
     title: 'DUM-E',
     shortTitle: 'DUM-E',
+    homeTitle: ['DUM-E'],
+    category: 'AI · HUMAN-ROBOT INTERACTION',
     subtitle: ['LLM', 'Conversation', 'Manual Copilot'],
     description:
       '사용자와 자연스럽게 대화하면서 조립 매뉴얼의 작업 문맥을 바탕으로 필요한 정보를 제공하는 작업 보조 로봇 프로젝트.',
@@ -84,6 +92,8 @@ export const projects: Project[] = [
     slug: 'palpa',
     title: 'PALPA',
     shortTitle: 'PALPA',
+    homeTitle: ['PALPA'],
+    category: 'HUMAN-ROBOT CONTROL',
     subtitle: ['Teaching Pendant', 'Robot Control', 'Motion Quality'],
     description:
       '웹 기반 로봇 조작 인터페이스와 로봇팔 제어를 연결하고 연속 이동의 움직임 품질을 개선한 프로젝트.',
