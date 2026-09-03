@@ -1,821 +1,101 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import ProjectHero from '@/components/ProjectHero.astro';
+import { projectBySlug } from '@/data/projects';
 import { withBase } from '@/utils/paths';
 
-const asset = (name: string) => withBase(`/projects/automatic-fueling-robot/${name}`);
-const media = {
-  heroVideo: asset('hero-nozzle-motion.mp4'),
-  heroPoster: asset('hero-nozzle-poster.webp'),
-  posePipeline: asset('pose-to-motion.svg'),
-  marker: asset('aruco-id0.png'),
-  markerAxis: asset('aruco-marker-axis-development.webp'),
-  markerOffset: asset('marker-offset-before-after.webp'),
-  coordinate: asset('coordinate-transform.svg'),
-  approach: asset('approach-geometry.svg'),
-  approachFilmstrip: asset('approach-development-filmstrip.webp'),
-  waypointVideo: asset('waypoint-development.mp4'),
-  alignment: asset('alignment-problem-solution.webp'),
-};
-const transformSteps = [
-  ['01', 'ArUco ID 0', 'rvec · tvec'],
-  ['02', 'Mode offset', 'door · cap · hole'],
-  ['03', 'Camera target', 'R · offset + t'],
-  ['04', 'World lock', 'manual axes · 5 samples'],
-  ['05', 'Tip waypoint', 'far · mid · near · insert'],
-  ['06', 'link_6 target', 'tool offset'],
-  ['07', 'Joint action', 'RMPFlow'],
-] as const;
-const stages = [
-  ['Far', '0.28 m', '0.18 m/s'],
-  ['Mid', '0.18 m', '0.18 m/s'],
-  ['Near', '0.09 m', '0.12 m/s'],
-  ['Insert', '0.05 m inward', '0.06 m/s'],
-] as const;
-const sequence = [
-  'B · door open', 'B · cap remove', 'B done',
-  'A · approach / insert / withdraw', 'A done',
-  'B · cap restore', 'B · door close',
-] as const;
+const project = projectBySlug.turtlebot4;
+const pageTitle = project.title + ' — Bae Cheolgyu';
 ---
 
 <BaseLayout
-  title="Automatic Fueling Robot — Bae Cheolgyu"
-  description="ArUco target을 단계별 nozzle waypoint와 RMPFlow joint action으로 변환한 Isaac Sim dual-arm 시뮬레이션."
-  bodyClass="project-page project-page--fueling-detail"
+  title={pageTitle}
+  description={project.description}
+  bodyClass="project-page project-page--turtlebot"
 >
-  <section class="fuel-hero page-shell" aria-labelledby="fuel-title">
-    <header class="fuel-hero__copy">
-      <p class="eyebrow">Robot manipulation · Simulation only</p>
-      <h1 id="fuel-title"><span>Vision Target</span><span>to Robot Motion</span></h1>
-      <p class="fuel-hero__lead">
-        ArUco 기준 3D target에 고정 접근축과 nozzle offset을 적용해 실행 가능한
-        Cartesian waypoint로 바꿨습니다. 두 M0609의 순차 동작은 Isaac Sim에서
-        시각적으로 검증했습니다.
-      </p>
-      <ul class="keyword-list" aria-label="핵심 기술">
-        <li>ROS2</li><li>OpenCV ArUco</li><li>Isaac Sim</li>
-        <li>USD Xform</li><li>Cartesian Waypoint</li><li>RMPFlow</li>
-      </ul>
-      <dl class="role-boundary">
-        <div><dt>Role / integration</dt><dd>Isaac Sim scene · USD object layout · ROS2 interface</dd></div>
-        <div><dt>Team implementation</dt><dd>ArUco target · staged motion · dual-arm state sequence</dd></div>
-        <div><dt>Project period</dt><dd>2026.06.17 — 2026.06.30</dd></div>
-      </dl>
-    </header>
+  <ProjectHero project={project} note="AUTONOMOUS MOBILE ROBOT / DRAFT" />
 
-    <figure class="evidence-figure hero-demo">
-      <div class="hero-demo__surface">
-        <video class="autoplay-media" src={media.heroVideo} poster={media.heroPoster}
-          aria-label="Isaac Sim에서 M0609 로봇팔이 차량 주유구를 향해 노즐을 단계적으로 접근시키고 삽입하는 장면"
-          muted loop playsinline controls preload="metadata"></video>
-        <img class="motion-fallback" src={media.heroPoster}
-          alt="Isaac Sim에서 M0609 로봇팔이 차량 주유구를 향해 노즐을 단계적으로 접근시키는 장면"
-          width="929" height="526" loading="eager" decoding="async" />
-      </div>
-      <figcaption><span>Final simulation demo</span><span>Nozzle approach → insertion → fueling · 00:16–00:30</span></figcaption>
-    </figure>
-  </section>
-
-  <section class="fuel-section page-shell" aria-labelledby="transformation-title">
-    <div class="fuel-section__header">
-      <p class="section-number">01 / Transformation</p>
-      <div>
-        <h2 id="transformation-title">카메라의 목표점은 어떻게 로봇이 실행할 경로가 되었나?</h2>
-        <p>검출 좌표는 곧바로 robot goal이 아닙니다. 기준점, 좌표계, 안정화, 접근 geometry와 tool offset을 차례로 연결했습니다.</p>
-      </div>
-    </div>
-    <figure class="evidence-figure diagram-figure">
-      <div class="diagram-scroll">
-        <img src={media.posePipeline}
-          alt="ArUco marker pose가 mode offset과 좌표 변환을 거쳐 nozzle waypoint와 RMPFlow 관절 명령으로 바뀌는 흐름"
-          width="1440" height="760" loading="lazy" decoding="async" />
-      </div>
-      <figcaption><span>Code-derived diagram</span><span>Current default execution path</span></figcaption>
-    </figure>
-    <ol class="transform-steps" aria-label="목표점 변환 단계">
-      {transformSteps.map(([number, title, note]) => (
-        <li><span>{number}</span><strong>{title}</strong><small>{note}</small></li>
-      ))}
-    </ol>
-    <ul class="implementation-boundaries" aria-label="구현 경계">
-      <li>Quaternion과 direction은 발행하지만 main motion이 소비하지 않습니다.</li>
-      <li>Target은 lock 뒤 한 번 path로 생성되며 dynamic replan은 없습니다.</li>
-      <li>Camera/world 연결은 TF2가 아닌 고정 scene용 수동 축 매핑입니다.</li>
-    </ul>
-  </section>
-
-  <section class="fuel-section page-shell" aria-labelledby="pose-title">
-    <div class="fuel-section__header">
-      <p class="section-number">02 / Pose estimation</p>
-      <div>
-        <h2 id="pose-title">Marker pose에서 door·cap·hole target을 분리했다</h2>
-        <p>CameraInfo의 K/D와 ID 0의 rvec/tvec를 사용했습니다. Marker 자체가 아니라 marker frame의 mode별 offset을 회전·이동해 작업 target을 계산했습니다.</p>
-      </div>
-    </div>
-    <div class="pose-layout">
-      <div class="pose-math">
-        <p class="formula" aria-label="카메라 좌표계의 작업 목표점 계산식">
-          p<sub>target</sub><sup>C</sup> = R<sub>M→C</sub> · o<sub>mode</sub><sup>M</sup> + t<sub>M</sub><sup>C</sup>
+  <section class="project-note">
+    <div class="project-note__inner page-shell">
+      <h2>From target position to robot behavior</h2>
+      <div class="project-note__copy">
+        <p>
+          탐지한 목표의 위치를 로봇이 사용할 수 있는 좌표와 Navigation Goal로
+          변환하고, 이를 탐색·접근·몰이·복귀 동작으로 연결한 TurtleBot4 기반
+          자율주행 프로젝트입니다.
         </p>
-        <dl class="offset-list">
-          <div><dt>Door</dt><dd>[0.227924, 0.259677, −0.028225] m</dd></div>
-          <div><dt>Cap</dt><dd>[0.230000, 0.240000, −0.051500] m</dd></div>
-          <div><dt>Hole</dt><dd>[0.230000, 0.290000, −0.051500] m</dd></div>
-        </dl>
-        <p class="technical-note">
-          Detector는 8-sample buffer에서 최소 3개가 모인 뒤 ‖σ‖ ≤ 0.035 m인 첫 stable window를 lock합니다. ‘3회 연속 검출’은 아닙니다.
-        </p>
-      </div>
-      <div class="pose-evidence">
-        <div class="marker-reference">
-          <figure>
-            <img src={media.markerAxis} alt="ArUco ID 0에 검출 box와 좌표축을 표시한 개발 단계 화면"
-              width="110" height="103" loading="lazy" decoding="async" />
-            <figcaption>Development screenshot · marker axis</figcaption>
-          </figure>
-          <figure>
-            <img src={media.marker} alt="OpenCV DICT 4X4 50의 ArUco ID 0 marker reference"
-              width="600" height="600" loading="lazy" decoding="async" />
-            <figcaption>ID 0 reference · not runtime evidence</figcaption>
-          </figure>
-        </div>
-        <figure class="offset-evidence">
-          <img src={media.markerOffset}
-            alt="Marker 기준점과 mode offset을 적용하기 전후의 Isaac Sim 개발 화면 비교"
-            width="720" height="320" loading="lazy" decoding="async" />
-          <figcaption><span>Before / after</span><span>Marker-to-target offset development</span></figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <section class="fuel-section page-shell" aria-labelledby="coordinate-title">
-    <div class="fuel-section__header">
-      <p class="section-number">03 / Coordinate bridge</p>
-      <div>
-        <h2 id="coordinate-title">Camera target을 simulation world의 고정 target으로 잠갔다</h2>
-        <p>USD camera prim의 world translation에 <code>(−x, −z, −y)</code> 축 매핑을 더하고, world sample의 분산과 workspace gate를 통과한 target만 사용했습니다.</p>
-      </div>
-    </div>
-    <figure class="evidence-figure diagram-figure">
-      <div class="diagram-scroll diagram-scroll--coordinate">
-        <img src={media.coordinate}
-          alt="카메라 target에 USD camera origin과 마이너스 x, 마이너스 z, 마이너스 y 축 매핑을 적용해 world target으로 바꾸는 방식"
-          width="1440" height="780" loading="lazy" decoding="async" />
-      </div>
-      <figcaption><span>Code-derived diagram</span><span>USD camera origin + scene-specific mapping</span></figcaption>
-    </figure>
-    <dl class="coordinate-facts">
-      <div><dt>Mapping</dt><dd>Δp<sup>W</sup> = [−x<sup>C</sup>, −z<sup>C</sup>, −y<sup>C</sup>]</dd></div>
-      <div><dt>World lock</dt><dd>5 samples · ‖σ‖ ≤ 0.025 m</dd></div>
-      <div><dt>Workspace gate</dt><dd>[0.35, 0.35, 0.18] m half-extent</dd></div>
-    </dl>
-    <p class="limitation-line">
-      현재 변환은 고정 camera 배치와 수동 축 매핑에 의존하며, full 4×4 extrinsic transform이나 TF2를 사용하지 않습니다.
-    </p>
-  </section>
-
-  <section class="fuel-section page-shell" aria-labelledby="approach-title">
-    <div class="fuel-section__header">
-      <p class="section-number">04 / Approach geometry</p>
-      <div>
-        <h2 id="approach-title">주유구 앞 네 단계로 접근과 삽입을 분리했다</h2>
-        <p>World에 고정된 105° port axis 위에 tip target을 배치하고, 가상 nozzle 길이와 장착 offset을 적용해 실제 제어 대상인 link_6 target으로 환산했습니다.</p>
-      </div>
-    </div>
-    <figure class="evidence-figure diagram-figure">
-      <div class="diagram-scroll diagram-scroll--approach">
-        <img src={media.approach}
-          alt="주유구의 고정 접근축 위에 배치된 far, mid, near, insert nozzle-tip target과 link_6 offset"
-          width="1440" height="820" loading="lazy" decoding="async" />
-      </div>
-      <figcaption><span>Code-derived geometry</span><span>105° fixed axis · 0.63 m nozzle offset · Z −0.25 m</span></figcaption>
-    </figure>
-    <div class="stage-table-wrap">
-      <table class="stage-table">
-        <caption class="sr-only">Robot A의 단계별 접근 거리와 속도</caption>
-        <thead><tr><th>Stage</th><th>Distance</th><th>Speed</th></tr></thead>
-        <tbody>{stages.map(([stage, distance, speed]) => (
-          <tr><th scope="row">{stage}</th><td>{distance}</td><td>{speed}</td></tr>
-        ))}</tbody>
-      </table>
-    </div>
-    <figure class="evidence-figure development-strip">
-      <img src={media.approachFilmstrip}
-        alt="개발 단계의 dual viewport에서 colored waypoint와 Robot A, Robot B의 접근 위치가 달라지는 세 장면"
-        width="1920" height="360" loading="lazy" decoding="async" />
-      <figcaption><span>Development footage · earlier scene</span><span>Dual-view waypoint progression</span></figcaption>
-    </figure>
-  </section>
-
-  <section class="fuel-section page-shell" aria-labelledby="motion-title">
-    <div class="fuel-section__header">
-      <p class="section-number">05 / Motion generation</p>
-      <div>
-        <h2 id="motion-title">Waypoint command를 60 Hz로 보간하고 RMPFlow로 관절 명령을 계산했다</h2>
-        <p>각 stage에 speed·tolerance·hold·timeout을 두고 command target을 <code>speed × dt</code>만큼 이동시켰습니다. RMPFlow는 moving Cartesian target을 추종할 joint action을 계산합니다.</p>
-      </div>
-    </div>
-    <div class="motion-layout">
-      <figure class="evidence-figure motion-video">
-        <video class="autoplay-media" src={media.waypointVideo} poster={media.approachFilmstrip}
-          aria-label="개발 장면에서 colored staged waypoint가 순서대로 표시되고 로봇팔이 각 목표에 반응하는 영상"
-          muted loop playsinline controls preload="metadata"></video>
-        <img class="motion-fallback" src={media.approachFilmstrip}
-          alt="개발 단계의 colored waypoint와 dual-arm motion filmstrip"
-          width="1920" height="360" loading="lazy" decoding="async" />
-        <figcaption><span>Waypoint visualization during development</span><span>Earlier scene · 10 s viewport-only clip</span></figcaption>
-      </figure>
-      <div class="motion-copy">
-        <ol class="control-loop" aria-label="Motion control loop">
-          <li><span>01</span><strong>Command target</strong><small>speed-limited Cartesian step</small></li>
-          <li><span>02</span><strong>RMPFlow</strong><small>fixed EE quaternion target</small></li>
-          <li><span>03</span><strong>Joint action</strong><small>M0609 articulation</small></li>
-          <li><span>04</span><strong>Stage check</strong><small>distance · hold · max steps</small></li>
-        </ol>
-        <p class="technical-note">
-          각 waypoint의 max 600 steps는 약 10초입니다. Timeout은 abort가 아니라 다음 stage로 전환하며, 기본 경로는 target 변화에 따라 재계획하지 않습니다.
+        <p>
+          현재 페이지는 확인된 프로젝트 흐름을 기준으로 구성한 초안입니다.
+          세부 좌표계, 구현 범위, 실행 영상과 개인 기여도는 추가 근거 확인 후
+          구체화합니다.
         </p>
       </div>
     </div>
-    <div class="sequence-heading">
-      <p class="section-number">Dual-arm sequence</p>
-      <p>Done topic으로 shared workspace의 작업 순서를 분리했습니다.</p>
-    </div>
-    <ol class="sequence-timeline" aria-label="Robot B, Robot A, Robot B 순차 작업">
-      {sequence.map((step, index) => (
-        <li class:list={[{ 'sequence-timeline__sync': index === 2 || index === 4 }]}>
-          <span>{String(index + 1).padStart(2, '0')}</span><strong>{step}</strong>
-        </li>
-      ))}
-    </ol>
-    <p class="sequence-fallback">
-      Detection lock이 약 10초 안에 완료되지 않으면 retry loop가 아니라 USD reference position으로 전환합니다.
-    </p>
   </section>
 
-  <section class="fuel-section page-shell" aria-labelledby="troubleshooting-title">
-    <div class="fuel-section__header">
-      <p class="section-number">06 / Troubleshooting</p>
-      <div>
-        <h2 id="troubleshooting-title">위치는 도달했지만 노즐 방향이 삽입축을 유지하지 못했다</h2>
-        <p>Position target, waypoint axis, EE orientation command를 분리해 비교했습니다. 문제 해결은 팀 구현 범위이며 정량 성공률은 측정하지 않았습니다.</p>
-      </div>
-    </div>
-    <figure class="evidence-figure alignment-comparison">
-      <div class="comparison-labels" aria-hidden="true">
-        <span>Before · position-only</span><span>After · fixed EE orientation</span>
-      </div>
-      <img src={media.alignment}
-        alt="Position target만 추종하며 노즐 방향이 흐트러진 장면과 reset 시점의 EE orientation을 고정해 삽입축을 유지한 접근 장면의 비교"
-        width="1920" height="540" loading="lazy" decoding="async" />
-      <figcaption><span>Development troubleshooting</span><span>PPT slides 43–44 · no quantitative orientation error</span></figcaption>
-    </figure>
-    <dl class="troubleshooting-summary">
-      <div><dt>Root cause</dt><dd>Position 목표만으로 tool orientation과 insertion direction은 보장되지 않았습니다.</dd></div>
-      <div><dt>Fix</dt><dd>Reset EE quaternion을 전 waypoint에 고정하고, fixed port axis 위에 target을 배치했습니다.</dd></div>
-      <div><dt>Boundary</dt><dd>Marker direction을 실시간 반영한 6D pose servoing은 구현하지 않았습니다.</dd></div>
+  <section class="project-metadata page-shell" aria-label="TurtleBot4 프로젝트 범위">
+    <dl>
+      <div><dt>Platform</dt><dd>TurtleBot4 · ROS2</dd></div>
+      <div><dt>Core focus</dt><dd>Target Localization · TF2 · Nav2</dd></div>
+      <div><dt>Page status</dt><dd>Analysis-based draft · Evidence pending</dd></div>
     </dl>
   </section>
 
-  <section class="fuel-result" aria-labelledby="result-title">
-    <div class="fuel-result__inner page-shell">
-      <p class="eyebrow">07 / Result & validation boundary</p>
-      <h2 id="result-title">두 로봇의 순차 작업을 Isaac Sim에서 끝까지 실행했다</h2>
-      <p class="fuel-result__lead">
-        ArUco 기반 target을 staged Cartesian waypoint와 RMPFlow joint action으로 연결하고, cap handling부터 nozzle approach·insertion·복귀까지의 state sequence를 시각적으로 실행했습니다.
+  <section class="project-question page-shell" aria-labelledby="turtle-question">
+    <h2 id="turtle-question">Engineering question</h2>
+    <blockquote>{project.futureQuestion}</blockquote>
+  </section>
+
+  <section class="content-slots page-shell" aria-labelledby="turtle-flow">
+    <div class="content-slots__heading">
+      <h2 id="turtle-flow">Implementation flow</h2>
+      <p>
+        현재까지 확인된 기술 흐름입니다. 각 단계의 실제 화면, 코드 근거와
+        검증 결과는 프로젝트 자료가 준비되는 순서대로 연결합니다.
       </p>
-      <div class="validation-grid">
-        <div>
-          <h3>Verified in this project</h3>
-          <ul>
-            <li>두 M0609 articulation과 RMPFlow motion</li>
-            <li>ROS2 image/topic bridge와 dual-arm 순서</li>
-            <li>55초 final simulation demonstration</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Not verified</h3>
-          <ul>
-            <li>실기기·실제 유체·contact force</li>
-            <li>정량 pose/insertion accuracy와 성공률</li>
-            <li>환경 obstacle 기반 collision avoidance와 replan</li>
-          </ul>
-        </div>
+    </div>
+    <div class="slot-list">
+      <div class="slot-list__item">
+        <span>01</span>
+        <strong>Target observation</strong>
+        <p>탐지 결과에서 이동 목표가 될 대상의 위치 정보를 얻습니다.</p>
       </div>
-      <p class="ownership-note">
-        개인 통합 범위와 팀 알고리즘 결과를 구분했습니다. Perception, path generation, fixed-orientation troubleshooting은 team implementation으로 표기합니다.
-      </p>
+      <div class="slot-list__item">
+        <span>02</span>
+        <strong>Coordinate transform</strong>
+        <p>TF2를 사용해 목표 위치를 로봇이 이동에 사용할 좌표계로 변환합니다.</p>
+      </div>
+      <div class="slot-list__item">
+        <span>03</span>
+        <strong>Navigation goal</strong>
+        <p>변환한 목표를 Nav2가 실행할 수 있는 Navigation Goal로 연결합니다.</p>
+      </div>
+      <div class="slot-list__item">
+        <span>04</span>
+        <strong>Robot behavior</strong>
+        <p>탐색·접근·몰이·복귀로 이어지는 로봇 동작의 실행 근거를 정리합니다.</p>
+      </div>
     </div>
   </section>
 
-  <nav class="next-project page-shell" aria-label="프로젝트 목록으로 이동">
-    <a href={withBase('/#projects')}><span>Project index</span><strong>Back to all projects</strong></a>
+  <section class="project-resources page-shell" aria-labelledby="turtle-resources">
+    <div class="project-resources__heading">
+      <h2 id="turtle-resources">Evidence / source</h2>
+      <p>
+        검증된 실행 자료와 공개 가능한 저장소만 연결합니다. 확인되지 않은 성능이나
+        기여 범위는 현재 초안에서 단정하지 않습니다.
+      </p>
+    </div>
+    <dl class="resource-list">
+      <div><dt>Demo</dt><dd>[실행 영상 및 RViz 자료 확인 후 연결]</dd></div>
+      <div><dt>GitHub</dt><dd>[공개 저장소 여부 사용자 확인 필요]</dd></div>
+      <div><dt>Documentation</dt><dd>[프로젝트 분석 자료 추가 예정]</dd></div>
+    </dl>
+  </section>
+
+  <nav class="next-project page-shell" aria-label="다음 프로젝트">
+    <a href={withBase('/projects/automatic-fueling/')}>
+      <span>Next project / 02</span><strong>Automatic Fueling Robot</strong>
+    </a>
   </nav>
 </BaseLayout>
-
-<style>
-  .fuel-hero, .fuel-section, .fuel-result__inner {
-    --fuel-accent: var(--rust);
-  }
-  .fuel-hero {
-    padding-block: clamp(4rem, 8vw, 7.5rem) clamp(5rem, 10vw, 9rem);
-  }
-  .fuel-hero__copy {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.38fr);
-    gap: 1.5rem clamp(2rem, 6vw, 6rem);
-    align-items: end;
-  }
-  .fuel-hero__copy > .eyebrow, .fuel-hero__copy > h1 { grid-column: 1 / -1; }
-  .fuel-hero h1 {
-    margin-top: 0.4rem;
-    font-family: var(--font-serif);
-    font-size: clamp(4rem, 9vw, 8.6rem);
-    font-weight: 400;
-    letter-spacing: -0.06em;
-    line-height: 0.86;
-  }
-  .fuel-hero h1 span { display: block; }
-  .fuel-hero h1 span:last-child {
-    margin-left: clamp(0rem, 8vw, 8rem);
-    color: var(--fuel-accent);
-  }
-  .fuel-hero__lead {
-    max-width: 45rem;
-    margin-top: 1.8rem;
-    font-size: clamp(1.05rem, 1.6vw, 1.25rem);
-    line-height: 1.72;
-  }
-  .keyword-list {
-    display: flex;
-    flex-wrap: wrap;
-    grid-column: 1;
-    gap: 0.45rem 0.65rem;
-    margin: 0.4rem 0 0;
-    padding: 0;
-    list-style: none;
-  }
-  .keyword-list li {
-    padding: 0.28rem 0.62rem;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    color: var(--muted);
-    font-size: 0.73rem;
-    font-weight: 800;
-  }
-  .role-boundary {
-    display: grid;
-    grid-column: 2;
-    grid-row: 3 / 5;
-    gap: 1.1rem;
-    align-self: start;
-    padding-top: 1.8rem;
-    border-top: 1px solid var(--ink);
-  }
-  .role-boundary dt, .section-number, .coordinate-facts dt,
-  .troubleshooting-summary dt {
-    color: var(--fuel-accent);
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-  }
-  .role-boundary dd {
-    margin-top: 0.3rem;
-    color: var(--muted);
-    font-size: 0.88rem;
-    line-height: 1.55;
-    overflow-wrap: anywhere;
-  }
-  .hero-demo { margin-top: clamp(3.5rem, 7vw, 6.5rem); }
-  .hero-demo__surface {
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 16 / 9;
-    background: var(--ink);
-  }
-  .hero-demo video, .hero-demo img, .motion-video video, .motion-video > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .motion-fallback { display: none; }
-  .evidence-figure figcaption, .offset-evidence figcaption {
-    display: flex;
-    justify-content: space-between;
-    gap: 1.5rem;
-    padding-top: 0.7rem;
-    color: var(--muted);
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .evidence-figure figcaption span:last-child,
-  .offset-evidence figcaption span:last-child { text-align: right; }
-  .fuel-section {
-    padding-block: var(--section-space);
-    border-top: 1px solid var(--ink);
-  }
-  .fuel-section__header {
-    display: grid;
-    grid-template-columns: minmax(150px, 0.25fr) minmax(0, 0.75fr);
-    gap: clamp(2rem, 7vw, 7rem);
-  }
-  .fuel-section__header h2, .fuel-result h2 {
-    max-width: 15em;
-    font-family: var(--font-serif);
-    font-size: clamp(2.35rem, 5vw, 5rem);
-    font-weight: 400;
-    letter-spacing: -0.045em;
-    line-height: 1.02;
-    overflow-wrap: anywhere;
-  }
-  .fuel-section__header > div, .fuel-hero__copy > * { min-width: 0; }
-  .fuel-section__header > div > p {
-    max-width: 45rem;
-    margin-top: 1.5rem;
-    color: var(--muted);
-    line-height: 1.75;
-  }
-  code, .formula, .offset-list dd, .coordinate-facts dd {
-    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
-  }
-  code { font-size: 0.92em; }
-  .diagram-figure { margin-top: clamp(3.2rem, 7vw, 6rem); }
-  .diagram-scroll {
-    overflow: hidden;
-    border-block: var(--rule);
-    background: #fff;
-  }
-  .diagram-scroll img { width: 100%; height: auto; }
-  .transform-steps { display: none; }
-  .implementation-boundaries {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    margin: 3rem 0 0;
-    padding: 0;
-    border-top: var(--rule);
-    list-style: none;
-  }
-  .implementation-boundaries li {
-    padding: 1.15rem 1.4rem 0 0;
-    color: var(--muted);
-    font-size: 0.82rem;
-    line-height: 1.6;
-  }
-  .implementation-boundaries li + li {
-    padding-left: 1.4rem;
-    border-left: var(--rule);
-  }
-  .pose-layout {
-    display: grid;
-    grid-template-columns: minmax(300px, 0.4fr) minmax(0, 0.6fr);
-    gap: clamp(3rem, 8vw, 8rem);
-    margin-top: clamp(3.5rem, 7vw, 6rem);
-  }
-  .pose-math { align-self: start; }
-  .formula {
-    padding-block: 1.4rem;
-    border-block: 1px solid var(--ink);
-    color: var(--fuel-accent);
-    font-size: clamp(1.05rem, 2vw, 1.4rem);
-    font-weight: 700;
-    overflow-wrap: anywhere;
-  }
-  .formula sub, .formula sup { font-size: 0.65em; }
-  .offset-list { margin-top: 1.5rem; border-top: var(--rule); }
-  .offset-list > div {
-    display: grid;
-    grid-template-columns: 4rem minmax(0, 1fr);
-    gap: 1rem;
-    padding-block: 0.8rem;
-    border-bottom: var(--rule);
-  }
-  .offset-list dt { font-weight: 800; }
-  .offset-list dd {
-    color: var(--muted);
-    font-size: 0.82rem;
-    overflow-wrap: anywhere;
-  }
-  .technical-note, .limitation-line {
-    margin-top: 1.6rem;
-    padding-left: 1rem;
-    border-left: 3px solid var(--fuel-accent);
-    color: var(--muted);
-    font-size: 0.84rem;
-    line-height: 1.7;
-  }
-  .pose-evidence { min-width: 0; }
-  .marker-reference {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(110px, 1fr));
-    gap: 1.5rem;
-    align-items: end;
-    padding-bottom: 1.5rem;
-    border-bottom: var(--rule);
-  }
-  .marker-reference figure {
-    display: grid;
-    justify-items: start;
-    gap: 0.7rem;
-  }
-  .marker-reference figure:first-child img { width: 110px; }
-  .marker-reference figure:last-child img { width: min(100%, 150px); }
-  .marker-reference figcaption {
-    max-width: 13rem;
-    color: var(--muted);
-    font-size: 0.7rem;
-    font-weight: 800;
-    line-height: 1.5;
-    text-transform: uppercase;
-  }
-  .offset-evidence { margin-top: 1.5rem; }
-  .offset-evidence img { width: 100%; height: auto; }
-  .coordinate-facts, .troubleshooting-summary {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    margin-top: 3rem;
-    border-block: var(--rule);
-  }
-  .coordinate-facts > div, .troubleshooting-summary > div {
-    padding: 1.2rem 1.2rem 1.35rem 0;
-  }
-  .coordinate-facts > div + div, .troubleshooting-summary > div + div {
-    padding-left: 1.2rem;
-    border-left: var(--rule);
-  }
-  .coordinate-facts dd, .troubleshooting-summary dd {
-    margin-top: 0.55rem;
-    color: var(--muted);
-    font-size: 0.84rem;
-    line-height: 1.65;
-    overflow-wrap: anywhere;
-  }
-  .limitation-line { max-width: 52rem; }
-  .stage-table-wrap { margin-top: 2.5rem; overflow-x: auto; }
-  .stage-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-  }
-  .stage-table th, .stage-table td {
-    padding: 0.8rem 1rem 0.8rem 0;
-    border-bottom: var(--rule);
-  }
-  .stage-table thead th {
-    color: var(--muted);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .stage-table tbody th {
-    color: var(--fuel-accent);
-    font-family: var(--font-serif);
-    font-size: 1.25rem;
-  }
-  .stage-table td { font-family: Consolas, monospace; font-size: 0.86rem; }
-  .development-strip { margin-top: clamp(2.5rem, 5vw, 4rem); }
-  .development-strip img {
-    width: 100%;
-    height: auto;
-    border-block: var(--rule);
-  }
-  .motion-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 0.68fr) minmax(260px, 0.32fr);
-    gap: clamp(2rem, 6vw, 5rem);
-    margin-top: clamp(3.5rem, 7vw, 6rem);
-  }
-  .motion-video video, .motion-video > img {
-    aspect-ratio: 1280 / 500;
-    background: var(--ink);
-  }
-  .motion-copy { align-self: start; }
-  .control-loop {
-    margin: 0;
-    padding: 0;
-    border-top: 1px solid var(--ink);
-    list-style: none;
-  }
-  .control-loop li {
-    display: grid;
-    grid-template-columns: 2rem minmax(0, 1fr);
-    gap: 0.1rem 0.75rem;
-    padding-block: 0.9rem;
-    border-bottom: var(--rule);
-  }
-  .control-loop li > span {
-    grid-row: 1 / 3;
-    color: var(--fuel-accent);
-    font-family: var(--font-serif);
-  }
-  .control-loop strong { font-size: 0.9rem; }
-  .control-loop small { color: var(--muted); font-size: 0.75rem; }
-  .sequence-heading {
-    display: grid;
-    grid-template-columns: minmax(150px, 0.25fr) minmax(0, 0.75fr);
-    gap: clamp(2rem, 7vw, 7rem);
-    margin-top: clamp(4rem, 8vw, 7rem);
-    padding-top: 1rem;
-    border-top: 1px solid var(--ink);
-  }
-  .sequence-heading > p:last-child { color: var(--muted); }
-  .sequence-timeline {
-    display: grid;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-    margin: 2.5rem 0 0;
-    padding: 0;
-    list-style: none;
-  }
-  .sequence-timeline li {
-    position: relative;
-    min-height: 7rem;
-    padding: 1.2rem 0.8rem 1rem 0;
-    border-top: 2px solid var(--line);
-  }
-  .sequence-timeline li::before {
-    position: absolute;
-    top: -0.38rem;
-    left: 0;
-    width: 0.65rem;
-    height: 0.65rem;
-    border-radius: 50%;
-    background: var(--fuel-accent);
-    content: '';
-  }
-  .sequence-timeline li + li { padding-left: 0.8rem; }
-  .sequence-timeline span {
-    display: block;
-    color: var(--muted);
-    font-size: 0.7rem;
-  }
-  .sequence-timeline strong {
-    display: block;
-    margin-top: 0.45rem;
-    font-size: 0.78rem;
-    line-height: 1.45;
-  }
-  .sequence-timeline__sync { border-top-color: var(--fuel-accent) !important; }
-  .sequence-fallback {
-    max-width: 48rem;
-    margin-top: 1rem;
-    color: var(--muted);
-    font-size: 0.82rem;
-  }
-  .alignment-comparison { margin-top: clamp(3.5rem, 7vw, 6rem); }
-  .comparison-labels {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    background: var(--ink);
-    color: var(--paper);
-    font-size: 0.74rem;
-    font-weight: 800;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-  }
-  .comparison-labels span { padding: 0.65rem 0.8rem; }
-  .comparison-labels span:last-child { color: #fff; background: var(--fuel-accent); }
-  .alignment-comparison img { width: 100%; height: auto; }
-  .fuel-result { background: var(--ink); color: var(--paper); }
-  .fuel-result__inner { padding-block: clamp(5rem, 10vw, 9rem); }
-  .fuel-result h2 { margin-top: 1.3rem; }
-  .fuel-result__lead {
-    max-width: 52rem;
-    margin-top: 2rem;
-    color: var(--line);
-    font-size: clamp(1.05rem, 1.7vw, 1.25rem);
-    line-height: 1.75;
-  }
-  .validation-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(2rem, 7vw, 7rem);
-    margin-top: 4rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--muted);
-  }
-  .validation-grid h3 {
-    color: var(--fuel-accent);
-    font-size: 0.78rem;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-  }
-  .validation-grid ul { margin: 1rem 0 0; padding-left: 1.2rem; color: var(--line); }
-  .validation-grid li + li { margin-top: 0.45rem; }
-  .ownership-note {
-    max-width: 52rem;
-    margin-top: 3rem;
-    padding-top: 1.2rem;
-    border-top: 1px solid var(--muted);
-    color: var(--line);
-    font-size: 0.82rem;
-  }
-  @media (max-width: 900px) {
-    .fuel-hero__copy, .fuel-section__header, .sequence-heading { grid-template-columns: 1fr; }
-    .fuel-hero__lead, .keyword-list, .role-boundary {
-      grid-column: 1;
-      grid-row: auto;
-    }
-    .pose-layout, .motion-layout { grid-template-columns: 1fr; }
-    .pose-layout { gap: 3.5rem; }
-    .motion-copy {
-      display: grid;
-      grid-template-columns: minmax(0, 0.6fr) minmax(220px, 0.4fr);
-      gap: 2rem;
-    }
-    .motion-copy .technical-note { margin-top: 0; }
-    .sequence-timeline {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      row-gap: 1rem;
-    }
-  }
-  @media (max-width: 760px) {
-    .fuel-hero h1 span:last-child { margin-left: 0; }
-    .fuel-hero__copy { gap: 1rem; }
-    .hero-demo__surface { aspect-ratio: 4 / 3; }
-    .hero-demo video, .hero-demo img { object-position: 42% center; }
-    .evidence-figure figcaption, .offset-evidence figcaption {
-      display: grid;
-      gap: 0.25rem;
-    }
-    .evidence-figure figcaption span:last-child,
-    .offset-evidence figcaption span:last-child { text-align: left; }
-    .diagram-scroll {
-      overflow-x: auto;
-      overscroll-behavior-inline: contain;
-    }
-    .diagram-scroll img { min-width: 920px; }
-    .diagram-scroll--coordinate img, .diagram-scroll--approach img { min-width: 780px; }
-    .transform-steps {
-      display: grid;
-      margin: 2.5rem 0 0;
-      padding: 0;
-      border-top: 1px solid var(--ink);
-      list-style: none;
-    }
-    .transform-steps li {
-      display: grid;
-      grid-template-columns: 2.2rem minmax(0, 1fr);
-      gap: 0.1rem 0.8rem;
-      padding-block: 0.8rem;
-      border-bottom: var(--rule);
-    }
-    .transform-steps span {
-      grid-row: 1 / 3;
-      color: var(--fuel-accent);
-      font-family: var(--font-serif);
-    }
-    .transform-steps small { color: var(--muted); }
-    .implementation-boundaries, .coordinate-facts,
-    .troubleshooting-summary, .validation-grid { grid-template-columns: 1fr; }
-    .implementation-boundaries li, .implementation-boundaries li + li,
-    .coordinate-facts > div, .coordinate-facts > div + div,
-    .troubleshooting-summary > div, .troubleshooting-summary > div + div {
-      padding: 1rem 0;
-      border-left: 0;
-      border-bottom: var(--rule);
-    }
-    .development-strip { overflow-x: auto; }
-    .development-strip img { min-width: 880px; }
-    .motion-copy { grid-template-columns: 1fr; }
-    .sequence-timeline { grid-template-columns: 1fr; row-gap: 0; }
-    .sequence-timeline li, .sequence-timeline li + li {
-      min-height: auto;
-      padding: 0.9rem 0 0.9rem 1.3rem;
-      border-top: 0;
-      border-left: 2px solid var(--line);
-    }
-    .sequence-timeline li::before { top: 1.25rem; left: -0.36rem; }
-    .sequence-timeline__sync {
-      border-top: 0 !important;
-      border-left-color: var(--fuel-accent) !important;
-    }
-    .alignment-comparison { overflow-x: auto; }
-    .comparison-labels, .alignment-comparison > img { min-width: 760px; }
-  }
-</style>
-
-<script>
-  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const autoplayVideos = document.querySelectorAll<HTMLVideoElement>('.autoplay-media');
-
-  const syncVideoPlayback = () => {
-    autoplayVideos.forEach((video) => {
-      video.autoplay = !motionPreference.matches;
-
-      if (motionPreference.matches) {
-        video.pause();
-        return;
-      }
-
-      void video.play().catch(() => {
-        // Browser policies can still require the visible native controls.
-      });
-    });
-  };
-
-  syncVideoPlayback();
-  motionPreference.addEventListener('change', syncVideoPlayback);
-</script>
