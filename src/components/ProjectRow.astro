@@ -29,6 +29,7 @@ const projectHref = withBase('/projects/' + project.slug + '/');
   <div class="project-row__media">
     <MediaFrame
       kind={project.asset.kind}
+      fit={project.asset.fit}
       src={project.asset.src}
       poster={project.asset.poster}
       alt={project.asset.alt}

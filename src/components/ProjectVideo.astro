@@ -1,0 +1,56 @@
+---
+interface Props {
+  src: string;
+  poster: string;
+  label: string;
+  width: number;
+  height: number;
+  autoplay?: boolean;
+}
+const { src, poster, label, width, height, autoplay = false } = Astro.props;
+---
+
+<video class="project-video" src={src} poster={poster}
+  width={width} height={height} aria-label={label}
+  data-project-autoplay={autoplay ? '' : undefined}
+  muted loop playsinline controls preload={autoplay ? 'metadata' : 'none'}>
+  <a href={src}>시연 영상 열기</a>
+</video>
+
+<style>
+  .project-video {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    background: var(--ink);
+  }
+  .project-video:focus-visible {
+    outline: 2px solid var(--rust);
+    outline-offset: 4px;
+  }
+</style>
+
+<script>
+  // Autoplay only the hero, once in view; native controls remain available.
+  // A user pause is preserved when scrolling away and back.
+  const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const videos = document.querySelectorAll<HTMLVideoElement>('[data-project-autoplay]');
+  const attempted = new WeakSet<HTMLVideoElement>();
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, intersectionRatio }) => {
+      const video = target as HTMLVideoElement;
+      if (intersectionRatio < 0.25) {
+        video.pause();
+      } else if (!preference.matches && !attempted.has(video)) {
+        attempted.add(video);
+        void video.play().catch(() => {
+          // Poster and native play button work when autoplay is blocked.
+        });
+      }
+    });
+  }, { threshold: 0.25 });
+  videos.forEach((video) => observer.observe(video));
+  preference.addEventListener('change', () => {
+    if (preference.matches) videos.forEach((video) => video.pause());
+  });
+</script>

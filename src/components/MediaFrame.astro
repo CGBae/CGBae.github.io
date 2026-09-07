@@ -14,6 +14,7 @@ interface Props {
   variant?: string;
   eager?: boolean;
   showIndex?: boolean;
+  fit?: 'cover' | 'contain';
 }
 
 const {
@@ -27,6 +28,7 @@ const {
   variant = '01',
   eager = false,
   showIndex = true,
+  fit = 'cover',
 } = Astro.props;
 
 const isOptimizedImage = typeof src === 'object' && src !== null;
@@ -35,6 +37,7 @@ const isOptimizedImage = typeof src === 'object' && src !== null;
 <figure
   class:list={['media-frame', `media-frame--${aspectRatio}`]}
   data-variant={variant}
+  style={{ '--media-fit': fit }}
 >
   <div class="media-frame__surface">
     {

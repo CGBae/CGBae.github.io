@@ -22,6 +22,7 @@ export interface Project {
     alt: string;
     label: string;
     aspectRatio: 'landscape' | 'wide' | 'portrait';
+    fit?: 'cover' | 'contain';
   };
 }
 
@@ -29,20 +30,22 @@ export const projects: Project[] = [
   {
     number: '01',
     slug: 'turtlebot4',
-    title: 'TurtleBot4 Autonomous Navigation',
+    title: 'TurtleBot4 · FarmGuard Bot',
     shortTitle: 'TurtleBot4',
     homeTitle: ['TurtleBot4', 'Autonomous Navigation'],
     category: 'AUTONOMOUS MOBILE ROBOT',
-    subtitle: ['Nav2', 'TF2', 'Target Localization', 'ROS2'],
+    subtitle: ['Nav2 Action', 'Homography', 'Dynamic Goal', 'ROS2'],
     description:
-      '탐지한 목표의 위치를 로봇이 사용할 수 있는 좌표와 Navigation Goal로 변환해 탐색·접근·몰이·복귀 동작으로 연결한 AMR 프로젝트.',
-    visualDirection: 'AMR · MAP · TARGET POSITION · PATH / GOAL · RVIZ',
+      '팜가드봇 — 고정 카메라의 탐지 위치를 두 TurtleBot4의 출구 기준 이동 목표로 연결한 프로젝트. ROS2 인터페이스 통합, 몰이 구현 지원과 실기기 검증에 참여했습니다.',
+    visualDirection: '실내 모형 시연 · 원본 3배속 · 발췌 편집',
     futureQuestion:
       '탐지한 객체의 위치를 어떻게 로봇의 이동 Goal로 바꾸었는가?',
     asset: {
-      kind: 'placeholder',
-      alt: 'TurtleBot4, 지도, 목표 위치와 이동 경로를 보여줄 이미지 자리',
-      label: 'TURTLEBOT4 / NAVIGATION ASSET',
+      kind: 'image',
+      src: '/projects/turtlebot4/hero-poster.webp',
+      fit: 'contain',
+      alt: '실내 가벽과 출구 표시 사이에서 모형 목표 주변에 배치된 두 TurtleBot4',
+      label: 'TURTLEBOT4 / FARMGUARD BOT',
       aspectRatio: 'landscape',
     },
   },

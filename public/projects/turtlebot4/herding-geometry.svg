@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1040" viewBox="0 0 1440 1040" role="img" aria-labelledby="title desc" lang="ko">
+<title id="title">출구의 반대편에 두 주행 목표를 만듭니다</title><desc id="desc">map 평면의 A=(0,0), G=(0,-2) 예시. 후방 축에서 ±75도, 반경 0.5미터인 Q+와 Q−에 주행 목표를 생성하고 A를 바라보는 yaw를 부여한다. 채워진 원은 현재 로봇, 빈 원은 목표, 점선은 배정 관계이다.</desc>
+<defs>
+<marker id="237357" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L8 4L0 8Z" fill="#bc3f24"/></marker>
+<marker id="356b9a" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L8 4L0 8Z" fill="#121820"/></marker>
+<marker id="9a5a1b" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L8 4L0 8Z" fill="#bc3f24"/></marker>
+<marker id="183e35" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L8 4L0 8Z" fill="#121820"/></marker>
+<marker id="52685f" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L8 4L0 8Z" fill="#606872"/></marker>
+</defs>
+<g font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo',
+    'Segoe UI', sans-serif">
+<rect x="0" y="0" width="1440" height="1040" rx="0" fill="#ffffff" stroke="#ffffff"/>
+<text x="48" y="43" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">02 / HERDING GOAL</text>
+<text x="48" y="92" font-size="36" fill="#121820" font-weight="700" text-anchor="start">출구의 반대편에 두 주행 목표를 만듭니다</text>
+<text x="48" y="128" font-size="21" fill="#606872" font-weight="400" text-anchor="start">코드의 기본 기하 · 예시 좌표이며 실측 장면이 아닙니다</text>
+<rect x="48" y="160" width="796" height="705" rx="0" fill="white" stroke="#d9dde2"/>
+<path d="M406 790H90V190H794V790H470" fill="none" stroke="#606872" stroke-width="2"/>
+<text x="109" y="219" font-size="17" fill="#606872" font-weight="400" text-anchor="start">fence</text>
+<path d="M396 727H153V253H731V727H480" fill="none" stroke="#d9dde2" stroke-width="2" stroke-dasharray="6 6"/>
+<text x="570" y="752" font-size="17" fill="#606872" font-weight="400" text-anchor="start">경계 안쪽 여유 0.3 m</text>
+<path d="M126,684 L177,684" fill="none" stroke="#606872" stroke-width="2" marker-end="url(#52685f)"/>
+<path d="M126,684 L126,633" fill="none" stroke="#606872" stroke-width="2" marker-end="url(#52685f)"/>
+<text x="185" y="690" font-size="17" fill="#606872" font-weight="400" text-anchor="start">+x</text>
+<text x="111" y="620" font-size="17" fill="#606872" font-weight="400" text-anchor="start">+y</text>
+<circle cx="438" cy="370" r="105" fill="none" stroke="#d9dde2" stroke-width="2"/>
+<path d="M438,352 L438,229" fill="none" stroke="#606872" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#52685f)"/>
+<text x="458" y="238" font-size="20" fill="#606872" font-weight="400" text-anchor="start">후방 기준 축 A − G</text>
+<path d="M438,397 L438,758" fill="none" stroke="#bc3f24" stroke-width="4" marker-end="url(#237357)"/>
+<rect x="465" y="535" width="295" height="77" rx="0" fill="#f3f5f7" stroke="#f3f5f7"/>
+<text x="484" y="566" font-size="21" fill="#bc3f24" font-weight="700" text-anchor="start">유도하려는 방향</text>
+<text x="484" y="594" font-size="20" fill="#bc3f24" font-weight="400" text-anchor="start">A → G</text>
+<path d="M438.000 301.000 L435.742 301.037 L433.487 301.148 L431.237 301.332 L428.994 301.590 L426.760 301.922 L424.539 302.326 L422.332 302.802 L420.141 303.351 L417.970 303.971 L415.821 304.662 L413.695 305.422 L411.595 306.252 L409.523 307.150 L407.482 308.116 L405.474 309.147 L403.500 310.244 L401.563 311.405 L399.666 312.629 L397.809 313.914 L395.995 315.259 L394.227 316.662 L392.505 318.123 L390.832 319.639 L389.210 321.210 L387.639 322.832 L386.123 324.505 L384.662 326.227 L383.259 327.995 L381.914 329.809 L380.629 331.666 L379.405 333.563 L378.244 335.500 L377.147 337.474 L376.116 339.482 L375.150 341.523 L374.252 343.595 L373.422 345.695 L372.662 347.821 L371.971 349.970 L371.351 352.141" fill="none" stroke="#121820" stroke-width="2" marker-end="url(#356b9a)"/>
+<path d="M438.000 301.000 L440.258 301.037 L442.513 301.148 L444.763 301.332 L447.006 301.590 L449.240 301.922 L451.461 302.326 L453.668 302.802 L455.859 303.351 L458.030 303.971 L460.179 304.662 L462.305 305.422 L464.405 306.252 L466.477 307.150 L468.518 308.116 L470.526 309.147 L472.500 310.244 L474.437 311.405 L476.334 312.629 L478.191 313.914 L480.005 315.259 L481.773 316.662 L483.495 318.123 L485.168 319.639 L486.790 321.210 L488.361 322.832 L489.877 324.505 L491.338 326.227 L492.741 327.995 L494.086 329.809 L495.371 331.666 L496.595 333.563 L497.756 335.500 L498.853 337.474 L499.884 339.482 L500.850 341.523 L501.748 343.595 L502.578 345.695 L503.338 347.821 L504.029 349.970 L504.649 352.141" fill="none" stroke="#bc3f24" stroke-width="2" marker-end="url(#237357)"/>
+<text x="366" y="283" font-size="20" fill="#121820" font-weight="700" text-anchor="start">+75°</text>
+<text x="477" y="283" font-size="20" fill="#bc3f24" font-weight="700" text-anchor="start">−75°</text>
+<path d="M438,370 L336.5777882396478,342.82400026423534" fill="none" stroke="#121820" stroke-width="2"/>
+<path d="M438,370 L539.4222117603522,342.82400026423534" fill="none" stroke="#bc3f24" stroke-width="2"/>
+<path d="M186.0,317.5 L336.5777882396478,342.82400026423534" fill="none" stroke="#121820" stroke-width="2" stroke-dasharray="6 7"/>
+<circle cx="186.0" cy="317.5" r="16" fill="#121820" stroke="none" stroke-width="2"/>
+<text x="186.0" y="288.5" font-size="23" fill="#121820" font-weight="700" text-anchor="middle">P8</text>
+<text x="186.0" y="361.5" font-size="17" fill="#606872" font-weight="400" text-anchor="middle">현재 위치</text>
+<path d="M690.0,275.5 L539.4222117603522,342.82400026423534" fill="none" stroke="#bc3f24" stroke-width="2" stroke-dasharray="6 7"/>
+<circle cx="690.0" cy="275.5" r="16" fill="#bc3f24" stroke="none" stroke-width="2"/>
+<text x="690.0" y="246.5" font-size="23" fill="#bc3f24" font-weight="700" text-anchor="middle">P11</text>
+<text x="690.0" y="319.5" font-size="17" fill="#606872" font-weight="400" text-anchor="middle">현재 위치</text>
+<circle cx="336.5777882396478" cy="342.82400026423534" r="12" fill="white" stroke="#121820" stroke-width="3"/>
+<path d="M352.99852728656197,347.2239240309782 L388.7377828592575,356.8002286997714" fill="none" stroke="#121820" stroke-width="3" marker-end="url(#356b9a)"/>
+<text x="336.5777882396478" y="403.82400026423534" font-size="25" fill="#121820" font-weight="700" text-anchor="middle">Q+</text>
+<circle cx="539.4222117603522" cy="342.82400026423534" r="12" fill="white" stroke="#bc3f24" stroke-width="3"/>
+<path d="M523.001472713438,347.2239240309782 L487.2622171407425,356.8002286997714" fill="none" stroke="#bc3f24" stroke-width="3" marker-end="url(#237357)"/>
+<text x="539.4222117603522" y="403.82400026423534" font-size="25" fill="#bc3f24" font-weight="700" text-anchor="middle">Q−</text>
+<text x="229" y="440" font-size="20" fill="#121820" font-weight="700" text-anchor="start">r = 0.5 m</text>
+<text x="510" y="442" font-size="20" fill="#bc3f24" font-weight="700" text-anchor="start">yaw → A</text>
+<path d="M438 355L453 370L438 385L423 370Z" fill="#f3f5f7" stroke="#bc3f24" stroke-width="2"/>
+<path d="M450,380 L478,462" fill="none" stroke="#bc3f24" stroke-width="1"/>
+<text x="466" y="487" font-size="21" fill="#bc3f24" font-weight="700" text-anchor="start">A · 모형 목표</text>
+<rect x="423" y="776" width="30" height="30" rx="0" fill="#bc3f24" stroke="#bc3f24"/>
+<text x="491" y="817" font-size="23" fill="#bc3f24" font-weight="700" text-anchor="start">G · 출구</text>
+<circle cx="94" cy="838" r="7" fill="#121820" stroke="none" stroke-width="2"/>
+<text x="111" y="844" font-size="16" fill="#606872" font-weight="400" text-anchor="start">현재 로봇</text>
+<circle cx="277" cy="838" r="7" fill="white" stroke="#121820" stroke-width="2"/>
+<text x="294" y="844" font-size="16" fill="#606872" font-weight="400" text-anchor="start">주행 목표</text>
+<path d="M457,838 L499,838" fill="none" stroke="#606872" stroke-width="2" stroke-dasharray="5 5"/>
+<text x="513" y="844" font-size="16" fill="#606872" font-weight="400" text-anchor="start">배정 관계 · 주행 궤적 아님</text>
+<text x="892" y="201" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">01</text>
+<text x="944" y="203" font-size="26" fill="#121820" font-weight="700" text-anchor="start">두 후보점을 계산</text>
+<text x="944" y="242" font-size="20" fill="#606872" font-weight="400" text-anchor="start">후방 단위벡터를 좌우 75° 회전</text>
+<text x="944" y="276" font-size="20" fill="#606872" font-weight="400" text-anchor="start">반경 0.5 m에 Q+ / Q− 생성</text>
+<path d="M892,319 L1392,319" fill="none" stroke="#d9dde2" stroke-width="1"/>
+<text x="892" y="363" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">02</text>
+<text x="944" y="365" font-size="26" fill="#121820" font-weight="700" text-anchor="start">각도 비용으로 좌우 배정</text>
+<text x="944" y="404" font-size="20" fill="#606872" font-weight="400" text-anchor="start">현재 방위각과 후보 방위각 비교</text>
+<text x="944" y="438" font-size="20" fill="#606872" font-weight="400" text-anchor="start">교체 조건: 새 비용 + 20° &lt; 기존 비용</text>
+<path d="M892,481 L1392,481" fill="none" stroke="#d9dde2" stroke-width="1"/>
+<text x="892" y="525" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">03</text>
+<text x="944" y="527" font-size="26" fill="#121820" font-weight="700" text-anchor="start">목표의 이동량에 따라 갱신</text>
+<text x="944" y="566" font-size="20" fill="#606872" font-weight="400" text-anchor="start">마지막 Goal 생성 위치에서 0.4 m 초과</text>
+<text x="944" y="600" font-size="20" fill="#606872" font-weight="400" text-anchor="start">0.5초마다 판단 · 2 Hz</text>
+<path d="M892,643 L1392,643" fill="none" stroke="#d9dde2" stroke-width="1"/>
+<text x="892" y="687" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">04</text>
+<text x="944" y="689" font-size="26" fill="#121820" font-weight="700" text-anchor="start">경계와 목표 방향 적용</text>
+<text x="944" y="728" font-size="20" fill="#606872" font-weight="400" text-anchor="start">fence 안쪽 0.3 m로 좌표 제한</text>
+<text x="944" y="762" font-size="20" fill="#606872" font-weight="400" text-anchor="start">최종 목표점에서 A를 향하는 yaw</text>
+<rect x="48" y="893" width="1344" height="114" rx="0" fill="#f3f5f7" stroke="#f3f5f7"/>
+<text x="72" y="928" font-size="27" fill="#121820" font-weight="600" text-anchor="start">Q_s = clamp( A + 0.5 · R(s · 75°) · (A − G) / norm(A − G) )</text>
+<text x="72" y="960" font-size="19" fill="#606872" font-weight="400" text-anchor="start">예시  A=(0, 0), G=(0, −2) → Q+=(−0.482963, 0.129410), Q−=(0.482963, 0.129410)</text>
+<text x="72" y="990" font-size="18" fill="#606872" font-weight="400" text-anchor="start">코드: designator.py · 기하 계산과 배정 설명용. 실제 동물 반응·무충돌 성능은 별도 검증 대상입니다.</text>
+</g></svg>

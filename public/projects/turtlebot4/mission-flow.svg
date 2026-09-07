@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1130" viewBox="0 0 1440 1130" role="img" aria-labelledby="title desc" lang="ko">
+<title id="title">목표 갱신과 action 결과를 미션 상태로 연결합니다</title><desc id="desc">출동, 도크 이탈, 몰이 목표 실행, 별도 완료 판정, 복귀 주행, 도킹의 개념 흐름. 새 goal 시퀀스와 다른 이전 결과는 무시한다. 로봇 거리 0.5미터 미만에서 취소 요청과 SAFE_STOP 후 대기하며 재출발 연결은 추가 검증이 필요하다.</desc>
+<defs>
+<marker id="237357" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L8 4L0 8Z" fill="#bc3f24"/></marker>
+<marker id="356b9a" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L8 4L0 8Z" fill="#121820"/></marker>
+<marker id="9a5a1b" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L8 4L0 8Z" fill="#bc3f24"/></marker>
+<marker id="183e35" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L8 4L0 8Z" fill="#121820"/></marker>
+<marker id="52685f" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L8 4L0 8Z" fill="#606872"/></marker>
+</defs>
+<g font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo',
+    'Segoe UI', sans-serif">
+<rect x="0" y="0" width="1440" height="1130" rx="0" fill="#ffffff" stroke="#ffffff"/>
+<text x="48" y="43" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">03 / MISSION EXECUTION</text>
+<text x="48" y="92" font-size="36" fill="#121820" font-weight="700" text-anchor="start">목표 갱신과 action 결과를 미션 상태로 연결합니다</text>
+<text x="48" y="128" font-size="21" fill="#606872" font-weight="400" text-anchor="start">코드의 개념 흐름 · 주행 목표 도달과 미션 완료는 별도로 처리합니다</text>
+<rect x="48" y="191" width="200" height="159" rx="0" fill="white" stroke="#d9dde2"/>
+<text x="64" y="224" font-size="16" fill="#bc3f24" font-weight="700" text-anchor="start">01</text>
+<text x="64" y="262" font-size="22" fill="#121820" font-weight="700" text-anchor="start">출동 신호</text>
+<text x="64" y="303" font-size="17" fill="#606872" font-weight="400" text-anchor="start">/undock_signal</text>
+<text x="64" y="331" font-size="17" fill="#606872" font-weight="400" text-anchor="start">WAIT_SIGNAL</text>
+<path d="M251,271 L271,271" fill="none" stroke="#bc3f24" stroke-width="2" marker-end="url(#237357)"/>
+<rect x="278" y="191" width="200" height="159" rx="0" fill="white" stroke="#d9dde2"/>
+<text x="294" y="224" font-size="16" fill="#bc3f24" font-weight="700" text-anchor="start">02</text>
+<text x="294" y="262" font-size="22" fill="#121820" font-weight="700" text-anchor="start">도크 이탈</text>
+<text x="294" y="303" font-size="17" fill="#606872" font-weight="400" text-anchor="start">Undock action</text>
+<text x="294" y="331" font-size="17" fill="#606872" font-weight="400" text-anchor="start">READY_TO_NAV</text>
+<path d="M481,271 L501,271" fill="none" stroke="#bc3f24" stroke-width="2" marker-end="url(#237357)"/>
+<rect x="508" y="191" width="200" height="159" rx="0" fill="white" stroke="#d9dde2"/>
+<text x="524" y="224" font-size="16" fill="#bc3f24" font-weight="700" text-anchor="start">03</text>
+<text x="524" y="262" font-size="22" fill="#121820" font-weight="700" text-anchor="start">몰이 Goal 실행</text>
+<text x="524" y="303" font-size="17" fill="#606872" font-weight="400" text-anchor="start">flank_goal 수신</text>
+<text x="524" y="331" font-size="17" fill="#606872" font-weight="400" text-anchor="start">NavigateToPose</text>
+<path d="M711,271 L731,271" fill="none" stroke="#bc3f24" stroke-width="2" stroke-dasharray="3 3" marker-end="url(#237357)"/>
+<rect x="738" y="191" width="200" height="159" rx="0" fill="#f3f5f7" stroke="#d9dde2"/>
+<text x="754" y="224" font-size="16" fill="#bc3f24" font-weight="700" text-anchor="start">04</text>
+<text x="754" y="262" font-size="22" fill="#121820" font-weight="700" text-anchor="start">완료 신호</text>
+<text x="754" y="303" font-size="17" fill="#606872" font-weight="400" text-anchor="start">마지막 A가 fence 밖</text>
+<text x="754" y="331" font-size="17" fill="#606872" font-weight="400" text-anchor="start">0.5초 경과</text>
+<path d="M941,271 L961,271" fill="none" stroke="#bc3f24" stroke-width="2" marker-end="url(#237357)"/>
+<rect x="968" y="191" width="200" height="159" rx="0" fill="white" stroke="#d9dde2"/>
+<text x="984" y="224" font-size="16" fill="#bc3f24" font-weight="700" text-anchor="start">05</text>
+<text x="984" y="262" font-size="22" fill="#121820" font-weight="700" text-anchor="start">복귀 지점 이동</text>
+<text x="984" y="303" font-size="17" fill="#606872" font-weight="400" text-anchor="start">지정 dock pose</text>
+<text x="984" y="331" font-size="17" fill="#606872" font-weight="400" text-anchor="start">NavigateToPose</text>
+<path d="M1171,271 L1191,271" fill="none" stroke="#bc3f24" stroke-width="2" marker-end="url(#237357)"/>
+<rect x="1198" y="191" width="200" height="159" rx="0" fill="#f3f5f7" stroke="#d9dde2"/>
+<text x="1214" y="224" font-size="16" fill="#bc3f24" font-weight="700" text-anchor="start">06</text>
+<text x="1214" y="262" font-size="22" fill="#121820" font-weight="700" text-anchor="start">도킹 결과</text>
+<text x="1214" y="303" font-size="17" fill="#606872" font-weight="400" text-anchor="start">Dock → is_docked</text>
+<text x="1214" y="331" font-size="17" fill="#606872" font-weight="400" text-anchor="start">True → DONE</text>
+<text x="723" y="179" font-size="16" fill="#606872" font-weight="400" text-anchor="middle">별도 판정</text>
+<rect x="48" y="384" width="870" height="100" rx="0" fill="white" stroke="#d9dde2"/>
+<text x="70" y="416" font-size="21" fill="#121820" font-weight="600" text-anchor="start">완료 판정: 마지막 관측 좌표가 fence 밖에서 0.5초 경과</text>
+<text x="70" y="447" font-size="18" fill="#606872" font-weight="400" text-anchor="start">출구 통과 판정과는 다릅니다. SAFE_STOP / AVOIDING 중에도 복귀로 전환합니다.</text>
+<text x="70" y="473" font-size="17" fill="#606872" font-weight="400" text-anchor="start">이미 도크에서 이탈한 상태로 확인되면 Undock action은 생략합니다.</text>
+<path d="M1298,352 L1298,375" fill="none" stroke="#606872" stroke-width="2" marker-end="url(#52685f)"/>
+<rect x="952" y="384" width="440" height="100" rx="0" fill="#f3f5f7" stroke="#d9dde2"/>
+<text x="974" y="416" font-size="21" fill="#bc3f24" font-weight="700" text-anchor="start">복귀·Dock 실패 → 백오프 재시도</text>
+<text x="974" y="448" font-size="19" fill="#606872" font-weight="400" text-anchor="start">최대 5회 · 1 → 2 → 4 → 8 → 16초</text>
+<text x="974" y="475" font-size="17" fill="#606872" font-weight="400" text-anchor="start">5번째 실패 후에는 추가 시도를 중단</text>
+<path d="M970 386V369H1068V352" fill="none" stroke="#606872" stroke-width="2" marker-end="url(#52685f)"/>
+<rect x="48" y="524" width="1344" height="227" rx="0" fill="white" stroke="#d9dde2"/>
+<text x="72" y="562" font-size="25" fill="#121820" font-weight="700" text-anchor="start">늦게 도착한 이전 결과가 최신 상태를 바꾸지 않도록</text>
+<text x="72" y="595" font-size="19" fill="#606872" font-weight="400" text-anchor="start">_nav_seq: 새 목표를 전송할 때 증가하는 시퀀스</text>
+<rect x="72" y="619" width="352" height="105" rx="0" fill="#ffffff" stroke="#ffffff"/>
+<rect x="513" y="619" width="352" height="105" rx="0" fill="#ffffff" stroke="#ffffff"/>
+<rect x="954" y="619" width="414" height="105" rx="0" fill="#ffffff" stroke="#ffffff"/>
+<text x="93" y="652" font-size="23" fill="#121820" font-weight="700" text-anchor="start">t₀ · Goal n 전송</text>
+<text x="93" y="691" font-size="20" fill="#606872" font-weight="400" text-anchor="start">callback에 seq=n 저장</text>
+<path d="M439,670 L493,670" fill="none" stroke="#bc3f24" stroke-width="2" marker-end="url(#237357)"/>
+<text x="535" y="652" font-size="23" fill="#121820" font-weight="700" text-anchor="start">t₁ · Goal n+1로 갱신</text>
+<text x="535" y="691" font-size="20" fill="#606872" font-weight="400" text-anchor="start">현재 _nav_seq=n+1</text>
+<path d="M880,670 L934,670" fill="none" stroke="#bc3f24" stroke-width="2" marker-end="url(#237357)"/>
+<text x="977" y="652" font-size="23" fill="#121820" font-weight="700" text-anchor="start">t₂ · 늦은 n 결과 도착</text>
+<text x="977" y="691" font-size="20" fill="#bc3f24" font-weight="700" text-anchor="start">seq ≠ _nav_seq → 무시</text>
+<rect x="48" y="789" width="1344" height="277" rx="0" fill="#f3f5f7" stroke="#d9dde2"/>
+<text x="72" y="830" font-size="25" fill="#bc3f24" font-weight="700" text-anchor="start">근접 상황의 코드 분기</text>
+<rect x="72" y="856" width="340" height="93" rx="0" fill="white" stroke="#d9dde2"/>
+<text x="89" y="892" font-size="22" fill="#121820" font-weight="600" text-anchor="start">주행 중 거리 &lt; 0.5 m</text>
+<text x="89" y="925" font-size="18" fill="#606872" font-weight="400" text-anchor="start">NAVIGATING / AVOIDING</text>
+<rect x="514" y="856" width="350" height="93" rx="0" fill="white" stroke="#d9dde2"/>
+<text x="531" y="892" font-size="22" fill="#121820" font-weight="600" text-anchor="start">cancel 요청 + SAFE_STOP</text>
+<text x="531" y="925" font-size="18" fill="#606872" font-weight="400" text-anchor="start">기본 대기 시간 0.1초</text>
+<rect x="963" y="856" width="405" height="93" rx="0" fill="white" stroke="#d9dde2"/>
+<text x="980" y="892" font-size="22" fill="#121820" font-weight="600" text-anchor="start">대기 후 재출발 시도</text>
+<text x="980" y="925" font-size="18" fill="#606872" font-weight="400" text-anchor="start">거리 회복을 조건으로 기다리지 않음</text>
+<path d="M430,901 L494,901" fill="none" stroke="#bc3f24" stroke-width="2" marker-end="url(#9a5a1b)"/>
+<path d="M882,901 L943,901" fill="none" stroke="#bc3f24" stroke-width="2" marker-end="url(#9a5a1b)"/>
+<text x="72" y="987" font-size="21" fill="#121820" font-weight="400" text-anchor="start">다른 avoid Goal이 있으면 AVOIDING, 그 외에는 READY_TO_NAV로 전환합니다.</text>
+<text x="72" y="1023" font-size="20" fill="#bc3f24" font-weight="600" text-anchor="start">같은 조정 pose가 flank / avoid에 발행되는 연결과 재출발 효과는 추가 검증이 필요합니다.</text>
+<text x="48" y="1101" font-size="18" fill="#606872" font-weight="400" text-anchor="start">코드: robot_controller.py / designator.py · 도킹 성공 조건은 코드 정의이며, 두 로봇의 실제 충전 성공을 입증하는 도식은 아닙니다.</text>
+</g></svg>

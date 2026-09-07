@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="870" viewBox="0 0 1440 870" role="img" aria-labelledby="title desc" lang="ko">
+<title id="title">탐지 픽셀을 map 평면 좌표로 바꿉니다</title><desc id="desc">고정 카메라 bbox의 하단 중앙 픽셀을 사전 보정 행렬 H로 투영하고 동차좌표로 나누어 map 좌표를 얻는다. PoseStamped의 z는 0, stamp는 처리 시각이다.</desc>
+<defs>
+<marker id="237357" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L8 4L0 8Z" fill="#bc3f24"/></marker>
+<marker id="356b9a" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L8 4L0 8Z" fill="#121820"/></marker>
+<marker id="9a5a1b" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L8 4L0 8Z" fill="#bc3f24"/></marker>
+<marker id="183e35" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L8 4L0 8Z" fill="#121820"/></marker>
+<marker id="52685f" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L8 4L0 8Z" fill="#606872"/></marker>
+</defs>
+<g font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo',
+    'Segoe UI', sans-serif">
+<rect x="0" y="0" width="1440" height="870" rx="0" fill="#ffffff" stroke="#ffffff"/>
+<text x="48" y="43" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">01 / TARGET LOCALIZATION</text>
+<text x="48" y="92" font-size="36" fill="#121820" font-weight="700" text-anchor="start">탐지 픽셀을 map 평면 좌표로 바꿉니다</text>
+<text x="48" y="128" font-size="21" fill="#606872" font-weight="400" text-anchor="start">고정 RGB 카메라 · bbox의 지면 접점을 사용한 homography</text>
+<rect x="48" y="159" width="1344" height="128" rx="0" fill="#f3f5f7" stroke="#f3f5f7"/>
+<text x="72" y="194" font-size="20" fill="#bc3f24" font-weight="700" text-anchor="start">사전 보정</text>
+<text x="72" y="234" font-size="24" fill="#121820" font-weight="600" text-anchor="start">기준점 픽셀 ↔ 알려진 map 좌표</text>
+<path d="M490,226 L548,226" fill="none" stroke="#bc3f24" stroke-width="2" marker-end="url(#237357)"/>
+<text x="575" y="230" font-size="25" fill="#121820" font-weight="600" text-anchor="start">findHomography</text>
+<path d="M826,226 L890,226" fill="none" stroke="#bc3f24" stroke-width="2" marker-end="url(#237357)"/>
+<text x="916" y="226" font-size="24" fill="#121820" font-weight="600" text-anchor="start">행렬 H 저장</text>
+<text x="916" y="261" font-size="19" fill="#606872" font-weight="400" text-anchor="start">최소 4점 · method=0</text>
+<path d="M546,289 L546,328" fill="none" stroke="#bc3f24" stroke-width="2" marker-end="url(#237357)"/>
+<rect x="48" y="337" width="300" height="337" rx="0" fill="white" stroke="#d9dde2"/>
+<text x="72" y="373" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">01</text>
+<text x="72" y="415" font-size="24" fill="#121820" font-weight="700" text-anchor="start">bbox 하단 중앙</text>
+<path d="M358,504 L386,504" fill="none" stroke="#bc3f24" stroke-width="2" marker-end="url(#237357)"/>
+<rect x="396" y="337" width="300" height="337" rx="0" fill="white" stroke="#d9dde2"/>
+<text x="420" y="373" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">02</text>
+<text x="420" y="415" font-size="24" fill="#121820" font-weight="700" text-anchor="start">H로 투영</text>
+<path d="M706,504 L734,504" fill="none" stroke="#bc3f24" stroke-width="2" marker-end="url(#237357)"/>
+<rect x="744" y="337" width="300" height="337" rx="0" fill="white" stroke="#d9dde2"/>
+<text x="768" y="373" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">03</text>
+<text x="768" y="415" font-size="24" fill="#121820" font-weight="700" text-anchor="start">동차좌표 정규화</text>
+<path d="M1054,504 L1082,504" fill="none" stroke="#bc3f24" stroke-width="2" marker-end="url(#237357)"/>
+<rect x="1092" y="337" width="300" height="337" rx="0" fill="white" stroke="#d9dde2"/>
+<text x="1116" y="373" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">04</text>
+<text x="1116" y="415" font-size="24" fill="#121820" font-weight="700" text-anchor="start">map 위치 발행</text>
+<rect x="95" y="447" width="128" height="135" rx="0" fill="#f3f5f7" stroke="#121820"/>
+<circle cx="159" cy="514" r="5" fill="none" stroke="#606872" stroke-width="2"/>
+<path d="M159,522 L159,574" fill="none" stroke="#606872" stroke-width="1" stroke-dasharray="3 4"/>
+<text x="236" y="513" font-size="17" fill="#606872" font-weight="400" text-anchor="start">중앙</text>
+<circle cx="159" cy="582" r="8" fill="#bc3f24" stroke="none" stroke-width="2"/>
+<path d="M173,582 L226,582" fill="none" stroke="#bc3f24" stroke-width="2"/>
+<text x="238" y="588" font-size="17" fill="#bc3f24" font-weight="600" text-anchor="start">접점</text>
+<text x="72" y="626" font-size="20" fill="#121820" font-weight="400" text-anchor="start">u = int((x₁ + x₂) / 2)</text>
+<text x="72" y="656" font-size="20" fill="#121820" font-weight="400" text-anchor="start">v = y₂</text>
+<text x="420" y="495" font-size="26" fill="#121820" font-weight="600" text-anchor="start">q = H · [u, v, 1]ᵀ</text>
+<text x="420" y="549" font-size="20" fill="#606872" font-weight="400" text-anchor="start">q = (q_x, q_y, q_z)</text>
+<text x="420" y="586" font-size="20" fill="#606872" font-weight="400" text-anchor="start">보정 행렬과 픽셀 벡터 곱</text>
+<text x="420" y="642" font-size="19" fill="#bc3f24" font-weight="600" text-anchor="start">입력: 사전 보정된 H</text>
+<text x="770" y="494" font-size="27" fill="#121820" font-weight="400" text-anchor="start">x = q_x / q_z</text>
+<text x="770" y="540" font-size="27" fill="#121820" font-weight="400" text-anchor="start">y = q_y / q_z</text>
+<text x="770" y="606" font-size="19" fill="#606872" font-weight="400" text-anchor="start">이미지 픽셀 → 지면 위치</text>
+<text x="770" y="642" font-size="19" fill="#bc3f24" font-weight="600" text-anchor="start">map 평면의 미터 단위</text>
+<text x="1116" y="483" font-size="24" fill="#121820" font-weight="600" text-anchor="start">PoseStamped</text>
+<text x="1116" y="529" font-size="20" fill="#606872" font-weight="400" text-anchor="start">frame_id = map</text>
+<text x="1116" y="565" font-size="20" fill="#606872" font-weight="400" text-anchor="start">position = (x, y, 0)</text>
+<text x="1116" y="601" font-size="20" fill="#606872" font-weight="400" text-anchor="start">stamp = 처리 시각</text>
+<text x="1116" y="648" font-size="19" fill="#bc3f24" font-weight="600" text-anchor="start">/world/animal_pose</text>
+<rect x="48" y="710" width="1344" height="113" rx="0" fill="#f3f5f7" stroke="#d9dde2"/>
+<text x="72" y="749" font-size="24" fill="#bc3f24" font-weight="700" text-anchor="start">고정 카메라 · 지면 평면 가정</text>
+<text x="72" y="784" font-size="21" fill="#606872" font-weight="400" text-anchor="start">몸통 중심 대신 지면 접점을 투영합니다. 보정점 재투영 오차와 실제 위치 정확도는 구분해야 합니다.</text>
+<text x="48" y="853" font-size="18" fill="#606872" font-weight="400" text-anchor="start">코드: tower_world_detector.py / calibrate_homography.py · 실제 위치 오차 분포는 확보되지 않았습니다.</text>
+</g></svg>

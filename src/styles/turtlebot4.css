@@ -1,0 +1,187 @@
+/* TurtleBot4: the same tokens, type scale and ruled sections as the portfolio. */
+.project-page--turtlebot section[id] { scroll-margin-top: 6rem; }
+.turtle-hero { padding-block: clamp(4rem, 8vw, 7.5rem) clamp(5rem, 10vw, 9rem); }
+.turtle-hero__copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.38fr);
+  gap: 1.5rem clamp(2rem, 6vw, 6rem);
+  align-items: end;
+}
+.turtle-hero__copy > .eyebrow, .turtle-hero h1 { grid-column: 1 / -1; }
+.turtle-hero h1 {
+  margin-top: 0.4rem;
+  font-family: var(--font-serif);
+  font-size: clamp(3.25rem, 9vw, 8.6rem);
+  font-weight: 400;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+}
+.turtle-hero h1 span { display: block; }
+.turtle-hero h1 span:last-child { margin-left: clamp(0rem, 8vw, 8rem); color: var(--rust); }
+.turtle-hero__intro { padding-top: 1.8rem; }
+.turtle-hero__subtitle { font-size: clamp(1.2rem, 2vw, 1.6rem); font-weight: 700; letter-spacing: -0.04em; }
+.turtle-hero__lead { max-width: 45rem; margin-top: 1rem; color: var(--muted); line-height: 1.75; }
+.turtle-keywords { display: flex; flex-wrap: wrap; gap: 0.45rem 0.65rem; margin: 1.5rem 0 0; padding: 0; list-style: none; }
+.turtle-keywords li {
+  padding: 0.28rem 0.62rem;
+  border: var(--rule);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.73rem;
+  font-weight: 800;
+}
+.turtle-role { display: grid; gap: 1.1rem; align-self: start; margin-top: 1.8rem; padding-top: 1.3rem; border-top: 1px solid var(--ink); }
+.turtle-role dt, .turtle-label, .turtle-findings dt {
+  color: var(--rust);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+.turtle-role dd { margin-top: 0.3rem; color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+.turtle-hero__demo { margin-top: clamp(3.5rem, 7vw, 6.5rem); }
+.turtle-evidence { min-width: 0; }
+.turtle-evidence > img { width: 100%; height: auto; }
+.turtle-evidence figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.7rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.65;
+}
+.turtle-evidence figcaption > :last-child { text-align: right; }
+.turtle-media-note { margin-top: 0.6rem; color: var(--muted); font-size: 0.78rem; line-height: 1.7; }
+.turtle-section { padding-block: var(--section-space); border-top: 1px solid var(--ink); }
+.turtle-section__header, .turtle-contribution {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.25fr) minmax(0, 0.75fr);
+  gap: clamp(2rem, 7vw, 7rem);
+}
+.turtle-section__header h2, .turtle-result h2 {
+  max-width: 16em;
+  font-family: var(--font-serif);
+  font-size: clamp(2.15rem, 4.8vw, 4.7rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.14;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.turtle-section__header > div > p { max-width: 45rem; margin-top: 1.5rem; color: var(--muted); line-height: 1.75; }
+.turtle-section__body { margin-top: clamp(3.5rem, 7vw, 6rem); }
+.turtle-pipeline { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 3rem 0 0; padding: 0; list-style: none; border-block: var(--rule); }
+.turtle-pipeline li { padding: 1.5rem 1.5rem 1.6rem 0; }
+.turtle-pipeline li + li { padding-left: 1.5rem; border-left: var(--rule); }
+.turtle-pipeline span { color: var(--rust); font-family: var(--font-serif); font-size: 1.2rem; }
+.turtle-pipeline strong, .turtle-pipeline small { display: block; }
+.turtle-pipeline strong { margin-top: 0.6rem; font-size: 1.15rem; }
+.turtle-pipeline small { margin-top: 0.3rem; color: var(--muted); font-size: 0.82rem; }
+.turtle-contribution { margin-top: 2rem; }
+.turtle-contribution > div { max-width: 45rem; }
+.turtle-localization { display: grid; grid-template-columns: minmax(0, 0.58fr) minmax(0, 0.42fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+.turtle-rule-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--ink); }
+.turtle-rule-list li { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.8rem; padding-block: 1.15rem; border-bottom: var(--rule); }
+.turtle-rule-list li > span { color: var(--rust); font-family: var(--font-serif); }
+.turtle-rule-list h3 { font-size: 1rem; font-weight: 700; }
+.turtle-rule-list p { margin-top: 0.5rem; color: var(--muted); font-size: 0.86rem; line-height: 1.7; }
+.project-page--turtlebot code, .turtle-formula { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; }
+.project-page--turtlebot code { font-size: 0.88em; overflow-wrap: anywhere; }
+.turtle-formula { padding-block: 1.3rem; color: var(--rust); font-size: clamp(0.96rem, 1.8vw, 1.35rem); line-height: 1.8; overflow-wrap: anywhere; }
+.turtle-formula sub, .turtle-formula sup { font-size: 0.65em; }
+.turtle-boundary { max-width: 60rem; margin-top: 2rem; padding-left: 1rem; border-left: 3px solid var(--rust); color: var(--muted); font-size: 0.84rem; line-height: 1.75; }
+.turtle-geometry { display: grid; grid-template-columns: minmax(0, 0.63fr) minmax(0, 0.37fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+.turtle-geometry > .turtle-evidence { border-block: var(--rule); padding-bottom: 0.8rem; }
+.turtle-geometry-formula { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-top: 2.5rem; border-block: var(--rule); }
+.turtle-geometry-formula > p:last-child { padding-block: 1rem; color: var(--muted); font-size: 0.78rem; }
+.turtle-fraction { display: inline-flex; vertical-align: middle; flex-direction: column; align-items: center; line-height: 1.5; }
+.turtle-fraction > span:first-child { width: 100%; border-bottom: 1px solid currentColor; text-align: center; }
+.turtle-mission { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); padding: 0; list-style: none; }
+.turtle-mission li { position: relative; padding: 1.2rem 1rem 0 0; border-top: 2px solid var(--line); }
+.turtle-mission li::before { position: absolute; top: -0.36rem; left: 0; width: 0.6rem; height: 0.6rem; background: var(--rust); border-radius: 50%; content: ''; }
+.turtle-mission span { color: var(--muted); font-size: 0.72rem; }
+.turtle-mission strong, .turtle-mission small { display: block; }
+.turtle-mission strong { margin-top: 0.45rem; font-size: 0.88rem; }
+.turtle-mission small { margin-top: 0.3rem; color: var(--muted); font-size: 0.72rem; overflow-wrap: anywhere; }
+.turtle-async { margin-top: 3.5rem; padding: clamp(1.4rem, 3vw, 2.5rem); background: var(--soft); border-top: 1px solid var(--ink); }
+.turtle-async__heading { display: grid; grid-template-columns: 0.36fr 0.64fr; gap: 2rem; }
+.turtle-async h3 { font-family: var(--font-serif); font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-weight: 400; letter-spacing: -0.035em; line-height: 1.3; }
+.turtle-async__steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 2rem 0 0; padding: 0; list-style: none; }
+.turtle-async__steps li { padding: 1rem 1rem 1rem 0; border-top: var(--rule); }
+.turtle-async__steps li + li { padding-left: 1rem; border-left: var(--rule); }
+.turtle-async__steps span { color: var(--rust); font-family: var(--font-serif); font-size: 1.2rem; }
+.turtle-async__steps strong, .turtle-async__steps small { display: block; margin-top: 0.4rem; }
+.turtle-async__steps strong { font-size: 0.93rem; }
+.turtle-async__steps small { color: var(--muted); font-size: 0.78rem; }
+.turtle-async > p { max-width: 52rem; margin-top: 1.2rem; padding-top: 1.2rem; border-top: var(--rule); color: var(--muted); font-size: 0.84rem; }
+.turtle-details { margin-top: 2rem; border-block: var(--rule); }
+.turtle-details summary { padding: 1.1rem 0; font-size: 0.85rem; font-weight: 700; cursor: pointer; }
+.turtle-details summary::marker { color: var(--rust); }
+.turtle-details__body { display: grid; gap: 2rem; padding-block: 0.5rem 2rem; }
+.turtle-details__body > p, .turtle-appendix__columns p { max-width: 52rem; color: var(--muted); font-size: 0.86rem; line-height: 1.8; }
+.turtle-diagram-scroll { overflow-x: auto; overscroll-behavior-inline: contain; }
+.turtle-diagram-scroll:focus-visible { outline: 2px solid var(--rust); outline-offset: 3px; }
+.turtle-diagram-scroll img { width: 100%; height: auto; }
+.turtle-troubleshooting { display: grid; grid-template-columns: minmax(0, 0.36fr) minmax(0, 0.64fr); gap: clamp(2rem, 7vw, 7rem); align-items: start; }
+.turtle-proximity { width: min(100%, 22rem); }
+.turtle-findings { border-top: 1px solid var(--ink); }
+.turtle-findings > div { padding-block: 1.15rem; border-bottom: var(--rule); }
+.turtle-findings dd { margin-top: 0.6rem; color: var(--muted); font-size: 0.88rem; line-height: 1.75; }
+.turtle-result { background: var(--ink); color: var(--paper); }
+.turtle-result__inner { padding-block: clamp(5rem, 10vw, 9rem); }
+.turtle-result .turtle-label { color: var(--line); }
+.turtle-result h2 { margin-top: 1.3rem; }
+.turtle-result__lead { max-width: 52rem; margin-top: 2rem; color: var(--line); font-size: clamp(1rem, 1.7vw, 1.25rem); line-height: 1.75; }
+.turtle-validation { width: 100%; margin-top: 3rem; border-collapse: collapse; text-align: left; }
+.turtle-validation th, .turtle-validation td { padding: 1.3rem 1.5rem 1.3rem 0; border-bottom: 1px solid var(--muted); vertical-align: top; }
+.turtle-validation thead th { color: var(--line); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; }
+.turtle-validation tbody th { width: 18%; font-size: 0.95rem; }
+.turtle-validation td { color: var(--line); font-size: 0.88rem; line-height: 1.75; }
+.turtle-validation td:last-child { width: 22%; padding-right: 0; font-size: 0.78rem; }
+.turtle-next-checks { display: grid; grid-template-columns: 0.3fr 0.7fr; gap: 2rem; margin-top: 2.5rem; }
+.turtle-next-checks ul { margin: 0; padding-left: 1.2rem; color: var(--line); font-size: 0.85rem; }
+.turtle-next-checks li + li { margin-top: 0.4rem; }
+.turtle-appendix { padding-block: clamp(3rem, 6vw, 5rem); }
+.turtle-appendix > .turtle-details:first-child { margin-top: 0; }
+.turtle-appendix__columns { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem; }
+.turtle-appendix__columns h3 { margin-bottom: 0.8rem; font-size: 1rem; }
+.turtle-sources > div { display: grid; grid-template-columns: 0.3fr 0.7fr; gap: 2rem; padding-block: 1rem; border-bottom: var(--rule); }
+.turtle-sources dt { font-size: 0.84rem; font-weight: 700; }
+.turtle-sources dd { color: var(--muted); font-size: 0.84rem; overflow-wrap: anywhere; }
+@media (max-width: 1000px) {
+  .turtle-hero__copy, .turtle-section__header, .turtle-contribution { grid-template-columns: 1fr; }
+  .turtle-role { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .turtle-localization { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .turtle-geometry { grid-template-columns: 1fr; gap: 2rem; }
+  .turtle-geometry > .turtle-rule-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2rem; }
+  .turtle-geometry-formula { align-items: start; flex-direction: column; gap: 0; }
+  .turtle-troubleshooting { grid-template-columns: 0.4fr 0.6fr; gap: 2rem; }
+}
+@media (max-width: 760px) {
+  .turtle-hero__copy { gap: 1rem; }
+  .turtle-hero h1 { font-size: clamp(2.35rem, 9.6vw, 4rem); }
+  .turtle-hero h1 span:last-child { margin-left: 0; }
+  .turtle-role { grid-template-columns: 1fr; }
+  .turtle-evidence figcaption { display: grid; gap: 0.2rem; }
+  .turtle-evidence figcaption > :last-child { text-align: left; }
+  .turtle-pipeline, .turtle-localization, .turtle-geometry > .turtle-rule-list,
+  .turtle-async__heading, .turtle-async__steps, .turtle-troubleshooting,
+  .turtle-next-checks, .turtle-appendix__columns, .turtle-sources > div { grid-template-columns: 1fr; }
+  .turtle-pipeline li, .turtle-pipeline li + li { padding: 1.2rem 0; border-left: 0; }
+  .turtle-pipeline li + li { border-top: var(--rule); }
+  .turtle-mission { grid-template-columns: 1fr; }
+  .turtle-mission li { padding: 0.8rem 0 1.2rem 1.5rem; border-top: 0; border-left: 2px solid var(--line); }
+  .turtle-mission li::before { top: 1.15rem; left: -0.36rem; }
+  .turtle-mission strong { margin-top: 0; }
+  .turtle-async__steps li, .turtle-async__steps li + li { padding: 1rem 0; border-left: 0; }
+  .turtle-geometry-formula .turtle-formula { font-size: clamp(0.78rem, 3.4vw, 1.2rem); }
+  .turtle-diagram-scroll img { min-width: 960px; max-width: none; }
+  .turtle-proximity { margin-inline: auto; }
+  .turtle-validation th, .turtle-validation td { padding: 1rem 0.7rem 1rem 0; }
+  .turtle-validation tbody th { width: 28%; font-size: 0.8rem; }
+  .turtle-validation td { font-size: 0.78rem; }
+  .turtle-validation th:last-child, .turtle-validation td:last-child { display: none; }
+  .turtle-sources > div { gap: 0.5rem; }
+}
