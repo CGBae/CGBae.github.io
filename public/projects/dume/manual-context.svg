@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+<title id="title">문서를 단계별 작업 기준으로 구성한다</title><desc id="desc">문서 준비와 실행 중 단계 선택을 구분한 매뉴얼 처리 흐름</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#bc3f24" stroke-width="1.5"/></marker></defs>
+<rect width="1600" height="1000" rx="0" fill="#ffffff"/>
+<style>text{font-family:'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo',
+    'Segoe UI', sans-serif} .mono{font-family:Consolas,monospace}</style>
+<text x="56" y="53" font-size="18" fill="#bc3f24" font-weight="700" text-anchor="start">DUM-E  /  SYSTEM NOTES</text>
+<text x="1544" y="53" font-size="16" fill="#606872" font-weight="400" text-anchor="end">CURRENT IMPLEMENTATION</text>
+<text x="56" y="121" font-size="42" fill="#121820" font-weight="700" text-anchor="start">문서를 단계별 작업 기준으로 구성한다</text>
+<text x="56" y="166" font-size="22" fill="#606872" font-weight="400" text-anchor="start">문서 준비와 실행 중 단계 선택을 구분한 매뉴얼 처리 흐름</text>
+<path d="M56 203 L1544 203" stroke="#d9dde2" stroke-width="2" fill="none"/>
+<text x="56" y="252" font-size="20" fill="#bc3f24" font-weight="700" text-anchor="start">01  매뉴얼 준비</text>
+<rect x="56" y="286" width="360" height="184" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="80" y="322" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">INPUT</text>
+<text x="80" y="360" font-size="28" fill="#121820" font-weight="700" text-anchor="start">전체 PDF</text>
+<text x="80" y="404" font-size="21" fill="#606872" font-weight="400" text-anchor="start">문서·도면을 모델에 전달</text>
+<text x="80" y="438" font-size="21" fill="#606872" font-weight="400" text-anchor="start">파일·페이지 유효성 검사</text>
+<rect x="476" y="286" width="440" height="184" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="500" y="322" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">GENERATED MANUAL</text>
+<text x="500" y="360" font-size="28" fill="#121820" font-weight="700" text-anchor="start">단계별 구조화</text>
+<text x="500" y="404" font-size="21" fill="#606872" font-weight="400" text-anchor="start">설명 · 부품 / 도구 · 시각 조건</text>
+<text x="500" y="438" font-size="21" fill="#606872" font-weight="400" text-anchor="start">ID · 순서 · 페이지 참조 검사</text>
+<rect x="976" y="286" width="568" height="184" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="1000" y="322" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">PACKAGE</text>
+<text x="1000" y="360" font-size="28" fill="#121820" font-weight="700" text-anchor="start">검수 전 매뉴얼 package</text>
+<text x="1000" y="404" font-size="21" fill="#606872" font-weight="400" text-anchor="start">YAML + 페이지 JPG + manifest</text>
+<text x="1000" y="438" font-size="21" fill="#606872" font-weight="400" text-anchor="start">source_pages · source_evidence 보존</text>
+<path d="M420 378 L463 378" stroke="#bc3f24" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+<path d="M920 378 L963 378" stroke="#bc3f24" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+<text x="56" y="570" font-size="20" fill="#bc3f24" font-weight="700" text-anchor="start">02  작업 중 필요한 기준 선택</text>
+<rect x="56" y="606" width="440" height="202" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="80" y="642" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">RUNTIME</text>
+<text x="80" y="680" font-size="28" fill="#121820" font-weight="700" text-anchor="start">작업 문맥</text>
+<text x="80" y="724" font-size="21" fill="#606872" font-weight="400" text-anchor="start">질문 intent</text>
+<text x="80" y="758" font-size="21" fill="#606872" font-weight="400" text-anchor="start">tracker의 현재 단계 / 지목한 단계</text>
+<rect x="556" y="606" width="420" height="202" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="580" y="642" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">SELECT</text>
+<text x="580" y="680" font-size="28" fill="#121820" font-weight="700" text-anchor="start">규칙 기반 단계 선택</text>
+<text x="580" y="724" font-size="21" fill="#606872" font-weight="400" text-anchor="start">현재 / 지목 단계 또는 전체 단계</text>
+<text x="580" y="758" font-size="21" fill="#606872" font-weight="400" text-anchor="start">current / claimed step ID 기준</text>
+<rect x="1036" y="606" width="508" height="202" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="1060" y="642" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">CONTEXT</text>
+<text x="1060" y="680" font-size="28" fill="#121820" font-weight="700" text-anchor="start">설명과 검사에 사용할 기준</text>
+<text x="1060" y="724" font-size="21" fill="#606872" font-weight="400" text-anchor="start">단계 instruction · visual_checks</text>
+<text x="1060" y="758" font-size="21" fill="#606872" font-weight="400" text-anchor="start">선택 단계의 reference 이미지</text>
+<path d="M500 710 L543 710" stroke="#bc3f24" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+<path d="M980 710 L1023 710" stroke="#bc3f24" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+<path d="M1260 474 L1260 530 L766 530 L766 592" stroke="#bc3f24" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+<path d="M56 887 L1544 887" stroke="#d9dde2" stroke-width="2" fill="none"/>
+<text x="56" y="931" font-size="20" fill="#606872" font-weight="400" text-anchor="start">현재 저장소: 5단계 · 보존된 PDF 페이지 이미지 8장 · 생성 package는 사람 검수 전 초안</text>
+<text x="56" y="966" font-size="18" fill="#606872" font-weight="400" text-anchor="start">근거: manual_generator / assembly_copilot.manual_retriever / assembly_manuals</text>
+</svg>

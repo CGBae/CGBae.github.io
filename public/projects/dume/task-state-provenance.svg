@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1020" viewBox="0 0 1600 1020" role="img" aria-labelledby="title desc">
+<title id="title">사용자 확인과 시각 검증의 출처를 나눠 기록한다</title><desc id="desc">현재 단계·완료 목록·검증 출처를 같은 사실로 취급하지 않는 상태 관리</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#bc3f24" stroke-width="1.5"/></marker></defs>
+<rect width="1600" height="1020" rx="0" fill="#ffffff"/>
+<style>text{font-family:'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo',
+    'Segoe UI', sans-serif} .mono{font-family:Consolas,monospace}</style>
+<text x="56" y="53" font-size="18" fill="#bc3f24" font-weight="700" text-anchor="start">DUM-E  /  SYSTEM NOTES</text>
+<text x="1544" y="53" font-size="16" fill="#606872" font-weight="400" text-anchor="end">CODE BEHAVIOR EXAMPLES</text>
+<text x="56" y="121" font-size="42" fill="#121820" font-weight="700" text-anchor="start">사용자 확인과 시각 검증의 출처를 나눠 기록한다</text>
+<text x="56" y="166" font-size="22" fill="#606872" font-weight="400" text-anchor="start">현재 단계·완료 목록·검증 출처를 같은 사실로 취급하지 않는 상태 관리</text>
+<path d="M56 203 L1544 203" stroke="#d9dde2" stroke-width="2" fill="none"/>
+<rect x="56" y="278" width="472" height="530" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="84" y="322" font-size="21" fill="#bc3f24" font-weight="700" text-anchor="start">01</text>
+<text x="84" y="382" font-size="31" fill="#121820" font-weight="700" text-anchor="start">단계 설명</text>
+<text x="84" y="440" font-size="21" fill="#606872" font-weight="400" text-anchor="start">“4단계 설명해 줘”</text>
+<path d="M84 474 L500 474" stroke="#d9dde2" stroke-width="2" fill="none"/>
+<text x="84" y="527" font-size="24" fill="#bc3f24" font-weight="700" text-anchor="start">질문에 지정된 단계 안내</text>
+<text x="84" y="590" font-size="22" fill="#606872" font-weight="400" text-anchor="start">instruction / reference 선택</text>
+<text x="84" y="638" font-size="22" fill="#606872" font-weight="400" text-anchor="start">설명만으로 진도 변경 없음</text>
+<text x="84" y="686" font-size="22" fill="#606872" font-weight="400" text-anchor="start">현재 포인터 · 완료 기록 유지</text>
+<rect x="564" y="278" width="472" height="530" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="592" y="322" font-size="21" fill="#bc3f24" font-weight="700" text-anchor="start">02</text>
+<text x="592" y="382" font-size="31" fill="#121820" font-weight="700" text-anchor="start">사용자 완료</text>
+<text x="592" y="440" font-size="21" fill="#606872" font-weight="400" text-anchor="start">“2단계까지 완료로 저장”</text>
+<path d="M592 474 L1008 474" stroke="#d9dde2" stroke-width="2" fill="none"/>
+<text x="592" y="527" font-size="24" fill="#bc3f24" font-weight="700" text-anchor="start">사용자 확인 출처 기록</text>
+<text x="592" y="590" font-size="22" fill="#606872" font-weight="400" text-anchor="start">completed에 1·2단계 기록</text>
+<text x="592" y="638" font-size="22" fill="#606872" font-weight="400" text-anchor="start">user_confirmed에 1·2단계</text>
+<text x="592" y="686" font-size="22" fill="#606872" font-weight="400" text-anchor="start">verified 목록은 그대로</text>
+<rect x="1072" y="278" width="472" height="530" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="1100" y="322" font-size="21" fill="#bc3f24" font-weight="700" text-anchor="start">03</text>
+<text x="1100" y="382" font-size="31" fill="#121820" font-weight="700" text-anchor="start">관찰 검증</text>
+<text x="1100" y="440" font-size="21" fill="#606872" font-weight="400" text-anchor="start">완료 의도 + 평가 조건 충족</text>
+<path d="M1100 474 L1516 474" stroke="#d9dde2" stroke-width="2" fill="none"/>
+<text x="1100" y="527" font-size="24" fill="#bc3f24" font-weight="700" text-anchor="start">시각 검증 출처 기록</text>
+<text x="1100" y="590" font-size="22" fill="#606872" font-weight="400" text-anchor="start">A경로의 조건 검사 적용</text>
+<text x="1100" y="638" font-size="22" fill="#606872" font-weight="400" text-anchor="start">허용 시 verified 경로로 반영</text>
+<text x="1100" y="686" font-size="22" fill="#606872" font-weight="400" text-anchor="start">질문만으로 완료 처리하지 않음</text>
+<path d="M56 907 L1544 907" stroke="#d9dde2" stroke-width="2" fill="none"/>
+<text x="56" y="951" font-size="20" fill="#606872" font-weight="400" text-anchor="start">코드 동작을 설명하는 예시이며 실제 대화·로봇 실행 로그가 아니다.</text>
+<text x="56" y="986" font-size="18" fill="#606872" font-weight="400" text-anchor="start">complete_through는 앞선 단계들을 함께 완료 목록에 포함한다. 각 이전 단계의 독립 시각 검증을 의미하지 않는다.</text>
+</svg>

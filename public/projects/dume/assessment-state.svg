@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1050" viewBox="0 0 1600 1050" role="img" aria-labelledby="title desc">
+<title id="title">관찰 결과를 조건 검사 후 작업 상태에 반영한다</title><desc id="desc">조립 엔진의 A경로 · 로봇 이동 후 검사 B경로와 구분</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#bc3f24" stroke-width="1.5"/></marker></defs>
+<rect width="1600" height="1050" rx="0" fill="#ffffff"/>
+<style>text{font-family:'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo',
+    'Segoe UI', sans-serif} .mono{font-family:Consolas,monospace}</style>
+<text x="56" y="53" font-size="18" fill="#bc3f24" font-weight="700" text-anchor="start">DUM-E  /  SYSTEM NOTES</text>
+<text x="1544" y="53" font-size="16" fill="#606872" font-weight="400" text-anchor="end">CURRENT IMPLEMENTATION</text>
+<text x="56" y="121" font-size="42" fill="#121820" font-weight="700" text-anchor="start">관찰 결과를 조건 검사 후 작업 상태에 반영한다</text>
+<text x="56" y="166" font-size="22" fill="#606872" font-weight="400" text-anchor="start">조립 엔진의 A경로 · 로봇 이동 후 검사 B경로와 구분</text>
+<path d="M56 203 L1544 203" stroke="#d9dde2" stroke-width="2" fill="none"/>
+<rect x="56" y="286" width="338" height="245" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="80" y="322" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">01  INPUT</text>
+<text x="80" y="360" font-size="28" fill="#121820" font-weight="700" text-anchor="start">작업 문맥</text>
+<text x="80" y="404" font-size="21" fill="#606872" font-weight="400" text-anchor="start">질문 intent</text>
+<text x="80" y="438" font-size="21" fill="#606872" font-weight="400" text-anchor="start">현재 단계 · 완료 출처</text>
+<text x="80" y="472" font-size="21" fill="#606872" font-weight="400" text-anchor="start">선택한 매뉴얼 기준</text>
+<rect x="430" y="286" width="340" height="245" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="454" y="322" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">02  ASSESS</text>
+<text x="454" y="360" font-size="28" fill="#121820" font-weight="700" text-anchor="start">구조화 VLM 평가</text>
+<text x="454" y="404" font-size="21" fill="#606872" font-weight="400" text-anchor="start">현재 사진 + 기준 이미지</text>
+<text x="454" y="438" font-size="21" fill="#606872" font-weight="400" text-anchor="start">AssemblyAssessment</text>
+<text x="454" y="472" font-size="21" fill="#606872" font-weight="400" text-anchor="start">항목별 관찰 결과</text>
+<rect x="806" y="286" width="360" height="245" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="830" y="322" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">03  VALIDATE</text>
+<text x="830" y="360" font-size="28" fill="#121820" font-weight="700" text-anchor="start">항목별 조건 검사</text>
+<text x="830" y="404" font-size="21" fill="#606872" font-weight="400" text-anchor="start">required 충족 여부</text>
+<text x="830" y="438" font-size="21" fill="#606872" font-weight="400" text-anchor="start">error / unknown / 가림</text>
+<text x="830" y="472" font-size="21" fill="#606872" font-weight="400" text-anchor="start">없는 근거를 확정하지 않음</text>
+<rect x="1202" y="286" width="342" height="245" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="1226" y="322" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">04  COMMIT GATE</text>
+<text x="1226" y="360" font-size="28" fill="#121820" font-weight="700" text-anchor="start">상태 갱신 조건</text>
+<text x="1226" y="404" font-size="21" fill="#606872" font-weight="400" text-anchor="start">완료 의도 확인</text>
+<text x="1226" y="438" font-size="21" fill="#606872" font-weight="400" text-anchor="start">연속 동일 판정 조건</text>
+<text x="1226" y="472" font-size="21" fill="#606872" font-weight="400" text-anchor="start">기본 설정 2회</text>
+<path d="M397 406 L418 406" stroke="#bc3f24" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+<path d="M773 406 L794 406" stroke="#bc3f24" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+<path d="M1169 406 L1190 406" stroke="#bc3f24" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+<rect x="56" y="640" width="714" height="200" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="80" y="680" font-size="25" fill="#121820" font-weight="700" text-anchor="start">한 요청에 선택한 대표 프레임 3장</text>
+<rect x="80" y="708" width="102" height="70" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="131" y="752" font-size="24" fill="#bc3f24" font-weight="700" text-anchor="middle">F1</text>
+<rect x="206" y="708" width="102" height="70" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="257" y="752" font-size="24" fill="#bc3f24" font-weight="700" text-anchor="middle">F2</text>
+<rect x="332" y="708" width="102" height="70" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="383" y="752" font-size="24" fill="#bc3f24" font-weight="700" text-anchor="middle">F3</text>
+<text x="480" y="736" font-size="22" fill="#606872" font-weight="400" text-anchor="start">이미지 3장과</text>
+<text x="480" y="770" font-size="22" fill="#606872" font-weight="400" text-anchor="start">판정 2회는 별도 조건</text>
+<path d="M600 636 L600 544" stroke="#bc3f24" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+<rect x="806" y="640" width="360" height="200" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="830" y="686" font-size="28" fill="#121820" font-weight="700" text-anchor="start">보류 / 추가 확인</text>
+<text x="830" y="730" font-size="21" fill="#606872" font-weight="400" text-anchor="start">오류·가림·unknown 존재</text>
+<text x="830" y="764" font-size="21" fill="#606872" font-weight="400" text-anchor="start">진도를 확정하지 않음</text>
+<rect x="1202" y="640" width="342" height="200" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="1226" y="686" font-size="28" fill="#121820" font-weight="700" text-anchor="start">작업 상태 반영</text>
+<text x="1226" y="730" font-size="21" fill="#606872" font-weight="400" text-anchor="start">허용된 완료 요청에서 갱신</text>
+<text x="1226" y="764" font-size="21" fill="#606872" font-weight="400" text-anchor="start">검증 출처를 따로 기록</text>
+<path d="M986 535 L986 626" stroke="#bc3f24" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+<path d="M1373 535 L1373 626" stroke="#bc3f24" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+<path d="M56 937 L1544 937" stroke="#d9dde2" stroke-width="2" fill="none"/>
+<text x="56" y="981" font-size="20" fill="#606872" font-weight="400" text-anchor="start">confidence는 정확도 점수가 아니다. 두 판정에 서로 다른 새 프레임이 쓰였다는 보장도 별도 필요하다.</text>
+<text x="56" y="1016" font-size="18" fill="#606872" font-weight="400" text-anchor="start">근거: multimodal_assessor.py / assessment_validator.py / engine.py / state_tracker.py</text>
+</svg>

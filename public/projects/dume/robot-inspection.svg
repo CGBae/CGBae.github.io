@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120" role="img" aria-labelledby="title desc">
+<title id="title">로봇 검사에 지금 수행 중인 작업을 전달한다</title><desc id="desc">관찰 획득과 단계 context가 검사 입력에서 만나는 지점</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#bc3f24" stroke-width="1.5"/></marker></defs>
+<rect width="1600" height="1120" rx="0" fill="#ffffff"/>
+<style>text{font-family:'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo',
+    'Segoe UI', sans-serif} .mono{font-family:Consolas,monospace}</style>
+<text x="56" y="53" font-size="18" fill="#bc3f24" font-weight="700" text-anchor="start">DUM-E  /  SYSTEM NOTES</text>
+<text x="1544" y="53" font-size="16" fill="#606872" font-weight="400" text-anchor="end">ROBOT INSPECTION · B PATH</text>
+<text x="56" y="121" font-size="42" fill="#121820" font-weight="700" text-anchor="start">로봇 검사에 지금 수행 중인 작업을 전달한다</text>
+<text x="56" y="166" font-size="22" fill="#606872" font-weight="400" text-anchor="start">관찰 획득과 단계 context가 검사 입력에서 만나는 지점</text>
+<path d="M56 203 L1544 203" stroke="#d9dde2" stroke-width="2" fill="none"/>
+<text x="56" y="252" font-size="20" fill="#bc3f24" font-weight="700" text-anchor="start">관찰 획득</text>
+<rect x="56" y="286" width="360" height="202" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="80" y="322" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">REQUEST</text>
+<text x="80" y="360" font-size="28" fill="#121820" font-weight="700" text-anchor="start">InspectStepSkill</text>
+<text x="80" y="404" font-size="21" fill="#606872" font-weight="400" text-anchor="start">사용자의 검사 요청</text>
+<text x="80" y="438" font-size="21" fill="#606872" font-weight="400" text-anchor="start">등록된 로봇 스킬</text>
+<rect x="476" y="286" width="480" height="202" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="500" y="322" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">CAPTURE</text>
+<text x="500" y="360" font-size="28" fill="#121820" font-weight="700" text-anchor="start">ROS2 → 별도 로봇 앱</text>
+<text x="500" y="404" font-size="21" fill="#606872" font-weight="400" text-anchor="start">지시한 위치로 이동 · 촬영</text>
+<text x="500" y="438" font-size="21" fill="#606872" font-weight="400" text-anchor="start">로봇 계층이 실제 동작 수행</text>
+<rect x="1016" y="286" width="528" height="202" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="1040" y="322" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">OBSERVATION</text>
+<text x="1040" y="360" font-size="28" fill="#121820" font-weight="700" text-anchor="start">검사 사진</text>
+<text x="1040" y="404" font-size="21" fill="#606872" font-weight="400" text-anchor="start">촬영 파일과 위치 정보 수신</text>
+<text x="1040" y="438" font-size="21" fill="#606872" font-weight="400" text-anchor="start">시각 모델의 관찰 입력</text>
+<path d="M420 384 L463 384" stroke="#bc3f24" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+<path d="M960 384 L1003 384" stroke="#bc3f24" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+<text x="56" y="565" font-size="20" fill="#bc3f24" font-weight="700" text-anchor="start">검사 시점의 작업 기준</text>
+<rect x="56" y="600" width="360" height="218" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="80" y="636" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">STATE</text>
+<text x="80" y="674" font-size="28" fill="#121820" font-weight="700" text-anchor="start">Live tracker</text>
+<text x="80" y="718" font-size="21" fill="#606872" font-weight="400" text-anchor="start">호출 시점의 tracker.step</text>
+<text x="80" y="752" font-size="21" fill="#606872" font-weight="400" text-anchor="start">작업 중 단계 변경 반영</text>
+<rect x="476" y="600" width="480" height="218" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="500" y="636" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">ADAPTER</text>
+<text x="500" y="674" font-size="28" fill="#121820" font-weight="700" text-anchor="start">TrackerStepContext</text>
+<text x="500" y="718" font-size="21" fill="#606872" font-weight="400" text-anchor="start">order · title · instruction</text>
+<text x="500" y="752" font-size="21" fill="#606872" font-weight="400" text-anchor="start">현재 단계의 reference_image</text>
+<rect x="1016" y="600" width="528" height="218" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="1040" y="636" font-size="17" fill="#bc3f24" font-weight="700" text-anchor="start">VISION</text>
+<text x="1040" y="674" font-size="28" fill="#121820" font-weight="700" text-anchor="start">사진 + 단계 기준으로 검사</text>
+<text x="1040" y="718" font-size="21" fill="#606872" font-weight="400" text-anchor="start">OpenAIVision · JSON verdict</text>
+<text x="1040" y="752" font-size="21" fill="#606872" font-weight="400" text-anchor="start">A경로 validator와 별도 처리</text>
+<path d="M420 708 L463 708" stroke="#bc3f24" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+<path d="M960 708 L1003 708" stroke="#bc3f24" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+<path d="M1280 492 L1280 586" stroke="#bc3f24" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+<rect x="1016" y="856" width="528" height="76" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="1280" y="903" font-size="25" fill="#bc3f24" font-weight="700" text-anchor="middle">Inspection feedback</text>
+<path d="M1280 822 L1280 844" stroke="#bc3f24" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+<text x="56" y="905" font-size="23" fill="#606872" font-weight="400" text-anchor="start">좌표·궤적 계산과 실행은 로봇 계층이 담당한다.</text>
+<path d="M56 1007 L1544 1007" stroke="#d9dde2" stroke-width="2" fill="none"/>
+<text x="56" y="1051" font-size="20" fill="#606872" font-weight="400" text-anchor="start">현재 코드에서 검사 feedback → 자동 다음 단계 반영은 완결되지 않은 연결이다.</text>
+<text x="56" y="1086" font-size="18" fill="#606872" font-weight="400" text-anchor="start">근거: robot_skills/inspect_step.py / step_context.py / inspect_vision.py / ros_bridge.py</text>
+</svg>

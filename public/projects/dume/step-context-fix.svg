@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1080" viewBox="0 0 1600 1080" role="img" aria-labelledby="title desc">
+<title id="title">사진은 도착했지만, 검사할 단계가 없었다</title><desc id="desc">정적 매뉴얼과 현재 작업 상태 사이의 인터페이스 불일치</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#bc3f24" stroke-width="1.5"/></marker></defs>
+<rect width="1600" height="1080" rx="0" fill="#ffffff"/>
+<style>text{font-family:'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo',
+    'Segoe UI', sans-serif} .mono{font-family:Consolas,monospace}</style>
+<text x="56" y="53" font-size="18" fill="#bc3f24" font-weight="700" text-anchor="start">DUM-E  /  SYSTEM NOTES</text>
+<text x="1544" y="53" font-size="16" fill="#606872" font-weight="400" text-anchor="end">ENGINEERING NOTE</text>
+<text x="56" y="121" font-size="42" fill="#121820" font-weight="700" text-anchor="start">사진은 도착했지만, 검사할 단계가 없었다</text>
+<text x="56" y="166" font-size="22" fill="#606872" font-weight="400" text-anchor="start">정적 매뉴얼과 현재 작업 상태 사이의 인터페이스 불일치</text>
+<path d="M56 203 L1544 203" stroke="#d9dde2" stroke-width="2" fill="none"/>
+<rect x="56" y="276" width="706" height="450" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<rect x="818" y="276" width="726" height="450" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="84" y="322" font-size="20" fill="#bc3f24" font-weight="700" text-anchor="start">BEFORE · 저장소 주석에 기록된 문제</text>
+<text x="84" y="382" font-size="30" fill="#121820" font-weight="700" text-anchor="start">정적 AssemblyManual</text>
+<text x="84" y="432" font-size="23" fill="#606872" font-weight="400" text-anchor="start">전체 step 목록을 가진 객체</text>
+<path d="M350 460 L350 503" stroke="#bc3f24" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+<text x="84" y="558" font-size="26" fill="#121820" font-weight="700" text-anchor="start">검사 스킬은 current_step()을 요구</text>
+<text x="84" y="609" font-size="24" fill="#bc3f24" font-weight="400" text-anchor="start">인터페이스 불일치 → 단계 기준 누락</text>
+<text x="84" y="668" font-size="21" fill="#606872" font-weight="400" text-anchor="start">“5단계 기준 정보가 없어 확정할 수 없습니다”</text>
+<text x="846" y="322" font-size="20" fill="#bc3f24" font-weight="700" text-anchor="start">AFTER · 현재 코드의 연결</text>
+<text x="846" y="382" font-size="30" fill="#121820" font-weight="700" text-anchor="start">TrackerStepContext</text>
+<text x="846" y="432" font-size="23" fill="#606872" font-weight="400" text-anchor="start">검사할 때마다 tracker.step을 읽음</text>
+<path d="M1160 460 L1160 503" stroke="#bc3f24" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-linejoin="round"/>
+<text x="846" y="558" font-size="26" fill="#121820" font-weight="700" text-anchor="start">현재 단계의 설명과 reference 전달</text>
+<text x="846" y="609" font-size="23" fill="#bc3f24" font-weight="400" text-anchor="start">시작 시점의 snapshot에 고정되지 않음</text>
+<text x="846" y="668" font-size="20" fill="#606872" font-weight="400" text-anchor="start">order / title / instruction / reference_image</text>
+<rect x="56" y="776" width="1488" height="144" rx="0" fill="#f3f5f7" stroke="#d9dde2" stroke-width="2"/>
+<text x="84" y="821" font-size="18" fill="#bc3f24" font-weight="700" text-anchor="start">OFFLINE CHECK</text>
+<text x="84" y="873" font-size="30" fill="#121820" font-weight="700" text-anchor="start">동일 adapter에서 1단계 → 4단계</text>
+<text x="926" y="824" font-size="25" fill="#bc3f24" font-weight="700" text-anchor="start">page_005.jpg → page_009.jpg</text>
+<text x="926" y="872" font-size="21" fill="#606872" font-weight="400" text-anchor="start">실제 API·로봇 실행 없이 구조 재현</text>
+<path d="M56 967 L1544 967" stroke="#d9dde2" stroke-width="2" fill="none"/>
+<text x="56" y="1011" font-size="20" fill="#606872" font-weight="400" text-anchor="start">남은 경계: dict 형태의 completion_conditions를 속성으로 읽어 completion 문자열이 비는 문제.</text>
+<text x="56" y="1046" font-size="18" fill="#606872" font-weight="400" text-anchor="start">증상 근거: step_context.py 주석 · 동작 확인: behavior-probe.json · 하드웨어 개선율 측정 아님</text>
+</svg>

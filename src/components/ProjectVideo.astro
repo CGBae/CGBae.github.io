@@ -6,14 +6,17 @@ interface Props {
   width: number;
   height: number;
   autoplay?: boolean;
+  loop?: boolean;
+  captions?: string;
 }
-const { src, poster, label, width, height, autoplay = false } = Astro.props;
+const { src, poster, label, width, height, autoplay = false, loop = true, captions } = Astro.props;
 ---
 
 <video class="project-video" src={src} poster={poster}
   width={width} height={height} aria-label={label}
   data-project-autoplay={autoplay ? '' : undefined}
-  muted loop playsinline controls preload={autoplay ? 'metadata' : 'none'}>
+  muted loop={loop} playsinline controls preload={autoplay ? 'metadata' : 'none'}>
+  {captions && <track kind="captions" src={captions} srclang="ko" label="한국어 장면 설명" />}
   <a href={src}>시연 영상 열기</a>
 </video>
 
