@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="950" viewBox="0 0 1440 950" role="img" aria-labelledby="title desc"><title id="title">잔여 관절각으로 다음 명령의 전송 시점 결정</title><desc id="desc">여섯 관절의 최대 잔여각을 lead 임계값과 비교해 다음 비동기 절대 MoveJoint를 전달한다. 도 단위의 임계값이며 궤적 반경이 아니다.</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#606872"/></marker></defs>
+<rect x="0" y="0" width="1440" height="950" rx="0" fill="#ffffff" stroke="none"/>
+<text x="48" y="51" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="17" font-weight="700" text-anchor="start" fill="#606872">PALPA  /  HUMAN TO ROBOT MOTION</text>
+<text x="48" y="108" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="34" font-weight="700" text-anchor="start" fill="#121820">잔여 관절각으로 다음 명령의 전송 시점 결정</text>
+<text x="48" y="152" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="21" font-weight="400" text-anchor="start" fill="#606872">wait_lead() → blend_chain()  /  코드 기반 개념도</text>
+<rect x="48" y="189" width="1344" height="142" rx="0" fill="#121820" stroke="none"/>
+<text x="78" y="236" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#d9dde2">현재 경유 목표까지 남은 여섯 관절의 오차</text>
+<text x="78" y="293" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="35" font-weight="700" text-anchor="start" fill="#ffffff">max | q_target,j − q_current,j |  ≤  lead_deg</text>
+<text x="1338" y="291" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="23" font-weight="700" text-anchor="end" fill="#d9dde2">j = 1…6</text>
+<rect x="48" y="361" width="608" height="445" rx="0" fill="#ffffff" stroke="#d9dde2"/>
+<rect x="684" y="361" width="708" height="445" rx="0" fill="#ffffff" stroke="#d9dde2"/>
+<text x="76" y="407" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#121820">전환 조건과 실행</text>
+<circle cx="96" cy="467" r="22" fill="#d9dde2"/>
+<text x="96" y="474" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="21" font-weight="700" text-anchor="middle" fill="#121820">1</text>
+<text x="136" y="474" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#121820">경유 목표로 비동기 MoveJoint 요청</text>
+<line x1="96" y1="492" x2="96" y2="511" stroke="#606872" stroke-width="2"/>
+<polygon points="96.00,511.00 102.00,499.00 90.00,499.00" fill="#606872"/>
+<circle cx="96" cy="539" r="22" fill="#d9dde2"/>
+<text x="96" y="546" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="21" font-weight="700" text-anchor="middle" fill="#121820">2</text>
+<text x="136" y="546" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#121820">최대 잔여 관절각을 반복 확인</text>
+<line x1="96" y1="564" x2="96" y2="583" stroke="#606872" stroke-width="2"/>
+<polygon points="96.00,583.00 102.00,571.00 90.00,571.00" fill="#606872"/>
+<circle cx="96" cy="611" r="22" fill="#d9dde2"/>
+<text x="96" y="618" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="21" font-weight="700" text-anchor="middle" fill="#121820">3</text>
+<text x="136" y="618" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#121820">임계값 이하이면 다음 목표 전송</text>
+<line x1="96" y1="636" x2="96" y2="655" stroke="#606872" stroke-width="2"/>
+<polygon points="96.00,655.00 102.00,643.00 90.00,643.00" fill="#606872"/>
+<circle cx="96" cy="683" r="22" fill="#d9dde2"/>
+<text x="96" y="690" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="21" font-weight="700" text-anchor="middle" fill="#121820">4</text>
+<text x="136" y="690" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#121820">마지막 작업점은 도착·정지 확인</text>
+<text x="76" y="781" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="21" font-weight="700" text-anchor="start" fill="#bc3f24">mode=0   ·   sync_type=1   ·   radius=0</text>
+<text x="712" y="407" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#121820">구간별 lead 설정</text>
+<text x="1356" y="407" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="19" font-weight="400" text-anchor="end" fill="#606872">단위 °</text>
+<text x="712" y="463" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="21" font-weight="400" text-anchor="start" fill="#121820">P5 출입</text>
+<text x="942" y="463" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#606872">lead_deg_hub</text>
+<text x="1354" y="463" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="25" font-weight="700" text-anchor="end" fill="#bc3f24">45°</text>
+<line x1="712" y1="480" x2="1360" y2="480" stroke="#d9dde2" stroke-width="2"/>
+<text x="712" y="515" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="21" font-weight="400" text-anchor="start" fill="#121820">일반 경유점</text>
+<text x="942" y="515" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#606872">lead_deg</text>
+<text x="1354" y="515" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="25" font-weight="700" text-anchor="end" fill="#bc3f24">25°</text>
+<line x1="712" y1="532" x2="1360" y2="532" stroke="#d9dde2" stroke-width="2"/>
+<text x="712" y="567" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="21" font-weight="400" text-anchor="start" fill="#121820">슬롯 위 P2/P4</text>
+<text x="942" y="567" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#606872">lead_deg_slot</text>
+<text x="1354" y="567" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="25" font-weight="700" text-anchor="end" fill="#bc3f24">18°</text>
+<line x1="712" y1="584" x2="1360" y2="584" stroke="#d9dde2" stroke-width="2"/>
+<text x="712" y="619" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="21" font-weight="400" text-anchor="start" fill="#121820">폐기 일반</text>
+<text x="942" y="619" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#606872">waste_lead_deg</text>
+<text x="1354" y="619" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="25" font-weight="700" text-anchor="end" fill="#bc3f24">15°</text>
+<line x1="712" y1="636" x2="1360" y2="636" stroke="#d9dde2" stroke-width="2"/>
+<text x="712" y="671" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="21" font-weight="400" text-anchor="start" fill="#121820">폐기 허브</text>
+<text x="942" y="671" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#606872">waste_lead_hub</text>
+<text x="1354" y="671" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="25" font-weight="700" text-anchor="end" fill="#bc3f24">25°</text>
+<rect x="700" y="690" width="676" height="48" rx="0" fill="#f3f5f7" stroke="none"/>
+<text x="712" y="723" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="21" font-weight="400" text-anchor="start" fill="#121820">폐기 복귀 P29</text>
+<text x="942" y="723" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#606872">waste_lead_tight</text>
+<text x="1354" y="723" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="25" font-weight="700" text-anchor="end" fill="#bc3f24">4°</text>
+<text x="48" y="856" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#606872">lead는 경로의 코너 각도·TCP 반경이 아니다. 사용자 코드에서 spline 또는 jerk profile을 생성하지 않는다.</text>
+<text x="48" y="898" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#606872">중간 목표의 정확 통과와 jerk 연속성은 미검증. lead timeout 반환 처리에도 한계가 있다.</text>
+</svg>

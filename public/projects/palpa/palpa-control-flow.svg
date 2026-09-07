@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc"><title id="title">조작을 명령으로, 로봇 상태를 다시 화면으로</title><desc id="desc">로컬 Teaching Pendant에서 HTTP API, JogWorker, ROS2 서비스를 거쳐 로봇으로 전달되는 명령과 상태 피드백 흐름.</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#606872"/></marker></defs>
+<rect x="0" y="0" width="1440" height="900" rx="0" fill="#ffffff" stroke="none"/>
+<text x="48" y="51" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="17" font-weight="700" text-anchor="start" fill="#606872">PALPA  /  HUMAN TO ROBOT MOTION</text>
+<text x="48" y="108" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="34" font-weight="700" text-anchor="start" fill="#121820">조작을 명령으로, 로봇 상태를 다시 화면으로</text>
+<text x="48" y="150" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="21" font-weight="400" text-anchor="start" fill="#606872">로컬 운용 콘솔의 직접 제어 경로</text>
+<rect x="48" y="192" width="360" height="314" rx="0" fill="#ffffff" stroke="#d9dde2"/>
+<text x="72" y="230" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="16" font-weight="700" text-anchor="start" fill="#bc3f24">01  USER INPUT</text>
+<text x="72" y="269" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="26" font-weight="700" text-anchor="start" fill="#121820">Teaching Pendant</text>
+<rect x="456" y="192" width="480" height="314" rx="0" fill="#ffffff" stroke="#d9dde2"/>
+<text x="480" y="230" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="16" font-weight="700" text-anchor="start" fill="#bc3f24">02  COMMAND</text>
+<text x="480" y="269" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="26" font-weight="700" text-anchor="start" fill="#121820">Python HTTP + JogWorker</text>
+<rect x="984" y="192" width="408" height="314" rx="0" fill="#ffffff" stroke="#d9dde2"/>
+<text x="1008" y="230" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="16" font-weight="700" text-anchor="start" fill="#bc3f24">03  MOTION</text>
+<text x="1008" y="269" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="26" font-weight="700" text-anchor="start" fill="#121820">ROS2 → Doosan M0609</text>
+<text x="72" y="322" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#121820">J1–J6 관절 조그</text>
+<text x="72" y="366" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#121820">BASE 좌표 이동</text>
+<text x="72" y="410" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#121820">저장 포인트 이동 / 작업 실행</text>
+<text x="72" y="476" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#606872">HTML · JavaScript</text>
+<text x="480" y="318" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#121820">/api/movej   /api/movel</text>
+<text x="480" y="352" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#121820">/api/wp_goto   /api/start_work</text>
+<line x1="480" y1="374" x2="912" y2="374" stroke="#d9dde2" stroke-width="2"/>
+<text x="480" y="407" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#121820">축 번호·상태·관절 freshness 검사</text>
+<text x="480" y="443" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#121820">단일 워커에서 이동 요청 실행</text>
+<text x="480" y="478" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#606872">core/api.py → core/jog.py</text>
+<text x="1008" y="320" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#bc3f24">/dsr01/motion/</text>
+<text x="1008" y="358" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#121820">move_joint  /  move_line</text>
+<text x="1008" y="415" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#121820">Doosan 드라이버 → 로봇 동작</text>
+<text x="1008" y="478" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#606872">MoveJoint · MoveLine service</text>
+<line x1="409" y1="349" x2="448" y2="349" stroke="#606872" stroke-width="3"/>
+<polygon points="448.00,349.00 436.00,343.00 436.00,355.00" fill="#606872"/>
+<line x1="937" y1="349" x2="976" y2="349" stroke="#606872" stroke-width="3"/>
+<polygon points="976.00,349.00 964.00,343.00 964.00,355.00" fill="#606872"/>
+<line x1="1190" y1="507" x2="1190" y2="560" stroke="#606872" stroke-width="2"/>
+<polygon points="1190.00,560.00 1196.00,548.00 1184.00,548.00" fill="#606872"/>
+<rect x="48" y="572" width="360" height="176" rx="0" fill="#f3f5f7" stroke="none"/>
+<text x="72" y="614" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="24" font-weight="700" text-anchor="start" fill="#bc3f24">04  FEEDBACK</text>
+<text x="72" y="665" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#121820">현재 자세·작업 상태 표시</text>
+<text x="72" y="701" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#121820">브라우저에서 500ms 간격 요청</text>
+<rect x="456" y="572" width="480" height="176" rx="0" fill="#f3f5f7" stroke="none"/>
+<text x="480" y="614" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="24" font-weight="700" text-anchor="start" fill="#bc3f24">GET /api/status</text>
+<text x="480" y="665" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#121820">공유 상태 snapshot을 JSON으로 전달</text>
+<text x="480" y="701" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#121820">모션 중 일부 pose·force 폴링은 보류</text>
+<rect x="984" y="572" width="408" height="176" rx="0" fill="#f3f5f7" stroke="none"/>
+<text x="1008" y="614" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="24" font-weight="700" text-anchor="start" fill="#bc3f24">RobotMonitor</text>
+<text x="1008" y="665" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#121820">/dsr01/joint_states</text>
+<text x="1008" y="701" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#121820">관절 구독 + 상태·pose 서비스</text>
+<line x1="976" y1="663" x2="945" y2="663" stroke="#606872" stroke-width="3"/>
+<polygon points="945.00,663.00 957.00,669.00 957.00,657.00" fill="#606872"/>
+<line x1="448" y1="663" x2="417" y2="663" stroke="#606872" stroke-width="3"/>
+<polygon points="417.00,663.00 429.00,669.00 429.00,657.00" fill="#606872"/>
+<line x1="228" y1="572" x2="228" y2="515" stroke="#606872" stroke-width="2"/>
+<polygon points="228.00,515.00 222.00,527.00 234.00,527.00" fill="#606872"/>
+<text x="48" y="805" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#606872">주기적 화면 갱신과 물리 상태의 최신성은 구분한다. 명령 검사만으로 충돌 안전성을 보장하지 않는다.</text>
+<text x="48" y="847" font-family="'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif" font-size="19" font-weight="400" text-anchor="start" fill="#606872">그리퍼 개폐는 별도 Modbus TCP 경로. FastAPI 주문 서버는 이 로컬 조그 경로에 포함하지 않음.</text>
+</svg>
