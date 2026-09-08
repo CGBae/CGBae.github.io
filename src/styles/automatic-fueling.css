@@ -13,7 +13,7 @@
 .fuel-meta { display: grid; gap: 1rem; padding-top: 1rem; border-top: 1px solid var(--ink); }
 .fuel-label, .fuel-meta dt, .fuel-findings dt { color: var(--fuel-accent); font-size: .72rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
 .fuel-meta dd { margin-top: .3rem; color: var(--muted); font-size: .85rem; line-height: 1.6; }
-.fuel-hero__demo { max-width: 938px; margin: clamp(2.5rem, 5vw, 4rem) auto 0; }
+.fuel-hero__demo { max-width: 1280px; margin: clamp(2.5rem, 5vw, 4rem) auto 0; }
 .fuel-evidence { min-width: 0; }
 .fuel-evidence img { width: 100%; height: auto; }
 .fuel-evidence figcaption { display: flex; justify-content: space-between; gap: .4rem 1rem; margin-top: .75rem; color: var(--muted); font-size: .7rem; line-height: 1.6; }

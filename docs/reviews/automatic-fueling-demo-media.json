@@ -1,0 +1,55 @@
+{
+  "source": {
+    "repository": "CGBae/ROKEY-Project-F4-1-",
+    "path": "docs/portfolio/assets/F-4_협동3_김승주_배철규_이재권_임동욱.mp4",
+    "sha256": "98e10fbe7fcd6a1085e27f9d2889c145a00c6be24f8c8ee55bc68ed021ea4d79",
+    "durationSeconds": 55.81
+  },
+  "selection": {
+    "startSeconds": 3,
+    "endSeconds": 50,
+    "durationSeconds": 47,
+    "shotOrder": "unchanged",
+    "playbackSpeed": 1,
+    "audio": false,
+    "crop": "none",
+    "fps": 30,
+    "posterSourceSeconds": 7.5
+  },
+  "description": "Final team simulation demonstration. Captions describe scenes, not transcribed speech. The source is an edited presentation, not an uncut cycle-time or insertion-success measurement.",
+  "metadata": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "codec_type": "video",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "r_frame_rate": "30/1"
+      }
+    ],
+    "format": {
+      "duration": "47.000000",
+      "size": "7553257"
+    }
+  },
+  "assets": [
+    {
+      "filename": "final-process-demo.mp4",
+      "bytes": 7553257,
+      "sha256": "20d61f5f7f7c4f1804c85bf545f1e9030b8300bdf8f61f1c17ff1109e070afe1"
+    },
+    {
+      "filename": "final-process-poster.webp",
+      "bytes": 28030,
+      "sha256": "415fa749275cd639fda934ad89ed95c4d916e1fd173cdbfe315cf925ae773620"
+    },
+    {
+      "filename": "final-process-demo.ko.vtt",
+      "bytes": 444,
+      "sha256": "65e7070ac10befb68087598f016ef88851bed8748b97f67a238a147c4c796d4b"
+    }
+  ]
+}
