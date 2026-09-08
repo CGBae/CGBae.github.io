@@ -7,18 +7,36 @@ import { withBase } from '@/utils/paths';
 
 <BaseLayout
   title="About — Bae Cheolgyu"
-  description="소프트웨어 전공과 ROKEY 로봇 프로젝트 경험을 바탕으로 ROS2 데이터 흐름과 로봇 동작을 연결하는 신입 개발자 배철규입니다."
+  description="사람의 의도와 로봇의 움직임을 소프트웨어로 연결하는 신입 개발자 배철규입니다. 사람이 쉽게 다루고 현장에서 믿고 사용할 수 있는 로봇을 만들고자 합니다."
 >
   <section class="about-hero page-shell">
-    <div>
-      <p class="eyebrow">About / Robot Software</p>
-      <h1>Building<br />robot behavior.</h1>
+    <div class="about-hero__profile">
+      <img class="about-hero__portrait"
+        src={withBase('/images/profile/bae-cheolgyu.jpg')}
+        width="177" height="236" alt="배철규 프로필 사진"
+        decoding="async" fetchpriority="high" />
+      <div class="about-hero__identity">
+        <p class="eyebrow">About me</p>
+        <p class="about-hero__name">배철규</p>
+        <p class="about-hero__role">신입 로봇 소프트웨어 개발자</p>
+      </div>
     </div>
-    <p class="about-hero__intro">
-      소프트웨어 전공을 바탕으로 ROS2 데이터 흐름과 로봇 인터페이스를 연결하는
-      신입 개발자 배철규입니다. 두산로보틱스 ROKEY 부트캠프에서 이동 로봇·협동로봇·시뮬레이션
-      팀 프로젝트를 수행했습니다.
-    </p>
+    <div class="about-hero__copy">
+      <h1>Building<br />robot behavior.</h1>
+      <div class="about-hero__intro">
+        <p class="about-hero__lead">
+          사람의 의도와 로봇의 움직임을 소프트웨어로 연결하는 신입 개발자 배철규입니다.
+        </p>
+        <p>
+          문제를 작은 단위로 나누고 데이터 흐름과 실제 동작을 확인하며 해결책을 찾는 개발을 지향합니다.
+          새로운 기술을 익히고 배운 내용을 팀과 공유하며, 함께 문제를 해결하는 동료가 되고 싶습니다.
+        </p>
+        <p>
+          인지·제어·인터페이스를 함께 이해하는 개발자로 성장해,
+          사람이 쉽게 다루고 현장에서 믿고 사용할 수 있는 로봇을 만드는 것이 목표입니다.
+        </p>
+      </div>
+    </div>
   </section>
 
   <div class="about-sections page-shell">
@@ -68,21 +86,12 @@ import { withBase } from '@/utils/paths';
         <div class="about-entry">
           <h3>서경대학교 소프트웨어학과</h3>
           <p>졸업 · 2020.03 — 2026.02</p>
-          <p class="about-section__note">학점 3.6 / 4.5</p>
         </div>
         <div class="about-entry">
           <h3>두산로보틱스 ROKEY 부트캠프</h3>
           <p>수료 · 2026.02.09 — 2026.08.12</p>
           <p class="about-section__note">ROS2 기반 이동 로봇·협동로봇·시뮬레이션 팀 프로젝트 수행</p>
         </div>
-      </div>
-    </section>
-
-    <section class="about-section" aria-labelledby="service-title">
-      <h2 id="service-title">Military service</h2>
-      <div class="about-entry">
-        <h3>육군 병장 만기전역 · 정보체계운용병</h3>
-        <p>2021.08.02 — 2023.02.03</p>
       </div>
     </section>
 
@@ -117,6 +126,45 @@ import { withBase } from '@/utils/paths';
 </BaseLayout>
 
 <style>
+  .about-hero {
+    grid-template-columns: minmax(180px, 0.28fr) minmax(0, 0.72fr);
+    gap: clamp(3rem, 7vw, 6rem);
+    align-items: start;
+    padding-block: clamp(4rem, 8vw, 6rem);
+  }
+  .about-hero__profile { display: grid; align-content: start; gap: 1.25rem; }
+  .about-hero__portrait { width: 177px; height: auto; }
+  .about-hero__identity { display: grid; gap: 0.45rem; }
+  .about-hero__name { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.04em; }
+  .about-hero__role { max-width: 15rem; color: var(--muted); font-size: 0.86rem; }
+  .about-hero h1 {
+    max-width: 10em;
+    margin-top: 0;
+    font-size: clamp(3.5rem, 6.2vw, 5.6rem);
+    line-height: 0.98;
+  }
+  .about-hero__intro {
+    display: grid;
+    gap: 1.15rem;
+    max-width: 42rem;
+    margin-top: 2rem;
+    font-size: 1.02rem;
+    line-height: 1.85;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  .about-hero__intro > p { color: var(--muted); }
+  .about-hero__intro > .about-hero__lead { color: var(--ink); font-size: 1.16rem; }
+  @media (max-width: 760px) {
+    .about-hero { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; padding-block: 3rem 4rem; }
+    .about-hero__profile { grid-template-columns: 110px minmax(0, 1fr); align-items: center; gap: 1.2rem; }
+    .about-hero__portrait { width: 110px; }
+    .about-hero__name { font-size: 1.5rem; }
+    .about-hero__role { font-size: 0.8rem; }
+    .about-hero h1 { font-size: clamp(2.5rem, 10vw, 4rem); }
+    .about-hero__intro { margin-top: 1.5rem; font-size: 0.98rem; }
+    .about-hero__intro > .about-hero__lead { font-size: 1.1rem; }
+  }
   .about-projects {
     display: grid;
     gap: 1.5rem;
