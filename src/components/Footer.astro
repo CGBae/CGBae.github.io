@@ -1,10 +1,6 @@
 ---
 import { site } from '@/data/site';
 import { withBase } from '@/utils/paths';
-
-const resumeHref = site.resumePath
-  ? withBase(site.resumePath)
-  : withBase('/about/#resume');
 ---
 
 <footer class="site-footer" id="contact">
@@ -13,17 +9,10 @@ const resumeHref = site.resumePath
       <p>{site.name}</p>
       <p>{site.role}</p>
     </div>
-
     <div class="site-footer__links" aria-label="연락처">
       <div>
         <span>Email</span>
-        {
-          site.email ? (
-            <a href={`mailto:${site.email}`}>{site.email}</a>
-          ) : (
-            <strong>{site.emailLabel}</strong>
-          )
-        }
+        <a href={'mailto:' + site.email}>{site.email}</a>
       </div>
       <div>
         <span>GitHub</span>
@@ -33,10 +22,9 @@ const resumeHref = site.resumePath
       </div>
       <div>
         <span>Resume</span>
-        <a href={resumeHref}>{site.resumePath ? 'PDF' : '준비 중'}</a>
+        <a href={withBase(site.resumePath)}>PDF 열기 ↗</a>
       </div>
     </div>
-
-    <p class="site-footer__note">Portfolio draft · Content under review</p>
+    <p class="site-footer__note">ROS2 · Perception · Robot Motion</p>
   </div>
 </footer>

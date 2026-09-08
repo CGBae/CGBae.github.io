@@ -652,6 +652,7 @@ select {
 .site-footer__links strong {
   font-size: 0.95rem;
   font-weight: 600;
+  overflow-wrap: anywhere;
 }
 
 .site-footer__note {
@@ -1122,11 +1123,11 @@ select {
 
   .site-footer__inner,
   .site-footer__links {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .site-footer__links > div {
-    grid-template-columns: 6rem 1fr;
+    grid-template-columns: 6rem minmax(0, 1fr);
   }
 
   .site-footer__note {

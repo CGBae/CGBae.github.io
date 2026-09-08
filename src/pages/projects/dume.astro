@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ProjectVideo from '@/components/ProjectVideo.astro';
+import ProjectContribution from '@/components/ProjectContribution.astro';
 import { projectBySlug } from '@/data/projects';
 import { withBase } from '@/utils/paths';
 import '@/styles/dume.css';
@@ -55,11 +56,12 @@ const validation = [
         </ul>
       </div>
       <dl class="dume-role">
-        <div><dt>Team / integration</dt><dd>조립 지원 인터페이스<br />로봇 시스템 통합</dd></div>
+        <div><dt>Team project</dt><dd>조립 검사·도구 전달<br />4인 로봇 작업 보조 프로젝트</dd></div>
         <div><dt>Platform</dt><dd>Doosan M0609 · RG2<br />RealSense · ROS2</dd></div>
-        <div><dt>Scope</dt><dd>Task Copilot · Robot Interface<br />연구·교육용 팀 prototype</dd></div>
+        <div><dt>Project period</dt><dd>{project.period}</dd></div>
       </dl>
     </header>
+    <ProjectContribution role={project.role} />
     <figure class="dume-evidence dume-hero__demo">
       <ProjectVideo src={asset('demo-highlight.mp4')} poster={asset('demo-highlight-poster.webp')}
         captions={asset('demo-highlight.ko.vtt')} width={1920} height={1080} autoplay={true}

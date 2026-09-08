@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ProjectVideo from '@/components/ProjectVideo.astro';
+import ProjectContribution from '@/components/ProjectContribution.astro';
 import { projectBySlug } from '@/data/projects';
 import { withBase } from '@/utils/paths';
 import '@/styles/palpa.css';
@@ -55,9 +56,10 @@ const motionCode = [
       <dl class="palpa-role">
         <div><dt>Team project</dt><dd>공 분류·주문 포장<br />4인 협동로봇 프로젝트</dd></div>
         <div><dt>Platform</dt><dd>Doosan M0609<br />OnRobot RG2 · ROS2</dd></div>
-        <div><dt>Focus</dt><dd>웹 운용 인터페이스<br />작업점 운용 · 비동기 이동 연결</dd></div>
+        <div><dt>Project period</dt><dd>{project.period}</dd></div>
       </dl>
     </header>
+    <ProjectContribution role={project.role} />
     <figure class="palpa-evidence palpa-hero__demo">
       <ProjectVideo src={asset('palpa-demo.mp4')} poster={asset('palpa-demo-poster.webp')}
         captions={asset('palpa-demo.ko.vtt')} width={1280} height={800} autoplay={true}

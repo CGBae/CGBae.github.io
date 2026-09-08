@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ProjectVideo from '@/components/ProjectVideo.astro';
+import ProjectContribution from '@/components/ProjectContribution.astro';
 import { projectBySlug } from '@/data/projects';
 import { withBase } from '@/utils/paths';
 import '@/styles/automatic-fueling.css';
@@ -36,9 +37,10 @@ const pipeline = [
       <dl class="fuel-meta">
         <div><dt>Team project</dt><dd>ALT F-4 · 4인 팀 <br />자동 주유 로봇 시뮬레이션</dd></div>
         <div><dt>Platform</dt><dd>두 M0609 로봇팔 <br />Isaac Sim · ROS2</dd></div>
-        <div><dt>Focus</dt><dd>목표점 변환 · 단계별 접근 <br />B → A → B 작업 순서</dd></div>
+        <div><dt>Project period</dt><dd>{project.period}</dd></div>
       </dl>
     </header>
+    <ProjectContribution role={project.role} />
     <figure class="fuel-evidence fuel-hero__demo">
       <ProjectVideo src={asset('hero-nozzle-motion.mp4')} poster={asset('hero-nozzle-poster.webp')}
         width={938} height={504}

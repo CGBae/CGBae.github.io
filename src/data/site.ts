@@ -1,9 +1,10 @@
 export const site = {
   name: 'Bae Cheolgyu',
-  role: 'Robot Software Engineer',
+  role: 'Junior Robot Software Engineer',
   githubLabel: 'github.com/CGBae',
   githubUrl: 'https://github.com/CGBae',
-  email: null,
-  emailLabel: '[사용자 확인 필요]',
-  resumePath: null,
+  email: 'cheolgyub@gmail.com',
+  phone: '010-2466-4972',
+  phoneHref: 'tel:+821024664972',
+  resumePath: '/bae-cheolgyu-resume.pdf',
 } as const;

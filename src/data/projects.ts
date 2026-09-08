@@ -13,6 +13,8 @@ export interface Project {
   category: string;
   subtitle: string[];
   description: string;
+  period: string;
+  role: string;
   visualDirection: string;
   futureQuestion: string;
   asset: {
@@ -30,6 +32,8 @@ export const projects: Project[] = [
   {
     number: '01',
     slug: 'turtlebot4',
+    period: '2026.06.30 — 2026.07.14',
+    role: 'ROS2 인터페이스 통합, 추론 결과의 제어 연결, 몰이 구현 지원 및 실기기 통합 검증',
     title: 'TurtleBot4 · FarmGuard Bot',
     shortTitle: 'TurtleBot4',
     homeTitle: ['TurtleBot4', 'Autonomous Navigation'],
@@ -52,13 +56,15 @@ export const projects: Project[] = [
   {
     number: '02',
     slug: 'automatic-fueling',
+    period: '2026.06.15 — 2026.06.29',
+    role: 'ArUco 마커 기반 주유구 위치 지정, waypoint 목표점을 통한 노즐 삽입 경로 생성 및 Isaac Sim 시뮬레이션 환경 구성',
     title: 'Automatic Fueling Robot',
     shortTitle: 'Automatic Fueling Robot',
     homeTitle: ['Automatic', 'Fueling Robot'],
     category: 'ROBOT MANIPULATION SIMULATION',
     subtitle: ['ArUco', 'Cartesian Waypoint', 'RMPFlow', 'Isaac Sim'],
     description:
-      '마커 기준 목표점을 단계별 접근 경로와 로봇 관절 명령으로 연결한 팀 프로젝트입니다. Isaac Sim에서 두 로봇의 자동 주유 순서를 시연했습니다.',
+      'ArUco 마커로 주유구 위치를 지정하고 waypoint 목표점으로 노즐 삽입 경로를 생성했습니다. Isaac Sim 환경을 구성해 두 로봇의 자동 주유 동작을 팀 시연으로 연결했습니다.',
     visualDirection: 'ArUco 목표점에서 노즐 동작까지 · Isaac Sim 팀 시연',
     futureQuestion:
       '카메라의 목표점은 어떻게 로봇의 위치 명령이 되었는가?',
@@ -74,13 +80,15 @@ export const projects: Project[] = [
   {
     number: '03',
     slug: 'dume',
+    period: '2026.07.30 — 2026.08.13',
+    role: '조립 지원 인터페이스·VLM 조립 검증 및 로봇 스킬 연동',
     title: 'DUM-E',
     shortTitle: 'DUM-E',
     homeTitle: ['DUM-E'],
     category: 'ASSEMBLY ASSISTANCE · ROBOT INTERFACE',
     subtitle: ['Task State', 'Multimodal Inspection', 'ROS2'],
     description:
-      '조립 매뉴얼의 단계별 기준과 카메라 관찰을 연결하고, 필요한 검사와 도구 전달을 로봇 동작으로 이어가는 작업 보조 시스템.',
+      '매뉴얼·작업 상태·카메라를 연결한 조립 보조 시스템입니다. 조립 지원 인터페이스, VLM 조립 검증과 로봇 스킬 연동을 담당했습니다.',
     visualDirection: '실제 장비 시연 · 조립 검사 · 도구 전달',
     futureQuestion:
       '자연어와 매뉴얼의 정보를 어떻게 현재 작업 상황과 연결했는가?',
@@ -96,13 +104,15 @@ export const projects: Project[] = [
   {
     number: '04',
     slug: 'palpa',
+    period: '2026.07.15 — 2026.07.29',
+    role: '두산 로봇팔 티칭펜던트 웹 구현 및 공 분류·주문 포장 과정의 자연스러운 연속 동작 구현',
     title: 'PALPA',
     shortTitle: 'PALPA',
     homeTitle: ['PALPA'],
     category: 'HUMAN-ROBOT CONTROL',
     subtitle: ['Teaching Pendant', 'Waypoint', 'Motion Chaining'],
     description:
-      '공을 분류하고 주문에 맞춰 포장하는 협동로봇 프로젝트. 웹에서 자세와 작업점을 관리하고, 잔여 관절각을 기준으로 다음 이동 명령을 연결한 운용 흐름을 담았습니다.',
+      '공 분류·주문 포장을 수행하는 협동로봇 프로젝트입니다. 두산 로봇팔 티칭펜던트를 웹으로 구현하고, 작업 중 움직임이 자연스럽게 이어지도록 연속 동작을 구현했습니다.',
     visualDirection: '실제 협동로봇 시연 · 웹 티칭 · 비동기 이동 연결',
     futureQuestion:
       '웹에서 만든 조작을 어떻게 실제 로봇 명령과 연속 이동으로 연결했는가?',
