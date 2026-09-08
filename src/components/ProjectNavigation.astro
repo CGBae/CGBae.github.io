@@ -1,0 +1,13 @@
+---
+import { projects, type ProjectSlug } from '@/data/projects';
+import { withBase } from '@/utils/paths';
+interface Props { slug: ProjectSlug; }
+const currentIndex = projects.findIndex(project => project.slug === Astro.props.slug);
+const next = projects[currentIndex + 1];
+---
+<nav class="next-project page-shell" aria-label={next ? '다음 프로젝트' : '프로젝트 목록'}>
+  <a href={withBase(next ? '/projects/' + next.slug + '/' : '/#projects')}>
+    <span>{next ? 'Next project / ' + next.number : 'Project index'}</span>
+    <strong>{next ? next.shortTitle : 'All projects'}</strong>
+  </a>
+</nav>

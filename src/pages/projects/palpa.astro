@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import ProjectNavigation from '@/components/ProjectNavigation.astro';
 import ProjectHero from '@/components/ProjectHero.astro';
 import ProjectVideo from '@/components/ProjectVideo.astro';
 import ProjectCodeLinks from '@/components/ProjectCodeLinks.astro';
@@ -140,5 +141,5 @@ const motionCode = [
       </div>
     </details>
   </section>
-  <nav class="next-project page-shell" aria-label="프로젝트 목록"><a href={withBase('/#projects')}><span>Project index</span><strong>All projects</strong></a></nav>
+  <ProjectNavigation slug="palpa" />
 </BaseLayout>

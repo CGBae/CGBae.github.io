@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import ProjectNavigation from '@/components/ProjectNavigation.astro';
 import ProjectHero from '@/components/ProjectHero.astro';
 import ProjectVideo from '@/components/ProjectVideo.astro';
 import ProjectCodeLinks from '@/components/ProjectCodeLinks.astro';
@@ -141,5 +142,5 @@ const asset = (file: string) => withBase('/projects/dume/' + file);
       <p>로봇 근접 검사에는 조립 화면 평가의 validator·연속 판정 절차가 모두 연결되어 있지 않습니다. 완료 조건 전달과 자동 진도 갱신의 미완성 부분을 해결한 뒤 전체 흐름을 검증해야 합니다.</p>
     </div></details>
   </section>
-  <nav class="next-project page-shell" aria-label="다음 프로젝트"><a href={withBase('/projects/palpa/')}><span>Next project / 04</span><strong>PALPA</strong></a></nav>
+  <ProjectNavigation slug="dume" />
 </BaseLayout>

@@ -1,123 +1,60 @@
 # Bae Cheolgyu — Robot Software Portfolio
 
-로봇 소프트웨어 프로젝트를 빠르게 훑고 상세 기술 페이지로 들어갈 수 있도록 만든
-Astro 정적 포트폴리오 초안입니다. 프로젝트 기술 내용은 제공된 임시 설명만 사용했으며,
-확인되지 않은 구현·성과·개인 기여는 placeholder로 남겨 두었습니다.
+신입 로봇 소프트웨어 개발자 배철규의 포트폴리오입니다. 인식·이동·조작·인터페이스 프로젝트에서 담당한 구현과 시연, 관련 코드를 함께 소개합니다.
 
-## Local development
+[포트폴리오 ↗](https://cgbae.github.io/) · [About ↗](https://cgbae.github.io/about/) · [이력서 PDF ↗](https://cgbae.github.io/bae-cheolgyu-resume.pdf) · [GitHub ↗](https://github.com/CGBae)
 
-Node.js 24와 npm을 권장합니다.
+## 프로젝트 안내
 
-```bash
-npm install
-npm run dev
-```
+개인 담당과 구현 근거를 먼저 확인할 수 있도록 아래 순서로 배치했습니다. 메인·About·상세 페이지의 다음 프로젝트 이동은 같은 순서를 사용합니다.
 
-기본 개발 주소는 `http://localhost:4321`입니다.
+| 순서 | 프로젝트 | 중심 경험 | 원본 저장소 |
+| --- | --- | --- | --- |
+| 01 | [PALPA](https://cgbae.github.io/projects/palpa/) | 웹 티칭펜던트·연속 동작 | [ROKEY-Project-F2-1](https://github.com/CGBae/ROKEY-Project-F2-1) |
+| 02 | [Automatic Fueling Robot](https://cgbae.github.io/projects/automatic-fueling/) | ArUco 위치·waypoint·Isaac Sim | [ROKEY-Project-F4-1-](https://github.com/CGBae/ROKEY-Project-F4-1-) |
+| 03 | [DUM-E](https://cgbae.github.io/projects/dume/) | VLM 검사·작업 문맥·로봇 스킬 | [ROKEY-Project-F2-2](https://github.com/CGBae/ROKEY-Project-F2-2) |
+| 04 | [TurtleBot4](https://cgbae.github.io/projects/turtlebot4/) | ROS2 통합·추론 연결·실기 검증 | [ROKEY-Project-F3-4-2](https://github.com/CGBae/ROKEY-Project-F3-4-2) |
 
-검사와 빌드:
+프로젝트 본문의 구현 링크는 분석한 공개 커밋에 고정되어 있습니다. 개인 담당과 팀의 연동 대상을 구분하고, 편집 시연·시뮬레이션·미완성 기능의 범위를 해당 설명에 표시합니다.
 
-```bash
-npm run check
-npm run build
-npm run check:links
-```
+## 로컬 개발
 
-한 번에 모두 실행하려면 `npm run verify`를 사용합니다. 정적 결과는 `dist/`에 생성됩니다.
+Node.js 24와 npm을 사용하는 Astro 정적 사이트입니다. 저장소 루트에서 npm ci로 의존성을 설치하고 npm run dev로 실행합니다. 기본 주소는 http://localhost:4321입니다.
 
-## Routes
+- npm run check: Astro·TypeScript 진단
+- npm run build: dist/에 정적 사이트 생성
+- npm run check:links: 빌드 결과의 내부 페이지·미디어·앵커 확인
+- npm run verify: 위 세 검사를 순서대로 실행
 
-- `/`
-- `/about/`
-- `/projects/turtlebot4/`
-- `/projects/automatic-fueling/`
-- `/projects/dume/`
-- `/projects/palpa/`
+사이트 검사는 로봇 프로그램이나 실제 장비를 실행하는 시험과 별도입니다.
 
-실제 이력서가 없으므로 가짜 `resume.pdf`는 생성하지 않았습니다. 현재 Resume 메뉴는
-`/about/#resume`의 안내로 이동합니다.
+## 경로와 유지보수 위치
 
-## GitHub Pages — 최종 주소 `https://CGBae.github.io/`
+| 대상 | 위치 |
+| --- | --- |
+| 메인 / 프로젝트 순서·기간·역할 | [index.astro](src/pages/index.astro), [projects.ts](src/data/projects.ts) |
+| About / 경험과 성장 목표 | [about.astro](src/pages/about.astro) |
+| 프로젝트 상세 | [src/pages/projects/](src/pages/projects/) |
+| 공통 상단·코드 링크·다음 프로젝트 | [ProjectHero](src/components/ProjectHero.astro), [ProjectCodeLinks](src/components/ProjectCodeLinks.astro), [ProjectNavigation](src/components/ProjectNavigation.astro) |
+| 공개 구현 링크 | [project-sources.json](src/data/project-sources.json) |
+| 연락처·이력서 경로 | [site.ts](src/data/site.ts) |
+| 이력서 | [public/bae-cheolgyu-resume.pdf](public/bae-cheolgyu-resume.pdf) |
+| 프로젝트 이미지·영상·자막 | [public/projects/](public/projects/) |
+| 프로젝트 스타일 | [case-study.css](src/styles/case-study.css) |
+| 입력 자료 규칙 | [portfolio-source 안내](docs/portfolio-source/README.md) |
+| 검토 기록 | [docs/reviews/](docs/reviews/) |
 
-요청한 최종 주소를 사용하려면 GitHub 사용자명이 `CGBae`이고, 원격 저장소 이름을
-정확히 `CGBae.github.io`로 만들어야 합니다. 이 방식에서는 Astro `base`가 `/`입니다.
+웹 경로는 /, /about/, /projects/palpa/, /projects/automatic-fueling/, /projects/dume/, /projects/turtlebot4/입니다.
+Resume 메뉴는 게시된 1페이지 PDF로 연결하며, About에서 PDF 열기와 다운로드를 제공합니다.
 
-1. GitHub에 `CGBae.github.io` 저장소를 만듭니다.
-2. 이 폴더의 내용을 저장소 루트에 push합니다.
-3. 저장소의 **Settings → Pages → Build and deployment → Source**를 **GitHub Actions**로
-   설정합니다.
-4. `main` 브랜치에 push하면 `.github/workflows/deploy.yml`이 검사, 빌드, 내부 링크
-   검증 후 Pages에 배포합니다.
+## GitHub Pages 배포
 
-`astro.config.mjs`는 Actions의 `GITHUB_REPOSITORY`를 읽습니다. 저장소명이
-`.github.io`로 끝나면 자동으로 사용자 사이트로 판단하여 base `/`를 사용합니다.
+공개 주소는 https://cgbae.github.io/이며, main 브랜치에 push하면 [GitHub Actions](.github/workflows/deploy.yml)가 검사·빌드·내부 링크 확인 후 Pages에 배포합니다.
 
-> GitHub Pages 주소의 도메인은 대소문자를 구분하지 않습니다. 브라우저나 GitHub UI에서
-> `cgbae.github.io`처럼 소문자로 보이더라도 같은 주소입니다. 올바른 도메인은
-> `github.io`이며 `gihub.io`는 오타입니다.
+[astro.config.mjs](astro.config.mjs)는 GitHub 사용자 사이트와 프로젝트 사이트의 base 경로를 구분합니다. 별도 경로로 배포할 때는 [.env.example](.env.example)의 PUBLIC_SITE_URL·PUBLIC_BASE_PATH 설정과 [withBase](src/utils/paths.ts)를 함께 확인합니다.
 
-## 프로젝트 사이트 방식과의 차이
+## 미디어와 문서 관리
 
-저장소 이름을 예를 들어 `baecheolgyu`로 만들면 주소는
-`https://CGBae.github.io/baecheolgyu/`가 됩니다. Actions에서는 저장소명을 읽어 base를
-자동으로 `/baecheolgyu`로 설정합니다. 내부 링크와 정적 자산은 모두 `withBase()`를
-통과하므로 두 방식에서 경로가 유지됩니다.
+웹에는 원본 비율을 유지한 이미지, 압축 영상, 필요한 장면 설명 자막을 사용합니다. 영상은 기본 재생 컨트롤을 제공하며 자동 재생은 prefers-reduced-motion 설정을 존중합니다. 원본 대용량 자료와 로컬 검토 산출물은 웹용 파일과 구분해 관리합니다.
 
-로컬에서 프로젝트 사이트 빌드를 미리 확인하려면 PowerShell에서:
-
-```powershell
-$env:PUBLIC_SITE_URL='https://CGBae.github.io'
-$env:PUBLIC_BASE_PATH='/baecheolgyu'
-npm run verify
-Remove-Item Env:PUBLIC_SITE_URL
-Remove-Item Env:PUBLIC_BASE_PATH
-```
-
-환경변수는 자동 추론 값을 명시적으로 덮어쓸 때만 필요합니다. 예시는 `.env.example`에도
-있습니다.
-
-## Project assets
-
-초안에는 기존 로봇 프로젝트의 이미지나 대용량 영상을 복사하지 않았습니다.
-
-- 일반 정적 이미지: `public/images/projects/`에 웹용 압축본을 추가
-- Astro 최적화 이미지: `src/assets/`에 추가하고 `ImageMetadata`로 import
-- 짧은 웹용 영상: `public/video/` 또는 별도 호스팅 사용
-- 홈/상세 자산 설정: `src/data/projects.ts`
-- 렌더링 방식: `src/components/MediaFrame.astro`
-
-`MediaFrame`은 placeholder, 정적/최적화 이미지, 사용자 재생 방식의 HTML video,
-responsive sizing, alt, 고정 aspect ratio와 `object-fit`을 지원합니다. 대용량 원본 영상은
-저장소에 넣지 않습니다.
-
-## Resume, GitHub, Email
-
-- Resume: 실제 파일을 `public/resume.pdf`에 추가한 뒤 `src/data/site.ts`의
-  `resumePath`를 `'/resume.pdf'`로 변경
-- GitHub: `src/data/site.ts`의 `githubUrl`, `githubLabel` 수정
-- Email: `src/data/site.ts`의 `email`을 실제 주소로 변경
-
-현재 GitHub는 요청에 따라 `https://github.com/CGBae`로 설정했습니다. Email, Education,
-프로젝트별 공개 저장소와 Resume는 `[사용자 확인 필요]` 상태입니다.
-
-## Applying project analysis documents
-
-프로젝트별 `project-page-spec.md`는 다음 위치에 둡니다.
-
-```text
-docs/portfolio-source/<project-slug>/project-page-spec.md
-```
-
-세부 규칙은 `docs/portfolio-source/README.md`에 있습니다. 문서를 받은 뒤:
-
-1. `src/data/projects.ts`의 Home 카피와 미디어 설정을 실제 정보로 교체합니다.
-2. 대응하는 `src/pages/projects/*.astro`의 Role, 질문, 콘텐츠 slot을 교체합니다.
-3. 프로젝트마다 분석 결과에 맞는 별도 섹션 구조를 만듭니다.
-4. 실제 결과, Demo, GitHub 링크는 근거와 공개 가능 여부를 확인한 뒤 추가합니다.
-
-## Design notes
-
-색상은 warm white, deep ink, neutral gray, copper, light divider 다섯 가지로 제한했습니다.
-둥근 카드, drop shadow, glassmorphism, 기술 로고 그리드와 skill meter를 사용하지 않았고,
-각 프로젝트는 Home에서 한 행 전체를 사용합니다. 모션은 첫 화면의 짧은 진입 효과만
-사용하며 `prefers-reduced-motion`에서 제거됩니다.
+현재 색상과 서체를 유지하며 담당 역할·구현 이유·결과를 우선 배치하고, 세부 설정과 추가 자료는 펼쳐볼 수 있도록 구성했습니다.

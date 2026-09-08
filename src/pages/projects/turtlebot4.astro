@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import ProjectNavigation from '@/components/ProjectNavigation.astro';
 import ProjectHero from '@/components/ProjectHero.astro';
 import ProjectVideo from '@/components/ProjectVideo.astro';
 import ProjectCodeLinks from '@/components/ProjectCodeLinks.astro';
@@ -178,5 +179,5 @@ const asset = (file: string) => withBase('/projects/turtlebot4/' + file);
       <p>영상과 화면은 최종 시연·관제 영상, 중간 실행 로그와 팀 발표자료에서 발췌했습니다. 구현 링크는 분석한 공개 커밋에 고정했으며, 실제 시연 코드와 현재 공개 코드의 완전한 동일성은 확인되지 않았습니다.</p>
     </div></details>
   </section>
-  <nav class="next-project page-shell" aria-label="다음 프로젝트"><a href={withBase('/projects/automatic-fueling/')}><span>Next project / 02</span><strong>Automatic Fueling Robot</strong></a></nav>
+  <ProjectNavigation slug="turtlebot4" />
 </BaseLayout>
