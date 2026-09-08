@@ -56,16 +56,17 @@ export const projects: Project[] = [
     shortTitle: 'Automatic Fueling Robot',
     homeTitle: ['Automatic', 'Fueling Robot'],
     category: 'ROBOT MANIPULATION SIMULATION',
-    subtitle: ['ArUco', 'Pose Estimation', 'Isaac Sim', 'Motion Planning'],
+    subtitle: ['ArUco', 'Cartesian Waypoint', 'RMPFlow', 'Isaac Sim'],
     description:
-      '시각적으로 추정한 주유구 위치를 로봇팔의 접근·정렬·삽입 동작으로 연결하는 자동 주유 로봇 프로젝트.',
-    visualDirection: 'ISAAC SIM · ROBOT ARM · ARUCO · POSE · APPROACH / ALIGNMENT / INSERTION',
+      '마커 기준 목표점을 단계별 접근 경로와 로봇 관절 명령으로 연결한 팀 프로젝트입니다. Isaac Sim에서 두 로봇의 자동 주유 순서를 시연했습니다.',
+    visualDirection: 'ArUco 목표점에서 노즐 동작까지 · Isaac Sim 팀 시연',
     futureQuestion:
-      '카메라에서 얻은 목표 Pose를 어떻게 실행 가능한 로봇팔 Motion으로 바꾸었는가?',
+      '카메라의 목표점은 어떻게 로봇의 위치 명령이 되었는가?',
     asset: {
       kind: 'image',
-      src: '/projects/automatic-fueling-robot/hero-nozzle-poster.webp',
-      alt: 'Isaac Sim에서 로봇팔이 차량 주유구를 향해 노즐을 접근시키는 장면',
+      src: '/projects/automatic-fueling-robot/home-nozzle-poster.webp',
+      fit: 'contain',
+      alt: '최종 팀 시연에서 차량 주유구와 노즐을 함께 보여주는 Isaac Sim 화면',
       label: 'AUTOMATIC FUELING / FINAL SIMULATION',
       aspectRatio: 'landscape',
     },

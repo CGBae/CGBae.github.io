@@ -1,89 +1,46 @@
-<svg xmlns='http://www.w3.org/2000/svg' width='1440' height='780' viewBox='0 0 1440 780' role='img' aria-labelledby='title desc'>
-  <title id='title'>Camera target을 Isaac Sim world target으로 변환하는 좌표 연결</title>
-  <desc id='desc'>ROS camera frame의 x y z를 world frame의 마이너스 x, 마이너스 z, 마이너스 y로 재배열하고 USD camera origin을 더한 뒤 gate와 sample lock을 적용하는 코드 기반 다이어그램.</desc>
-  <defs>
-    <style>
-      .sans{font-family:Pretendard,Noto Sans KR,Inter,Arial,sans-serif}.mono{font-family:JetBrains Mono,Consolas,monospace}
-      .ink{fill:#162033}.muted{fill:#627087}.faint{fill:#8B97AA}.label{font-size:12px;font-weight:700;letter-spacing:1.6px}
-      .title{font-size:31px;font-weight:750;letter-spacing:-.8px}.subtitle{font-size:15px}.panel-title{font-size:17px;font-weight:720}
-      .body{font-size:13px}.small{font-size:11.5px;font-weight:520}.formula{font-size:18px;font-weight:650}.mono-small{font-size:12px;font-weight:550}
-      .hairline{stroke:#D9E0EA;stroke-width:1.25}.axis{stroke-width:2;fill:none}.dash{stroke-dasharray:6 6}
-    </style>
-    <marker id='a-blue' viewBox='0 0 10 10' refX='8.5' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0 0 10 5 0 10z' fill='#2563EB'/></marker>
-    <marker id='a-indigo' viewBox='0 0 10 10' refX='8.5' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0 0 10 5 0 10z' fill='#5B5BD6'/></marker>
-  </defs>
-  <rect width='1440' height='780' fill='#F7F9FC'/><rect x='28' y='28' width='1384' height='724' rx='18' fill='#FFF' stroke='#E1E6EE'/>
-  <text x='64' y='68' class='sans label' fill='#5B5BD6'>AUTOMATIC FUELING ROBOT · 02</text>
-  <text x='64' y='111' class='sans title ink'>Camera Target을 World Target으로 연결한 방식</text>
-  <text x='64' y='141' class='sans subtitle muted'>USD camera 위치와 scene에 맞춘 축 재배열을 결합해 manipulation target을 구성했습니다.</text>
-  <rect x='1190' y='56' width='174' height='30' rx='6' fill='#F3F6FA' stroke='#DCE3EC'/><circle cx='1208' cy='71' r='4' fill='#5B5BD6'/>
-  <text x='1220' y='75' class='sans small muted'>CODE-DERIVED DIAGRAM</text>
-  <g transform='translate(52 205)'>
-    <rect width='340' height='330' rx='10' fill='#FAFCFF' stroke='#CBD6E2'/>
-    <text x='22' y='34' class='sans label' fill='#2563EB'>INPUT FRAME</text>
-    <text x='22' y='66' class='sans panel-title ink'>ROS Camera coordinates</text>
-    <text x='22' y='91' class='sans body muted'>ArUco detector가 발행한 target position</text>
-    <g transform='translate(105 220)'>
-      <circle r='5' fill='#162033'/>
-      <path d='M0 0H112' class='axis' stroke='#2563EB' marker-end='url(#a-blue)'/>
-      <path d='M0 0V80' class='axis' stroke='#0D9488'/><path d='M-5 72 0 82 5 72z' fill='#0D9488'/>
-      <path d='M0 0 74-74' class='axis' stroke='#5B5BD6' marker-end='url(#a-indigo)'/>
-      <text x='122' y='5' class='mono mono-small' fill='#2563EB'>+x<tspan baseline-shift='sub' font-size='9'>C</tspan> right</text>
-      <text x='8' y='84' class='mono mono-small' fill='#0D9488'>+y<tspan baseline-shift='sub' font-size='9'>C</tspan> down</text>
-      <text x='77' y='-78' class='mono mono-small' fill='#5B5BD6'>+z<tspan baseline-shift='sub' font-size='9'>C</tspan> forward</text>
-      <circle cx='70' cy='-18' r='6' fill='#2563EB'/><path d='M5-3 65-16' stroke='#9BB7F2' stroke-width='1.5' class='dash'/>
-      <text x='80' y='-16' class='mono mono-small ink'>p<tspan baseline-shift='sub' font-size='9'>C</tspan> = [x<tspan baseline-shift='sub' font-size='9'>C</tspan>, y<tspan baseline-shift='sub' font-size='9'>C</tspan>, z<tspan baseline-shift='sub' font-size='9'>C</tspan>]</text>
-    </g>
-  </g>
-  <path d='M392 370h20' stroke='#9DA9BA' stroke-width='1.5' marker-end='url(#a-indigo)'/>
-
-  <g transform='translate(414 205)'>
-    <rect width='600' height='330' rx='10' fill='#FBFAFF' stroke='#D4D2EC'/>
-    <text x='24' y='34' class='sans label' fill='#5B5BD6'>SCENE-SPECIFIC BRIDGE</text>
-    <text x='24' y='66' class='sans panel-title ink'>Origin translation + manual axis mapping</text>
-    <rect x='24' y='92' width='552' height='60' rx='7' fill='#FFF' stroke='#E0DEEF'/>
-    <text x='42' y='116' class='sans small muted'>USD camera prim에서 world origin을 읽음</text>
-    <text x='42' y='140' class='mono mono-small' fill='#5B5BD6'>t<tspan baseline-shift='sub' font-size='9'>camera</tspan><tspan baseline-shift='super' font-size='9'>W</tspan> = ExtractTranslation(GetLocalToWorldTransform(camera))</text>
-    <rect x='24' y='169' width='552' height='88' rx='7' fill='#FFF' stroke='#E0DEEF'/>
-    <text x='42' y='194' class='sans small muted'>벽면 camera 배치에 맞춰 변위를 재배열</text>
-    <text x='42' y='229' class='mono formula' fill='#5B5BD6'>Δp<tspan baseline-shift='super' font-size='11'>W</tspan> = [ −x<tspan baseline-shift='sub' font-size='11'>C</tspan>, −z<tspan baseline-shift='sub' font-size='11'>C</tspan>, −y<tspan baseline-shift='sub' font-size='11'>C</tspan> ]</text>
-    <text x='24' y='294' class='mono formula ink'>p<tspan baseline-shift='sub' font-size='11'>target</tspan><tspan baseline-shift='super' font-size='11'>W</tspan> = t<tspan baseline-shift='sub' font-size='11'>camera</tspan><tspan baseline-shift='super' font-size='11'>W</tspan> + Δp<tspan baseline-shift='super' font-size='11'>W</tspan></text>
-  </g>
-  <path d='M1014 370h20' stroke='#9DA9BA' stroke-width='1.5' marker-end='url(#a-indigo)'/>
-
-  <g transform='translate(1036 205)'>
-    <rect width='352' height='330' rx='10' fill='#FAFCFF' stroke='#CBD6E2'/>
-    <text x='22' y='34' class='sans label' fill='#5B5BD6'>OUTPUT FRAME</text>
-    <text x='22' y='66' class='sans panel-title ink'>Isaac Sim world target</text>
-    <text x='22' y='91' class='sans body muted'>camera origin에 mapped delta를 더한 위치</text>
-    <g transform='translate(104 228)'>
-      <circle r='5' fill='#162033'/>
-      <path d='M0 0H112' class='axis' stroke='#2563EB' marker-end='url(#a-blue)'/>
-      <path d='M0 0V-94' class='axis' stroke='#0D9488'/><path d='M-5-86 0-96 5-86z' fill='#0D9488'/>
-      <path d='M0 0 72 56' class='axis' stroke='#5B5BD6' marker-end='url(#a-indigo)'/>
-      <text x='120' y='5' class='mono mono-small' fill='#2563EB'>+x<tspan baseline-shift='sub' font-size='9'>W</tspan></text>
-      <text x='8' y='-92' class='mono mono-small' fill='#0D9488'>+z<tspan baseline-shift='sub' font-size='9'>W</tspan></text>
-      <text x='78' y='62' class='mono mono-small' fill='#5B5BD6'>+y<tspan baseline-shift='sub' font-size='9'>W</tspan></text>
-      <circle cx='76' cy='-38' r='7' fill='#5B5BD6'/><path d='M5-3 70-35' stroke='#B4AFE7' stroke-width='1.5' class='dash'/>
-      <text x='87' y='-40' class='mono mono-small ink'>p<tspan baseline-shift='sub' font-size='9'>target</tspan><tspan baseline-shift='super' font-size='9'>W</tspan></text>
-    </g>
-  </g>
-  <rect x='52' y='560' width='1336' height='132' rx='10' fill='#F8FAFC' stroke='#D9E0EA'/>
-  <text x='76' y='588' class='sans label muted'>TARGET CONDITIONING AFTER TRANSFORM</text>
-  <line x1='496' y1='574' x2='496' y2='672' class='hairline'/><line x1='938' y1='574' x2='938' y2='672' class='hairline'/>
-  <circle cx='82' cy='620' r='13' fill='#EFEEFC'/><text x='82' y='624' text-anchor='middle' class='sans small' fill='#5B5BD6'>A</text>
-  <text x='108' y='616' class='sans panel-title ink'>Hole depth correction</text>
-  <text x='108' y='641' class='mono mono-small' fill='#5B5BD6'>p<tspan baseline-shift='sub' font-size='9'>center</tspan> = p<tspan baseline-shift='sub' font-size='9'>detected</tspan> − n<tspan baseline-shift='sub' font-size='9'>out</tspan> · 0.05 m</text>
-  <text x='108' y='662' class='sans small faint'>hole mode에서 mouth surface → center</text>
-  <circle cx='526' cy='620' r='13' fill='#EFEEFC'/><text x='526' y='624' text-anchor='middle' class='sans small' fill='#5B5BD6'>B</text>
-  <text x='552' y='616' class='sans panel-title ink'>Reference gate</text>
-  <text x='552' y='641' class='mono mono-small' fill='#5B5BD6'>half extent = [0.35, 0.35, 0.18] m</text>
-  <text x='552' y='662' class='sans small faint'>default path는 Z를 USD reference에 고정</text>
-  <circle cx='968' cy='620' r='13' fill='#EFEEFC'/><text x='968' y='624' text-anchor='middle' class='sans small' fill='#5B5BD6'>C</text>
-  <text x='994' y='616' class='sans panel-title ink'>Stable world target</text>
-  <text x='994' y='641' class='mono mono-small' fill='#5B5BD6'>5 valid samples · ‖σ‖ ≤ 0.025 m</text>
-  <text x='994' y='662' class='sans small faint'>accepted samples의 mean을 manipulation에 사용</text>
-  <rect x='52' y='710' width='6' height='18' rx='3' fill='#D89B25'/>
-  <text x='70' y='724' class='sans small muted'>Implementation boundary — TF2가 아니며, USD transform의 full rotation 대신 camera translation과 scene-calibrated axis mapping을 사용합니다.</text>
-  <text x='1388' y='724' text-anchor='end' class='mono small faint'>p<tspan baseline-shift='sub' font-size='9'>C</tspan> → p<tspan baseline-shift='sub' font-size='9'>W</tspan></text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1050" viewBox="0 0 1200 1050" role="img" aria-labelledby="title desc">
+<title id="title">Camera target을 world target으로</title><desc id="desc">카메라 좌표 (x,y,z)를 (-x,-z,-y)로 매핑하여 world camera origin에 더한다. hole mode에서는 0.05 m 안쪽 보정을 먼저 하고 Z를 reference 높이로 고정한다. 그다음 gate 검사와 5 sample 표준편차 검사로 center를 확정한다. Z 고정 때문에 원래 camera 높이의 분산을 검증하지 않는다는 제한이 있다.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse" markerUnits="strokeWidth"><path d="M0 0 L8 4 L0 8 Z" fill="#176b8f"/></marker><marker id="teal-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse" markerUnits="strokeWidth"><path d="M0 0 L8 4 L0 8 Z" fill="#087f73"/></marker></defs>
+<style>text{font-family:"Malgun Gothic","Noto Sans KR","Apple SD Gothic Neo",sans-serif;fill:#172c3e}.mono{font-family:Consolas,"DejaVu Sans Mono",monospace}.muted{fill:#526475}.blue{fill:#176b8f}.teal{fill:#087f73}</style>
+<rect x="0" y="0" width="1200" height="1050" rx="0" fill="#f4f7fa"/>
+<text x="48" y="39" font-size="15" fill="#176b8f" style="fill:#176b8f" font-weight="700" text-anchor="start">CODE-DERIVED DIAGRAM  /  02</text>
+<text x="48" y="85" font-size="34" fill="#172c3e" style="fill:#172c3e" font-weight="700" text-anchor="start">Camera target을 world target으로</text>
+<text x="48" y="122" font-size="18" fill="#526475" style="fill:#526475" font-weight="400" text-anchor="start">transform_camera_point_to_world → StableTargetLockAcquirer · 처리 순서를 보존한 도해</text>
+<rect x="48" y="157" width="1104" height="261" rx="14" fill="white" stroke="#d9e2e9"/>
+<text x="76" y="192" font-size="22" fill="#172c3e" style="fill:#172c3e" font-weight="700" text-anchor="start">01  축을 매핑하고 camera의 world 원점을 더합니다.</text>
+<rect x="76" y="215" width="1048" height="69" rx="10" fill="#eaf4f7"/>
+<text x="600" y="258" font-size="23" fill="#176b8f" style="fill:#176b8f" font-weight="400" text-anchor="middle" class="mono">p_world_raw = camera_origin_world + [−x_cam, −z_cam, −y_cam]</text>
+<text x="87" y="324" font-size="20" fill="#172c3e" style="fill:#172c3e" font-weight="400" text-anchor="start" class="mono">+x_camera</text>
+<path d="M215 317 H272" fill="none" stroke="#176b8f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="289" y="324" font-size="20" fill="#176b8f" style="fill:#176b8f" font-weight="400" text-anchor="start" class="mono">−X_world</text>
+<text x="436" y="324" font-size="20" fill="#172c3e" style="fill:#172c3e" font-weight="400" text-anchor="start" class="mono">+y_camera</text>
+<path d="M564 317 H621" fill="none" stroke="#176b8f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="638" y="324" font-size="20" fill="#176b8f" style="fill:#176b8f" font-weight="400" text-anchor="start" class="mono">−Z_world</text>
+<text x="785" y="324" font-size="20" fill="#172c3e" style="fill:#172c3e" font-weight="400" text-anchor="start" class="mono">+z_camera</text>
+<path d="M913 317 H970" fill="none" stroke="#176b8f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="987" y="324" font-size="20" fill="#176b8f" style="fill:#176b8f" font-weight="400" text-anchor="start" class="mono">−Y_world</text>
+<text x="76" y="369" font-size="18" fill="#526475" style="fill:#526475" font-weight="400" text-anchor="start">camera transform에서 translation을 사용합니다. 회전행렬 전체를 곱하는 일반 extrinsic 변환은 아닙니다.</text>
+<text x="76" y="399" font-size="17" fill="#526475" style="fill:#526475" font-weight="400" text-anchor="start">도해의 X / Y / Z는 world 좌표축입니다. 축 방향과 부호는 현재 scene 배치에 의존합니다.</text>
+<path d="M600 419 V443 H316 V457" fill="none" stroke="#176b8f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="48" y="464" width="536" height="174" rx="14" fill="white" stroke="#d9e2e9"/>
+<rect x="616" y="464" width="536" height="174" rx="14" fill="white" stroke="#d9e2e9"/>
+<text x="74" y="499" font-size="22" fill="#172c3e" style="fill:#172c3e" font-weight="700" text-anchor="start">02  Hole mouth → 내부 기준점</text>
+<text x="74" y="539" font-size="20" fill="#176b8f" style="fill:#176b8f" font-weight="400" text-anchor="start" class="mono">p_candidate = p_world_raw − 0.05 · n</text>
+<text x="74" y="579" font-size="18" fill="#172c3e" style="fill:#172c3e" font-weight="400" text-anchor="start">hole mode에만 적용 · n = n_outward</text>
+<text x="74" y="611" font-size="17" fill="#526475" style="fill:#526475" font-weight="400" text-anchor="start">door / cap은 이 보정을 건너뜁니다.</text>
+<text x="642" y="499" font-size="22" fill="#172c3e" style="fill:#172c3e" font-weight="700" text-anchor="start">03  Z를 reference 높이로 고정</text>
+<text x="642" y="539" font-size="20" fill="#176b8f" style="fill:#176b8f" font-weight="400" text-anchor="start" class="mono">p_candidate.z = reference_center.z</text>
+<text x="642" y="579" font-size="18" fill="#172c3e" style="fill:#172c3e" font-weight="400" text-anchor="start">기본 lock_z_to_reference = True</text>
+<text x="642" y="611" font-size="17" fill="#526475" style="fill:#526475" font-weight="400" text-anchor="start">보정한 점의 Z를 다시 덮어씁니다.</text>
+<path d="M585 551 H609" fill="none" stroke="#176b8f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M884 640 V665 H316 V690" fill="none" stroke="#176b8f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="48" y="706" width="1104" height="168" rx="14" fill="white" stroke="#d9e2e9"/>
+<text x="76" y="744" font-size="23" fill="#172c3e" style="fill:#172c3e" font-weight="700" text-anchor="start">04  Gate 검사 → 최근 5개 유효 sample → 평균 / std → lock</text>
+<text x="76" y="787" font-size="20" fill="#176b8f" style="fill:#176b8f" font-weight="400" text-anchor="start" class="mono">Gate half-extent  [0.35, 0.35, 0.18] m</text>
+<text x="647" y="787" font-size="21" fill="#087f73" style="fill:#087f73" font-weight="400" text-anchor="start" class="mono">‖std_world‖ ≤ 0.025 m</text>
+<text x="76" y="830" font-size="18" fill="#526475" style="fill:#526475" font-weight="400" text-anchor="start">gate를 벗어나면 sample buffer를 비웁니다. 새 pose message만 추가하고 조건을 만족하면 평균을 반환합니다.</text>
+<rect x="48" y="906" width="1104" height="77" rx="12" fill="#eaf4f7"/>
+<text x="70" y="937" font-size="21" fill="#176b8f" style="fill:#176b8f" font-weight="700" text-anchor="start">Z 고정은 gate / std 검사보다 먼저입니다.</text>
+<text x="70" y="967" font-size="18" fill="#172c3e" style="fill:#172c3e" font-weight="400" text-anchor="start">따라서 Z gate와 Z 분산은 원래 camera 높이 오차를 검증하지 않습니다.</text>
+<text x="48" y="1021" font-size="13" fill="#526475" style="fill:#526475" font-weight="400" text-anchor="start">SOURCE  multi_robot_oiling.py · transform_camera_point_to_world · detected_world_point_to_mouth_center · StableTargetLockAcquirer</text>
 </svg>

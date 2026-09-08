@@ -1,87 +1,56 @@
-<svg xmlns='http://www.w3.org/2000/svg' width='1440' height='820' viewBox='0 0 1440 820' role='img' aria-labelledby='title desc'>
-  <title id='title'>주유구 접근축 위에 배치한 nozzle tip waypoint와 link_6 목표</title>
-  <desc id='desc'>고정된 105도 outward normal을 따라 far, mid, near tip waypoint를 두고 반대 방향으로 0.05미터 삽입하며, 각 tip 위치를 가상 nozzle 길이와 Z offset으로 link_6 목표로 바꾸는 코드 기반 다이어그램.</desc>
-  <defs>
-    <style>
-      .sans{font-family:Pretendard,Noto Sans KR,Inter,Arial,sans-serif}.mono{font-family:JetBrains Mono,Consolas,monospace}
-      .ink{fill:#162033}.muted{fill:#627087}.faint{fill:#8B97AA}.label{font-size:12px;font-weight:700;letter-spacing:1.6px}
-      .title{font-size:31px;font-weight:750;letter-spacing:-.8px}.subtitle{font-size:15px}.panel-title{font-size:17px;font-weight:720}
-      .body{font-size:13px}.small{font-size:11.5px;font-weight:520}.point-label{font-size:12px;font-weight:700}
-      .formula{font-size:14px;font-weight:650}.hairline{stroke:#D9E0EA;stroke-width:1.25}.dash{stroke-dasharray:7 6}
-    </style>
-    <marker id='arr-green' viewBox='0 0 10 10' refX='8.5' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0 0 10 5 0 10z' fill='#248A63'/></marker>
-    <marker id='arr-indigo' viewBox='0 0 10 10' refX='8.5' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0 0 10 5 0 10z' fill='#5B5BD6'/></marker>
-  </defs>
-  <rect width='1440' height='820' fill='#F7F9FC'/><rect x='28' y='28' width='1384' height='764' rx='18' fill='#FFF' stroke='#E1E6EE'/>
-  <text x='64' y='68' class='sans label' fill='#248A63'>AUTOMATIC FUELING ROBOT · 03</text>
-  <text x='64' y='111' class='sans title ink'>Target Pose를 Approach · Alignment · Insertion으로</text>
-  <text x='64' y='141' class='sans subtitle muted'>주유구 중심 하나를 고정 축 위의 단계별 tip 목표로 확장하고, 실제 제어 대상인 link_6 위치로 환산했습니다.</text>
-  <rect x='1190' y='56' width='174' height='30' rx='6' fill='#F3F6FA' stroke='#DCE3EC'/><circle cx='1208' cy='71' r='4' fill='#248A63'/>
-  <text x='1220' y='75' class='sans small muted'>CODE-DERIVED DIAGRAM</text>
-  <g transform='translate(52 190)'>
-    <rect width='280' height='390' rx='10' fill='#FAFCFB' stroke='#CBD6E2'/>
-    <text x='22' y='34' class='sans label' fill='#248A63'>PORT AXIS</text>
-    <text x='22' y='66' class='sans panel-title ink'>World-fixed direction</text>
-    <text x='22' y='91' class='sans body muted'>차체 벽면 기울기를 하나의 축으로 정의</text>
-    <g transform='translate(80 235)'>
-      <circle r='5' fill='#162033'/>
-      <path d='M0 0H135' stroke='#5B5BD6' stroke-width='1.8' marker-end='url(#arr-indigo)'/>
-      <path d='M0 0V-120' stroke='#0D9488' stroke-width='1.8'/><path d='M-5-111 0-122 5-111z' fill='#0D9488'/>
-      <path d='M0 0V82' stroke='#AEB8C6' stroke-width='1.3' class='dash'/>
-      <path d='M0 0 120-32' stroke='#248A63' stroke-width='2.6' marker-end='url(#arr-green)'/>
-      <path d='M0 57A57 57 0 0 0 55-15' fill='none' stroke='#D89B25' stroke-width='1.8'/>
-      <text x='28' y='52' class='mono small' fill='#D08920'>105°</text>
-      <text x='141' y='5' class='mono small' fill='#5B5BD6'>+Y</text><text x='8' y='-116' class='mono small' fill='#0D9488'>+Z</text>
-      <text x='8' y='79' class='mono small faint'>−Z reference</text>
-      <text x='124' y='-36' class='mono small' fill='#248A63'>n<tspan baseline-shift='sub' font-size='9'>out</tspan></text>
-    </g>
-    <text x='22' y='340' class='mono formula' fill='#248A63'>n<tspan baseline-shift='sub' font-size='10'>out</tspan> = [0, sin105°, −cos105°]</text>
-    <text x='22' y='366' class='mono small muted'>≈ [0, 0.966, 0.259]</text>
-  </g>
-
-  <g>
-    <rect x='352' y='190' width='1036' height='390' rx='10' fill='#FCFDFC' stroke='#CBD6E2'/>
-    <text x='376' y='224' class='sans label' fill='#248A63'>AXIS-ALIGNED SCHEMATIC · NOT TO SCALE</text>
-    <text x='376' y='254' class='sans panel-title ink'>Nozzle-tip waypoint geometry</text>
-    <rect x='1130' y='274' width='222' height='202' rx='8' fill='#F1F4F7'/>
-    <path d='M1130 274v202' stroke='#AEB8C6' stroke-width='3'/>
-    <circle cx='1130' cy='350' r='20' fill='#FFF' stroke='#248A63' stroke-width='2.4'/><circle cx='1130' cy='350' r='7' fill='#248A63'/>
-    <text x='1240' y='292' text-anchor='middle' class='sans small muted'>vehicle / fuel-port surface</text>
-    <text x='1130' y='438' text-anchor='middle' class='sans point-label ink'>fuel-port center</text>
-    <path d='M1130 350H495' stroke='#248A63' stroke-width='2' marker-end='url(#arr-green)'/>
-    <path d='M1130 350H1260' stroke='#5B5BD6' stroke-width='2' marker-end='url(#arr-indigo)'/>
-    <text x='500' y='331' class='sans small' fill='#248A63'>OUTWARD</text><text x='1200' y='316' class='sans small' fill='#5B5BD6'>INSERTION</text>
-    <circle cx='620' cy='350' r='9' fill='#FFF' stroke='#2563EB' stroke-width='2.4'/>
-    <circle cx='800' cy='350' r='9' fill='#FFF' stroke='#4B72D8' stroke-width='2.4'/>
-    <circle cx='950' cy='350' r='9' fill='#FFF' stroke='#0D9488' stroke-width='2.4'/>
-    <circle cx='1220' cy='350' r='10' fill='#248A63'/>
-    <text x='620' y='302' text-anchor='middle' class='sans point-label' fill='#2563EB'>FAR</text><text x='620' y='320' text-anchor='middle' class='mono small muted'>0.28 m</text>
-    <text x='800' y='302' text-anchor='middle' class='sans point-label' fill='#4B72D8'>MID</text><text x='800' y='320' text-anchor='middle' class='mono small muted'>0.18 m</text>
-    <text x='950' y='302' text-anchor='middle' class='sans point-label' fill='#0D9488'>NEAR</text><text x='950' y='320' text-anchor='middle' class='mono small muted'>0.09 m</text>
-    <text x='1220' y='388' text-anchor='middle' class='sans point-label' fill='#248A63'>INSERT</text><text x='1220' y='407' text-anchor='middle' class='mono small muted'>inward 0.05 m</text>
-
-    <path d='M950 380V400H500' fill='none' stroke='#5B5BD6' stroke-width='1.8' class='dash' marker-end='url(#arr-indigo)'/>
-    <circle cx='500' cy='400' r='5' fill='#5B5BD6'/><path d='M500 400V480' stroke='#5B5BD6' stroke-width='1.8' class='dash' marker-end='url(#arr-indigo)'/>
-    <circle cx='500' cy='480' r='11' fill='#FFF' stroke='#5B5BD6' stroke-width='2.5'/>
-    <text x='725' y='425' text-anchor='middle' class='mono small' fill='#5B5BD6'>+ n<tspan baseline-shift='sub' font-size='9'>out</tspan> · 0.63 m</text>
-    <text x='512' y='451' class='mono small' fill='#5B5BD6'>Z −0.25 m</text>
-    <text x='522' y='485' class='sans point-label' fill='#5B5BD6'>link_6 command target</text>
-    <text x='950' y='378' text-anchor='middle' class='sans small' fill='#0D9488'>representative tip target</text>
-    <rect x='996' y='500' width='348' height='48' rx='7' fill='#F0F7F3' stroke='#C7E2D5'/>
-    <circle cx='1018' cy='524' r='4' fill='#248A63'/><text x='1032' y='520' class='sans small ink'>모든 stage에서 reset 시점 EE quaternion 고정</text>
-    <text x='1032' y='538' class='mono small muted'>q<tspan baseline-shift='sub' font-size='9'>target</tspan> = q<tspan baseline-shift='sub' font-size='9'>EE, reset</tspan></text>
-  </g>
-  <rect x='52' y='606' width='1336' height='126' rx='10' fill='#F8FAFC' stroke='#D9E0EA'/>
-  <text x='76' y='634' class='sans label muted'>STAGED APPROACH PROFILE · 60 Hz COMMAND UPDATE</text>
-  <line x1='376' y1='620' x2='376' y2='714' class='hairline'/><line x1='706' y1='620' x2='706' y2='714' class='hairline'/><line x1='1036' y1='620' x2='1036' y2='714' class='hairline'/>
-  <circle cx='84' cy='674' r='7' fill='#FFF' stroke='#2563EB' stroke-width='2'/><text x='104' y='665' class='sans panel-title ink'>Far</text>
-  <text x='104' y='688' class='mono small' fill='#2563EB'>outward 0.28 m · 0.18 m/s</text><text x='104' y='708' class='sans small faint'>coarse approach</text>
-  <circle cx='408' cy='674' r='7' fill='#FFF' stroke='#4B72D8' stroke-width='2'/><text x='428' y='665' class='sans panel-title ink'>Mid</text>
-  <text x='428' y='688' class='mono small' fill='#4B72D8'>outward 0.18 m · 0.18 m/s</text><text x='428' y='708' class='sans small faint'>axis alignment</text>
-  <circle cx='738' cy='674' r='7' fill='#FFF' stroke='#0D9488' stroke-width='2'/><text x='758' y='665' class='sans panel-title ink'>Near</text>
-  <text x='758' y='688' class='mono small' fill='#0D9488'>outward 0.09 m · 0.12 m/s</text><text x='758' y='708' class='sans small faint'>40-step hold before insertion</text>
-  <circle cx='1068' cy='674' r='8' fill='#248A63'/><text x='1088' y='665' class='sans panel-title ink'>Insert</text>
-  <text x='1088' y='688' class='mono small' fill='#248A63'>inward 0.05 m · 0.06 m/s</text><text x='1088' y='708' class='sans small faint'>slowest target speed</text>
-  <text x='52' y='764' class='mono formula' fill='#5B5BD6'>p<tspan baseline-shift='sub' font-size='10'>link6,i</tspan> = p<tspan baseline-shift='sub' font-size='10'>tip,i</tspan> + n<tspan baseline-shift='sub' font-size='10'>out</tspan> · 0.63 + [0, 0, −0.25]</text>
-  <text x='1388' y='764' text-anchor='end' class='sans small faint'>Tuning values — 측정 기반 TCP calibration 결과로 표현하지 않음</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1154" viewBox="0 0 1200 1154" role="img" aria-labelledby="title desc">
+<title id="title">주유구 기준점에서 노즐과 손목 목표로</title><desc id="desc">world YZ 평면의 접근 방향 n=[0,sin105도,-cos105도]. 105도는 -Z에서 +Y 방향으로 잰 각이다. 보정된 center를 기준으로 tip 목표를 far +0.28m, mid +0.18m, near +0.09m, insert -0.05m에 배치한다. link_6 목표는 tip 목표에 0.63n과 Z -0.25m를 더한다. 모든 수치는 코드 설정이며 측정 TCP 보정값이 아니다.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse" markerUnits="strokeWidth"><path d="M0 0 L8 4 L0 8 Z" fill="#176b8f"/></marker><marker id="teal-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse" markerUnits="strokeWidth"><path d="M0 0 L8 4 L0 8 Z" fill="#087f73"/></marker></defs>
+<style>text{font-family:"Malgun Gothic","Noto Sans KR","Apple SD Gothic Neo",sans-serif;fill:#172c3e}.mono{font-family:Consolas,"DejaVu Sans Mono",monospace}.muted{fill:#526475}.blue{fill:#176b8f}.teal{fill:#087f73}</style>
+<rect x="0" y="0" width="1200" height="1154" rx="0" fill="#f4f7fa"/>
+<text x="48" y="39" font-size="15" fill="#176b8f" style="fill:#176b8f" font-weight="700" text-anchor="start">CODE-DERIVED DIAGRAM  /  03</text>
+<text x="48" y="85" font-size="34" fill="#172c3e" style="fill:#172c3e" font-weight="700" text-anchor="start">주유구 기준점에서 노즐과 손목 목표로</text>
+<text x="48" y="122" font-size="18" fill="#526475" style="fill:#526475" font-weight="400" text-anchor="start">build_fuel_port_sequence · 고정된 world YZ 접근축과 virtual nozzle offset</text>
+<rect x="48" y="157" width="1104" height="484" rx="14" fill="white" stroke="#d9e2e9"/>
+<text x="76" y="194" font-size="22" fill="#172c3e" style="fill:#172c3e" font-weight="700" text-anchor="start">01  World YZ 평면에서 tip 목표점을 배치합니다.</text>
+<text x="76" y="227" font-size="21" fill="#176b8f" style="fill:#176b8f" font-weight="400" text-anchor="start" class="mono">n = [0, sin(105°), −cos(105°)] ≈ [0, 0.966, 0.259]</text>
+<path d="M335 574 V279" fill="none" stroke="#176b8f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M198 470 H1063" fill="none" stroke="#176b8f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="351" y="289" font-size="17" fill="#176b8f" style="fill:#176b8f" font-weight="400" text-anchor="start" class="mono">+Z_world</text>
+<text x="1049" y="498" font-size="17" fill="#176b8f" style="fill:#176b8f" font-weight="400" text-anchor="end" class="mono">+Y_world</text>
+<text x="349" y="573" font-size="17" fill="#526475" style="fill:#526475" font-weight="400" text-anchor="start">−Z</text>
+<path d="M211.36 503.13 L953.19 304.36" fill="none" stroke="#087f73" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#teal-arrow)"/>
+<text x="943.1925288250037" y="286.35581113438667" font-size="19" fill="#087f73" style="fill:#087f73" font-weight="400" text-anchor="end" class="mono">n_outward</text>
+<path d="M335 545 A75 75 0 0 0 407.444 450.589" fill="none" stroke="#176b8f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="423" y="524" font-size="22" fill="#176b8f" style="fill:#176b8f" font-weight="700" text-anchor="start">105°</text>
+<text x="480" y="555" font-size="17" fill="#526475" style="fill:#526475" font-weight="400" text-anchor="start">−Z에서 +Y 쪽으로 정의</text>
+<circle cx="335" cy="470" r="7" fill="#172c3e"/>
+<text x="327" y="437" font-size="18" fill="#172c3e" style="fill:#172c3e" font-weight="700" text-anchor="end" class="mono">center</text>
+<circle cx="257.72593389687455" cy="490.70552360820164" r="8" fill="white" stroke="#087f73" stroke-width="2"/>
+<path d="M257.73 500.71 V509" fill="none" stroke="#d9e2e9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="258" y="551" font-size="19" fill="#087f73" style="fill:#087f73" font-weight="700" text-anchor="middle" class="mono">insert</text>
+<text x="258" y="577" font-size="18" fill="#172c3e" style="fill:#172c3e" font-weight="400" text-anchor="middle" class="mono">−0.05 m</text>
+<circle cx="474.09331898562584" cy="432.730057505237" r="8" fill="white" stroke="#087f73" stroke-width="2"/>
+<path d="M474.09 422.73 V399" fill="none" stroke="#d9e2e9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="474" y="367" font-size="19" fill="#087f73" style="fill:#087f73" font-weight="700" text-anchor="middle" class="mono">near</text>
+<text x="474" y="393" font-size="18" fill="#172c3e" style="fill:#172c3e" font-weight="400" text-anchor="middle" class="mono">+0.09 m</text>
+<circle cx="613.1866379712517" cy="395.460115010474" r="8" fill="white" stroke="#087f73" stroke-width="2"/>
+<path d="M613.19 385.46 V359" fill="none" stroke="#d9e2e9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="613" y="327" font-size="19" fill="#087f73" style="fill:#087f73" font-weight="700" text-anchor="middle" class="mono">mid</text>
+<text x="613" y="353" font-size="18" fill="#172c3e" style="fill:#172c3e" font-weight="400" text-anchor="middle" class="mono">+0.18 m</text>
+<circle cx="767.7347701775027" cy="354.04906779407065" r="8" fill="white" stroke="#087f73" stroke-width="2"/>
+<path d="M767.73 344.05 V314" fill="none" stroke="#d9e2e9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="768" y="282" font-size="19" fill="#087f73" style="fill:#087f73" font-weight="700" text-anchor="middle" class="mono">far</text>
+<text x="768" y="308" font-size="18" fill="#172c3e" style="fill:#172c3e" font-weight="400" text-anchor="middle" class="mono">+0.28 m</text>
+<text x="894" y="579" font-size="16" fill="#526475" style="fill:#526475" font-weight="400" text-anchor="start">접근 순서</text>
+<text x="894" y="607" font-size="17" fill="#172c3e" style="fill:#172c3e" font-weight="400" text-anchor="start">far → mid → near → insert</text>
+<text x="76" y="618" font-size="16" fill="#526475" style="fill:#526475" font-weight="400" text-anchor="start">center = lock / fallback으로 확정한 보정 후 기준점</text>
+<rect x="48" y="669" width="1104" height="213" rx="14" fill="white" stroke="#d9e2e9"/>
+<text x="76" y="706" font-size="22" fill="#172c3e" style="fill:#172c3e" font-weight="700" text-anchor="start">02  Tip 목표를 link_6 제어 목표로 바꿉니다.</text>
+<rect x="76" y="729" width="1048" height="68" rx="10" fill="#eaf4f7"/>
+<text x="600" y="771" font-size="24" fill="#176b8f" style="fill:#176b8f" font-weight="400" text-anchor="middle" class="mono">link6_goal = tip_goal + 0.63 · n + [0, 0, −0.25]   (m)</text>
+<text x="76" y="834" font-size="19" fill="#172c3e" style="fill:#172c3e" font-weight="700" text-anchor="start">0.63 m: virtual nozzle 길이</text>
+<text x="580" y="834" font-size="19" fill="#172c3e" style="fill:#172c3e" font-weight="700" text-anchor="start">−0.25 m: world Z 추가 보정</text>
+<text x="76" y="862" font-size="18" fill="#526475" style="fill:#526475" font-weight="400" text-anchor="start">물리 TCP를 측정한 calibration 값이 아닌 현재 코드의 tuning 값입니다.</text>
+<rect x="48" y="910" width="1104" height="166" rx="14" fill="white" stroke="#d9e2e9"/>
+<text x="76" y="947" font-size="22" fill="#172c3e" style="fill:#172c3e" font-weight="700" text-anchor="start">03  접근·삽입 구간에서 reset EE orientation을 유지합니다.</text>
+<text x="76" y="986" font-size="19" fill="#172c3e" style="fill:#172c3e" font-weight="400" text-anchor="start">위치 목표: 위 offset을 적용한 link_6 위치   /   자세 목표: reset 때 복사한 EE quaternion</text>
+<text x="76" y="1023" font-size="18" fill="#526475" style="fill:#526475" font-weight="400" text-anchor="start">105°는 joint angle이나 marker에서 실시간 추정한 각도가 아닙니다.</text>
+<text x="76" y="1054" font-size="18" fill="#526475" style="fill:#526475" font-weight="400" text-anchor="start">−0.05 m는 목표점 배치값입니다. 실제 접촉 삽입 깊이·정확도를 측정한 수치가 아닙니다.</text>
+<text x="48" y="1124" font-size="13" fill="#526475" style="fill:#526475" font-weight="400" text-anchor="start">SOURCE  multi_robot_oiling.py · NOZZLE_OUTWARD_WORLD · VIRTUAL_NOZZLE_LENGTH / Z_OFFSET · build_fuel_port_sequence · RobotARunner.reset</text>
 </svg>
