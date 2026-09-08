@@ -1,0 +1,10 @@
+---
+interface Props {
+  links: { label: string; href: string }[];
+}
+const { links } = Astro.props;
+---
+<nav class="case-code-links" aria-label="관련 구현 코드">
+  <span>관련 구현</span>
+  {links.map(link => <a href={link.href} target="_blank" rel="noopener">{link.label} <span aria-hidden="true">↗</span><span class="sr-only"> (새 창)</span></a>)}
+</nav>

@@ -1,285 +1,188 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import ProjectHero from '@/components/ProjectHero.astro';
 import ProjectVideo from '@/components/ProjectVideo.astro';
-import ProjectContribution from '@/components/ProjectContribution.astro';
+import ProjectCodeLinks from '@/components/ProjectCodeLinks.astro';
 import { projectBySlug } from '@/data/projects';
+import sources from '@/data/project-sources.json';
 import { withBase } from '@/utils/paths';
-import '@/styles/automatic-fueling.css';
+import '@/styles/case-study.css';
 
 const project = projectBySlug['automatic-fueling'];
-const asset = (name: string) => withBase('/projects/automatic-fueling-robot/' + name);
+const source = sources['automatic-fueling'];
+const asset = (file: string) => withBase('/projects/automatic-fueling-robot/' + file);
 const stages = [
   ['Far', '+0.28 m', '0.18 m/s'],
   ['Mid', '+0.18 m', '0.18 m/s'],
   ['Near', '+0.09 m', '0.12 m/s'],
   ['Insert', '−0.05 m', '0.06 m/s'],
 ];
-const pipeline = [
-  ['01', '마커 → 작업 목표점', 'ID 0의 pose에 door · cap · hole offset 적용'],
-  ['02', '카메라 → world', '축 매핑 · 주유구 보정 · 기준 높이 · target lock'],
-  ['03', '노즐 끝 → 로봇 명령', '접근점 생성 · link_6 offset · RMPFlow'],
-];
 ---
-
-<BaseLayout title="Automatic Fueling Robot · Vision Target to Robot Motion — Bae Cheolgyu"
-  description={project.description} bodyClass="project-page project-page--automatic-fueling">
-  <section class="fuel-hero page-shell" id="demo" aria-labelledby="fuel-title">
-    <header class="fuel-hero__copy">
-      <p class="eyebrow">02 / Automatic Fueling Robot · Simulation</p>
-      <h1 id="fuel-title"><span>Vision Target</span><span>to Robot Motion</span></h1>
-      <div class="fuel-hero__intro">
-        <p class="fuel-hero__subtitle">ArUco 목표점에서 노즐 동작까지</p>
-        <p class="fuel-hero__lead">카메라에서 얻은 목표점은 어떤 과정을 거쳐 노즐의 움직임이 될까요? 좌표 변환, 접근점 구성, 툴 오프셋과 RMPFlow를 연결해 자동 주유 동작을 시뮬레이션으로 구현했습니다.</p>
-        <ul class="fuel-keywords" aria-label="핵심 기술">
-          <li>ROS2</li><li>Isaac Sim · USD</li><li>OpenCV ArUco</li><li>Cartesian Waypoint</li><li>RMPFlow</li>
-        </ul>
-      </div>
-      <dl class="fuel-meta">
-        <div><dt>Team project</dt><dd>ALT F-4 · 4인 팀 <br />자동 주유 로봇 시뮬레이션</dd></div>
-        <div><dt>Platform</dt><dd>두 M0609 로봇팔 <br />Isaac Sim · ROS2</dd></div>
-        <div><dt>Project period</dt><dd>{project.period}</dd></div>
-      </dl>
-    </header>
-    <ProjectContribution role={project.role} />
-    <figure class="fuel-evidence fuel-hero__demo">
+<BaseLayout title="Automatic Fueling Robot · 인식에서 노즐 경로까지 — Bae Cheolgyu" description={project.description} bodyClass="project-page case-study case-study--fuel">
+  <ProjectHero project={project} titleLines={['Automatic', 'Fueling Robot']}
+    tagline="ArUco 목표점을 노즐의 삽입 경로로"
+    intro="두 로봇팔이 캡 작업과 노즐 삽입을 분담하는 자동주유 시뮬레이션입니다. ArUco 기반 주유구 위치 지정, waypoint 경로 생성, Isaac Sim 실행 환경 구성을 담당했습니다."
+    contributions={['ArUco 마커 기반 주유구 위치 지정', '노즐 삽입 waypoint 경로 생성', 'Isaac Sim 시뮬레이션 환경 구성']}
+    team="ALT F-4 · 4인 팀" platform="M0609 로봇팔 2대 · Isaac Sim · ROS2"
+    repository={source.repository}
+    sections={[{href:'#environment',label:'시뮬레이션 환경'},{href:'#pose',label:'주유구 위치 지정'},{href:'#approach',label:'경로와 자세 제어'},{href:'#results',label:'시연 결과'}]}>
+    <figure class="case-figure">
       <ProjectVideo src={asset('final-process-demo.mp4')} poster={asset('final-process-poster.webp')}
         captions={asset('final-process-demo.ko.vtt')} width={1920} height={1080} loop={false}
-        label="차량 도착, 캡 작업, 노즐 동작, 캡과 덮개 복원, 차량 이동을 원본 순서대로 보여주는 자동주유 팀 시뮬레이션" />
-      <figcaption><span>전체 공정 시연 · 차량 도착 → 노즐 동작 → 복원</span><span>47초 · 무음 · 원본 장면 순서 유지</span></figcaption>
-      <p class="fuel-caption-note">최종 발표 영상에서 도입·엔딩을 제외한 시연 구간입니다. 웹 진행 화면을 포함한 Isaac Sim 팀 시연이며, 실제 연료 주입이나 공정 시간 측정 영상은 아닙니다.</p>
+        label="차량 진입부터 캡 작업, 노즐 동작, 캡과 덮개 복원, 차량 이동까지 보여주는 자동주유 팀 시뮬레이션" />
+      <figcaption><span>전체 공정 시연 · 차량 진입 → 노즐 동작 → 복원</span><span>47초 · 무음 · 원본 장면 순서 유지</span></figcaption>
+      <p class="case-note">최종 발표 영상에서 도입·엔딩을 제외한 시연 구간입니다. 웹 진행 화면을 포함한 Isaac Sim 팀 시연이며, 실제 연료 주입이나 공정 시간 측정 영상은 아닙니다.</p>
     </figure>
-    <nav class="fuel-jump-links" aria-label="프로젝트 주요 내용">
-      <a class="text-link" href="#transformation">목표점 변환 과정 <span aria-hidden="true">↓</span></a>
-      <a class="text-link" href="#approach">접근 경로와 툴 오프셋 <span aria-hidden="true">↓</span></a>
-      <a class="text-link" href="#results">시연 결과 <span aria-hidden="true">↓</span></a>
-    </nav>
-  </section>
+  </ProjectHero>
 
-  <section class="fuel-section page-shell" id="transformation" aria-labelledby="transformation-title">
-    <div class="fuel-section__header">
-      <p class="fuel-label">01 / Target to motion</p>
-      <div>
-        <h2 id="transformation-title">카메라의 목표점을 <br />로봇의 위치 명령으로</h2>
-        <p>마커를 검출한 뒤에도 작업 대상, 좌표계, 노즐 길이를 고려해야 합니다. 팀은 이 기준들을 순서대로 적용해 인식 결과를 로봇이 실행할 위치 명령으로 바꿨습니다.</p>
-      </div>
-    </div>
-    <div class="fuel-split fuel-split--diagram">
-      <ol class="fuel-process" aria-label="인식에서 로봇 명령까지의 세 단계">
-        {pipeline.map(([number, title, detail]) => (
-          <li><span>{number}</span><strong>{title}</strong><p>{detail}</p></li>
-        ))}
-      </ol>
-      <figure class="fuel-evidence">
-        <div class="fuel-diagram-scroll" tabindex="0" role="region" aria-label="목표점 변환 도해, 좁은 화면에서 좌우 스크롤">
-          <img src={asset('pose-to-motion.svg')} width="1200" height="1080" loading="lazy" decoding="async"
-            alt="ArUco 인식, mode offset과 평균, world 변환, mouth 보정과 Z 고정, gate와 lock, tip waypoint, link_6 목표, RMPFlow의 9단계. Lock 실패 시 USD reference로 대체." />
+  <section class="case-section page-shell" id="environment" aria-labelledby="environment-title">
+    <span id="transformation" class="case-anchor"></span>
+    <header class="case-heading">
+      <p class="case-label">01 / Simulation setup</p>
+      <div><h2 id="environment-title">인식과 로봇 동작을 같은 장면에서 실행하기</h2><p>목표 좌표를 계산하는 코드와 로봇을 움직이는 코드가 같은 카메라·차량·로봇 배치를 전제로 동작해야 했습니다. Isaac Sim 장면과 ROS2 연결을 구성해 인식부터 노즐 동작까지 실행할 수 있는 환경을 마련했습니다.</p></div>
+    </header>
+    <ol class="case-steps" aria-label="시뮬레이션 환경 구성">
+      <li><strong>USD 장면과 로봇 초기화</strong><p>차량·주유소·두 M0609의 배치를 구성하고, articulation·그리퍼와 로봇 제어에 필요한 URDF·RMPFlow 설정을 연결했습니다.</p></li>
+      <li><strong>카메라 → ROS2 인식</strong><p>카메라 그래프와 ROS2 Bridge로 RGB 이미지와 CameraInfo를 전달해 ArUco 노드가 영상과 내부 파라미터를 함께 사용하도록 했습니다.</p></li>
+      <li><strong>인식 결과 → 시뮬레이션 제어</strong><p>목표 pose와 lock 신호를 로봇 실행부에서 받아 waypoint를 구성하고, 60Hz 물리 스텝에서 RMPFlow의 관절 명령을 적용했습니다.</p></li>
+    </ol>
+    <ProjectCodeLinks links={[source.links.scene, source.links.bridge]} />
+    <details class="case-details">
+      <summary>주요 ROS2 인터페이스와 전체 변환 흐름</summary>
+      <div class="case-details__body">
+        <div class="case-table-scroll" role="region" aria-label="시뮬레이션 인터페이스 표, 작은 화면에서 가로 스크롤" tabindex="0">
+          <table class="case-table case-table--contracts"><caption>카메라와 실행부 사이의 데이터 연결</caption>
+            <thead><tr><th scope="col">연결</th><th scope="col">메시지</th><th scope="col">용도</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">/rgb · /camera_info</th><td>Image · CameraInfo</td><td>영상과 K/D로 마커 pose 추정</td></tr>
+              <tr><th scope="row">/aruco_detector/pose</th><td>PoseStamped</td><td>작업 모드별 목표 위치 전달</td></tr>
+              <tr><th scope="row">/target_locked</th><td>Bool</td><td>검출 안정화 후 목표 확정 신호</td></tr>
+            </tbody>
+          </table>
         </div>
-        <figcaption><span>코드 기반 도해 · 기본 실행 경로</span><a href={asset('pose-to-motion.svg')} target="_blank" rel="noopener">도해 원본 보기 ↗</a></figcaption>
-      </figure>
-    </div>
-    <p class="fuel-note">Detector가 발행하는 quaternion·direction은 기본 motion 제어에 사용하지 않습니다. 아래 경로는 확정한 목표점과 고정된 접근축을 기준으로 설명합니다.</p>
-  </section>
-
-  <section class="fuel-section page-shell" id="pose" aria-labelledby="pose-title">
-    <div class="fuel-section__header">
-      <p class="fuel-label">02 / Pose estimation</p>
-      <div>
-        <h2 id="pose-title">하나의 마커에서 <br />세 작업의 목표점으로</h2>
-        <p>CameraInfo의 K/D와 ArUco ID 0의 회전·이동 값을 이용해 door·cap·hole 목표점을 계산했습니다. 마커 좌표계에 정의한 작업별 offset을 회전·이동한 위치입니다.</p>
-      </div>
-    </div>
-    <div class="fuel-split">
-      <div class="fuel-pose-copy">
-        <p class="fuel-label">Marker frame → Camera frame</p>
-        <p class="fuel-formula" aria-label="카메라 목표점은 마커 회전 행렬 곱하기 작업별 오프셋 더하기 마커 이동 벡터">
-          p<sub>target</sub> = R · offset<sub>mode</sub> + t
-        </p>
-        <dl class="fuel-targets">
-          <div><dt>Door</dt><dd>커버 작업의 기준점</dd></div>
-          <div><dt>Cap</dt><dd>캡 작업의 기준점</dd></div>
-          <div><dt>Hole</dt><dd>노즐 접근을 위한 주유구 입구</dd></div>
-        </dl>
-        <details class="fuel-details">
-          <summary>마커 설정과 안정화 기준</summary>
-          <div>
-            <p><code>DICT_4X4_50 · ID 0 · 0.12 m</code></p>
-            <p>최대 8개 sample 중 최소 3개부터 표준편차 norm ≤ 0.035 m인 첫 window를 lock합니다.</p>
-            <dl class="fuel-offsets">
-              <div><dt>Door</dt><dd>[0.227924, 0.259677, −0.028225]</dd></div>
-              <div><dt>Cap</dt><dd>[0.230000, 0.240000, −0.051500]</dd></div>
-              <div><dt>Hole</dt><dd>[0.230000, 0.290000, −0.051500]</dd></div>
-            </dl>
-            <p>Offset은 marker frame의 XYZ 값이며 단위는 m입니다.</p>
+        <figure class="case-figure">
+          <div class="case-diagram" role="region" aria-label="인식에서 관절 명령까지의 도식, 작은 화면에서 가로 스크롤" tabindex="0">
+            <img src={asset('pose-to-motion.svg')} width="1200" height="1080" loading="lazy" decoding="async" alt="ArUco pose, 작업 offset, world 변환, 목표 lock, 노즐 waypoint와 link_6 보정, RMPFlow로 이어지는 코드 기반 흐름" />
           </div>
-        </details>
-      </div>
-      <figure class="fuel-evidence fuel-offset-evidence">
-        <a class="fuel-image-link" href={asset('marker-offset-development.webp')} target="_blank" rel="noopener">
-          <img src={asset('marker-offset-development.webp')} width="760" height="568" loading="lazy" decoding="async"
-            alt="이전 mode=blue detector에서 목표 offset을 조정한 두 개발 화면. 서로 다른 시점의 기록." />
-        </a>
-        <figcaption><span>목표 offset 조정 과정 · 이전 detector 설정</span><a href={asset('marker-offset-development.webp')} target="_blank" rel="noopener">이미지 원본 보기 ↗</a></figcaption>
-        <p class="fuel-caption-note">화면 속 mode=blue는 개발 당시 설정이며, 현재 실행 mode는 door / cap / hole입니다.</p>
-      </figure>
-    </div>
-  </section>
-
-  <section class="fuel-section page-shell" id="coordinate" aria-labelledby="coordinate-title">
-    <div class="fuel-section__header">
-      <p class="fuel-label">03 / Coordinate bridge</p>
-      <div>
-        <h2 id="coordinate-title">Scene 좌표와 기준 높이에 <br />맞춰 목표점을 확정하다</h2>
-        <p>고정 camera 배치에 맞춰 축을 재배열하고 camera의 world 원점을 더했습니다. 주유구 입구에서 안쪽으로 0.05 m 보정하고 Z를 기준 높이에 고정한 뒤, gate와 sample 분산을 검사했습니다.</p>
-      </div>
-    </div>
-    <div class="fuel-split fuel-split--diagram">
-      <div>
-        <p class="fuel-formula fuel-formula--small">p<sub>world</sub> = camera<sub>origin</sub> <br />+ [−x<sub>c</sub>, −z<sub>c</sub>, −y<sub>c</sub>]</p>
-        <ol class="fuel-coordinate-steps">
-          <li><strong>World 변환</strong><span>Camera 원점 + 수동 축 매핑</span></li>
-          <li><strong>주유구 기준 보정</strong><span>Mouth → center · Z reference 고정</span></li>
-          <li><strong>범위와 안정성 확인</strong><span>Workspace gate → 5개 유효 sample lock</span></li>
-        </ol>
-        <p class="fuel-note">고정 scene 전용 변환입니다. Z를 먼저 고정하므로 원래 카메라 높이 오차를 검증하는 과정은 아닙니다.</p>
-        <details class="fuel-details">
-          <summary>Lock 기준과 대체 경로</summary>
-          <div>
-            <p>Gate half-extent [0.35, 0.35, 0.18] m 안의 5개 유효 sample에서 표준편차 norm ≤ 0.025 m를 검사합니다.</p>
-            <p>약 10초 안에 lock되지 않으면 USD 기준 좌표로 진행합니다. Full extrinsic transform이나 TF2는 사용하지 않습니다.</p>
-          </div>
-        </details>
-      </div>
-      <figure class="fuel-evidence">
-        <div class="fuel-diagram-scroll" tabindex="0" role="region" aria-label="좌표 변환 도해, 좁은 화면에서 좌우 스크롤">
-          <img src={asset('coordinate-transform.svg')} width="1200" height="1050" loading="lazy" decoding="async"
-            alt="Camera 원점에 마이너스 x, 마이너스 z, 마이너스 y를 더하고, hole 안쪽 보정, Z reference 고정, gate와 5 sample 검사를 적용하는 순서." />
-        </div>
-        <figcaption><span>코드 기반 도해 · 좌표 변환과 lock 순서</span><a href={asset('coordinate-transform.svg')} target="_blank" rel="noopener">도해 원본 보기 ↗</a></figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="fuel-section page-shell" id="approach" aria-labelledby="approach-title">
-    <div class="fuel-section__header">
-      <p class="fuel-label">04 / Approach geometry</p>
-      <div>
-        <h2 id="approach-title">노즐 끝과 로봇 손목의 <br />목표점을 나누다</h2>
-        <p>고정된 주유구 축에 접근·근접·삽입 목표점을 배치했습니다. 노즐 끝의 목표에 가상 노즐 길이와 높이 offset을 적용해 link_6가 도달할 위치를 계산했습니다.</p>
-      </div>
-    </div>
-    <div class="fuel-split fuel-split--diagram">
-      <div>
-        <p class="fuel-formula fuel-formula--small">n = [0, sin 105°, −cos 105°] <br />p<sub>link6</sub> = p<sub>tip</sub> + 0.63n <br />+ [0, 0, −0.25]</p>
-        <table class="fuel-stage-table">
-          <caption>현재 코드 설정 · center 기준 거리와 명령 속도</caption>
-          <thead><tr><th scope="col">단계</th><th scope="col">거리</th><th scope="col">속도</th></tr></thead>
-          <tbody>{stages.map(([stage, distance, speed]) => (
-            <tr><th scope="row">{stage}</th><td>{distance}</td><td>{speed}</td></tr>
-          ))}</tbody>
-        </table>
-        <p class="fuel-note">105°는 world YZ 평면의 방향각입니다. 노즐 offset은 코드 tuning 값이며, 실제 삽입 깊이나 TCP calibration 측정값은 아닙니다.</p>
-      </div>
-      <figure class="fuel-evidence">
-        <div class="fuel-diagram-scroll" tabindex="0" role="region" aria-label="노즐과 손목 목표점 도해, 좁은 화면에서 좌우 스크롤">
-          <img src={asset('approach-geometry.svg')} width="1200" height="1154" loading="lazy" decoding="async"
-            alt="World YZ 평면의 105도 고정 접근축. Center 기준 far, mid, near, insert tip 목표와 가상 노즐 0.63 m, Z 마이너스 0.25 m를 더한 link_6 목표." />
-        </div>
-        <figcaption><span>코드 기반 도해 · tip과 link_6의 관계</span><a href={asset('approach-geometry.svg')} target="_blank" rel="noopener">도해 원본 보기 ↗</a></figcaption>
-      </figure>
-    </div>
-    <div class="fuel-development">
-      <div>
-        <p class="fuel-label">Development / Two viewpoints</p>
-        <h3>접근 전 → 접근 중 → 근접 자세</h3>
-        <p>같은 동작을 전체 배치와 말단 근접 화면으로 확인한 초기 개발 기록입니다.</p>
-        <p class="fuel-note">각 프레임을 현재 코드의 far / near / insert 단계나 거리 측정 결과로 대응한 자료는 아닙니다.</p>
-      </div>
-      <figure class="fuel-evidence">
-        <a class="fuel-image-link" href={asset('approach-development-filmstrip.webp')} target="_blank" rel="noopener">
-          <img src={asset('approach-development-filmstrip.webp')} width="1200" height="1454" loading="lazy" decoding="async"
-            alt="위에서부터 접근 전 3초, 접근 중 7초, 근접 자세 13초. 각 행의 왼쪽은 전체 배치, 오른쪽은 말단 근접 화면." />
-        </a>
-        <figcaption><span>초기 접근 개발 · 원본 시간 순서</span><a href={asset('approach-development-filmstrip.webp')} target="_blank" rel="noopener">이미지 원본 보기 ↗</a></figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="fuel-section page-shell" id="motion" aria-labelledby="motion-title">
-    <div class="fuel-section__header">
-      <p class="fuel-label">05 / Motion generation</p>
-      <div>
-        <h2 id="motion-title">단계별 위치 명령을 보간하고 <br />RMPFlow로 실행하다</h2>
-        <p>자체 waypoint 목록에서 매 60 Hz simulation step마다 speed × dt만큼 command target을 이동시켰습니다. RMPFlow는 이 위치와 고정 자세 목표를 추종할 관절 명령을 계산합니다.</p>
-      </div>
-    </div>
-    <div class="fuel-motion-layout">
-      <figure class="fuel-evidence">
-        <ProjectVideo src={asset('waypoint-development.mp4')} poster={asset('waypoint-development-poster.webp')}
-          width={946} height={522}
-          label="초기 Isaac Sim 개발 화면에서 로봇 말단이 색상으로 표시한 목표점으로 움직이는 장면" />
-        <figcaption><span>초기 waypoint 개발 · 목표점으로 접근</span><span>10초 · 무음 · 원본 재생 속도</span></figcaption>
-      </figure>
-      <div>
-        <ol class="fuel-control-loop">
-          <li><span>01</span><strong>Waypoint 목록</strong><small>Far → Mid → Near → Insert → Retreat</small></li>
-          <li><span>02</span><strong>Cartesian command</strong><small>매 step에 speed × dt만큼 이동</small></li>
-          <li><span>03</span><strong>RMPFlow → Joint action</strong><small>위치 + reset 시 저장한 EE 자세</small></li>
-          <li><span>04</span><strong>다음 단계 판정</strong><small>도달 거리 · hold · timeout</small></li>
-        </ol>
-        <p class="fuel-note">경로는 lock 또는 기준 좌표 확정 뒤 한 번 생성합니다. 일반 위치 stage는 600 step timeout 뒤 다음 단계로 진행합니다.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="fuel-section page-shell" id="troubleshooting" aria-labelledby="troubleshooting-title">
-    <div class="fuel-section__header">
-      <p class="fuel-label">06 / Troubleshooting</p>
-      <div>
-        <h2 id="troubleshooting-title">위치 추종만으로는 <br />툴 방향이 유지되지 않았다</h2>
-        <p>초기 위치 제어 시험에서는 목표점을 따라 이동하는 동안 EE 방향이 달라졌습니다. 목표 위치와 툴 자세를 별도로 지정할 필요가 있었습니다.</p>
-      </div>
-    </div>
-    <figure class="fuel-evidence fuel-orientation">
-      <a class="fuel-image-link" href={asset('orientation-development.webp')} target="_blank" rel="noopener">
-        <img src={asset('orientation-development.webp')} width="1280" height="664" loading="lazy" decoding="async"
-          alt="왼쪽은 초기 위치 제어 실험, 오른쪽은 고정 자세 waypoint 시험. 서로 다른 개발 scene의 로봇과 목표점." />
-      </a>
-      <figcaption><span>방향 제어 개발 기록 · 서로 다른 scene</span><a href={asset('orientation-development.webp')} target="_blank" rel="noopener">이미지 원본 보기 ↗</a></figcaption>
-    </figure>
-    <dl class="fuel-findings">
-      <div><dt>분석</dt><dd>Position 목표만으로 tool orientation을 결정할 수 없었습니다.</dd></div>
-      <div><dt>적용</dt><dd>현재 코드는 reset 시 EE quaternion을 저장하고, waypoint 실행 중 같은 자세 목표를 전달합니다.</dd></div>
-      <div><dt>확인</dt><dd>코드와 개발 영상에서 자세 제약 적용을 확인했습니다. 자동 축 정렬이나 반복 삽입 성공률을 검증한 결과는 아닙니다.</dd></div>
-    </dl>
-  </section>
-
-  <section class="fuel-result" id="results" aria-labelledby="result-title">
-    <div class="page-shell fuel-result__inner">
-      <p class="eyebrow">07 / Result · Simulation demonstration</p>
-      <h2 id="result-title">두 로봇의 순차 작업을 <br />시뮬레이션으로 시연하다</h2>
-      <p class="fuel-result__lead">팀은 마커 기준 목표점을 단계별 위치 명령과 RMPFlow에 연결하고, B의 cap 작업 → A의 노즐 동작 → B의 복원 순서를 구성했습니다.</p>
-      <ol class="fuel-sequence" aria-label="두 로봇의 작업 순서">
-        <li><span>01 / Robot B</span><strong>Door 준비 · Cap 제거</strong><small>/robot_b/done → A 시작</small></li>
-        <li><span>02 / Robot A</span><strong>노즐 접근 · 삽입 · 후퇴</strong><small>/robot_a/done → B 복원</small></li>
-        <li><span>03 / Robot B</span><strong>Cap 복원 · Door 닫기</strong><small>작업 후 home 복귀</small></li>
-      </ol>
-      <div class="fuel-result-grid">
-        <figure class="fuel-evidence">
-          <a class="fuel-image-link" href={asset('home-nozzle-poster.webp')} target="_blank" rel="noopener">
-            <img src={asset('home-nozzle-poster.webp')} width="1920" height="1080" loading="lazy" decoding="async"
-              alt="최종 팀 시연에서 차량 주유구와 노즐을 함께 보여주는 Isaac Sim 화면." />
-          </a>
-          <figcaption><span>최종 팀 시연 · 노즐 장면</span><a href={asset('home-nozzle-poster.webp')} target="_blank" rel="noopener">이미지 원본 보기 ↗</a></figcaption>
+          <figcaption><span>기본 실행 코드의 목표 변환 흐름</span><a href={asset('pose-to-motion.svg')} target="_blank" rel="noopener">도식 확대 ↗</a></figcaption>
         </figure>
-        <div class="fuel-result-copy">
-          <div><h3>구현과 시연</h3><p>두 M0609의 motion, ROS2 인터페이스, 순차 작업을 시뮬레이션으로 연결했습니다. 최종 발표 scene에는 Allegro 손을 적용한 작업도 포함됩니다.</p></div>
-          <div><h3>검증 범위</h3><p>실제 연료 주입·실차 접촉·접촉력·반복 성공률 측정은 포함하지 않습니다. Cap·door 일부는 transform과 visibility로 표현했습니다.</p></div>
+      </div>
+    </details>
+  </section>
+
+  <section class="case-section page-shell" id="pose" aria-labelledby="pose-title">
+    <span id="coordinate" class="case-anchor"></span>
+    <header class="case-heading">
+      <p class="case-label">02 / Target localization</p>
+      <div><h2 id="pose-title">마커 중심을 실제 작업 위치로 바꾸기</h2><p>마커의 중심과 주유구 입구는 서로 다른 위치입니다. 마커 좌표계에 정의한 작업별 offset을 회전·이동한 뒤, 시뮬레이션의 world 좌표로 변환해 노즐이 향할 지점을 지정했습니다.</p></div>
+    </header>
+    <div class="case-grid">
+      <div class="case-copy">
+        <h3>같은 마커, 작업에 맞는 목표점</h3>
+        <p class="case-formula" aria-label="목표 위치는 마커 회전 행렬 곱하기 작업별 offset 더하기 이동 벡터">p<sub>target</sub> = R<sub>marker</sub> · offset<sub>mode</sub> + t</p>
+        <p>door·cap·hole 모드에 따라 offset을 바꿉니다. 노즐 동작은 hole 목표를 사용하고, 주유구 입구 보정과 기준 높이를 적용해 접근 경로의 중심을 정합니다.</p>
+      </div>
+      <div class="case-copy">
+        <h3>좌표계와 흔들림을 함께 다루기</h3>
+        <p>카메라와 world의 축 방향 차이는 장면 배치에 맞춘 축 매핑으로 변환했습니다. 검출값을 바로 매 스텝 따라가기보다 표본의 분산과 공간 범위를 확인한 뒤 목표를 고정해 경로를 만들었습니다.</p>
+        <p class="case-boundary">고정된 카메라·차량 배치를 전제로 한 보정입니다. 실측 외부 파라미터 보정이나 TF2 변환은 적용하지 않았으며, 기본 실행부는 검출된 방향 대신 미리 정한 접근축을 사용합니다.</p>
+      </div>
+    </div>
+    <ProjectCodeLinks links={[source.links.marker, source.links.waypoint]} />
+    <details class="case-details">
+      <summary>좌표 변환·목표 고정 조건과 offset 조정 화면</summary>
+      <div class="case-details__body">
+        <div class="case-grid">
+          <div class="case-copy">
+            <dl class="case-facts">
+              <div><dt>검출 설정</dt><dd>DICT_4X4_50 · ID 0 · 마커 한 변 0.12m. 최근 8개 표본 중 최소 3개가 있고, 표준편차 norm ≤ 0.035m인 첫 window를 lock합니다.</dd></div>
+              <div><dt>장면 좌표로 변환</dt><dd>카메라 원점에 [−x<sub>c</sub>, −z<sub>c</sub>, −y<sub>c</sub>]를 더합니다. 입구 방향으로 0.05m 보정하고 Z를 기준 높이로 맞춘 뒤 공간 gate와 5개 표본의 안정화 조건을 적용합니다.</dd></div>
+              <div><dt>검출이 확정되지 않을 때</dt><dd>약 10초 뒤 USD의 기준 위치로 대체합니다. 따라서 시연 진행만으로 모든 동작이 검출 목표에서 시작됐다고 판단할 수는 없습니다.</dd></div>
+            </dl>
+          </div>
+          <figure class="case-figure">
+            <img src={asset('marker-offset-development.webp')} width="760" height="568" loading="lazy" decoding="async" alt="초기 detector에서 마커와 작업 목표 사이의 offset을 조정한 개발 화면" />
+            <figcaption><span>초기 offset 조정 기록 · 서로 다른 시점의 화면</span><a href={asset('marker-offset-development.webp')} target="_blank" rel="noopener">화면 확대 ↗</a></figcaption>
+            <p class="case-note">이전 mode=blue 검출기의 개발 자료입니다. 현재 door·cap·hole 설정과 같은 실행 버전은 아닙니다.</p>
+          </figure>
         </div>
+        <figure class="case-figure">
+          <div class="case-diagram" role="region" aria-label="카메라에서 world 좌표로의 변환 도식, 작은 화면에서 가로 스크롤" tabindex="0">
+            <img src={asset('coordinate-transform.svg')} width="1200" height="1050" loading="lazy" decoding="async" alt="카메라 축 매핑, 주유구 보정, 높이 고정, gate와 lock, USD fallback의 상세 흐름" />
+          </div>
+          <figcaption><span>좌표 보정과 목표 고정 조건</span><a href={asset('coordinate-transform.svg')} target="_blank" rel="noopener">도식 확대 ↗</a></figcaption>
+        </figure>
+      </div>
+    </details>
+  </section>
+
+  <section class="case-section page-shell" id="approach" aria-labelledby="approach-title">
+    <span id="motion" class="case-anchor"></span>
+    <header class="case-heading">
+      <p class="case-label">03 / Waypoint &amp; orientation</p>
+      <div><h2 id="approach-title">입구 앞에서 정렬하고, 속도를 낮춰 삽입하기</h2><p>주유구 위치 하나만 지정하면 노즐이 어떤 방향으로 접근할지 표현하기 어렵습니다. 입구를 기준으로 멀리 접근 → 중간 정렬 → 근접 → 삽입 목표를 만들고, 주유구에 가까워질수록 이동 속도를 낮췄습니다.</p></div>
+    </header>
+    <ol class="case-steps" aria-label="노즐 경로 생성과 명령 변환">
+      <li><strong>노즐 끝의 waypoint 생성</strong><p>고정된 접근축을 따라 Far·Mid·Near·Insert 목표를 만듭니다. 단계별 위치와 속도로 접근 구간과 삽입 구간을 구분했습니다.</p></li>
+      <li><strong>끝점 → 제어 링크 보정</strong><p>노즐 끝을 원하는 위치에 놓기 위해 노즐 길이와 장착 offset을 반영한 link_6 목표로 바꿉니다.</p></li>
+      <li><strong>목표 사이를 보간</strong><p>속도 × 시간 간격으로 매 스텝 위치 목표를 갱신하고, RMPFlow가 이를 관절 명령으로 변환하도록 연결했습니다.</p></li>
+    </ol>
+    <div class="case-grid case-subsection" id="troubleshooting">
+      <div class="case-copy">
+        <p class="case-label">Problem → implementation</p>
+        <h3>위치는 맞아도, 노즐 방향이 흐트러지는 문제</h3>
+        <p>개발 과정에서 위치 목표만으로는 원하는 도구 방향을 유지하기 어려웠습니다. 초기화 시 end-effector 자세를 기준 quaternion으로 잡고, 위치 목표와 함께 RMPFlow에 전달해 접근 중 방향을 유지하도록 구성했습니다.</p>
+        <p class="case-boundary">현재 구조는 고정 접근축과 기준 자세에 맞춘 삽입입니다. 마커 방향을 따라 주유구 축을 자동 정렬하거나, 장애물 변화에 맞춰 경로를 다시 계획하는 기능은 포함하지 않습니다.</p>
+      </div>
+      <figure class="case-figure">
+        <ProjectVideo src={asset('waypoint-development.mp4')} poster={asset('waypoint-development-poster.webp')}
+          width={946} height={522} loop={false} label="노즐 접근 목표를 구성하고 움직임을 확인한 초기 waypoint 개발 시뮬레이션" />
+        <figcaption><span>waypoint 동작 개발 기록</span><span>10초 · 최종 공정과 별도 버전</span></figcaption>
+        <p class="case-note">단계별 접근을 확인한 개발 영상입니다. 자세 보정 전후를 같은 조건으로 비교한 시험 영상은 아닙니다.</p>
+      </figure>
+    </div>
+    <ProjectCodeLinks links={[source.links.waypoint, source.links.interpolation]} />
+    <details class="case-details">
+      <summary>waypoint 수치·노즐 길이 보정과 자세 개발 화면</summary>
+      <div class="case-details__body">
+        <div class="case-grid">
+          <div class="case-copy">
+            <table class="case-table"><caption>주유구 중심 기준 접근축 방향 거리 · 코드 기본값</caption><thead><tr><th scope="col">단계</th><th scope="col">거리</th><th scope="col">속도</th></tr></thead><tbody>{stages.map(([stage, distance, speed]) => <tr><th scope="row">{stage}</th><td>{distance}</td><td>{speed}</td></tr>)}</tbody></table>
+            <p>접근축 n = [0, sin(105°), −cos(105°)]이며, link_6 목표는 노즐 끝 목표에 0.63n + [0, 0, −0.25]를 더합니다. 시뮬레이션 장착 상태에 맞춘 값이며 실측 TCP 보정값은 아닙니다.</p>
+            <p>목표 lock 또는 fallback 후 경로를 한 번 구성합니다. 단계별 도달 판정 외에 600 step timeout이 있으며, timeout도 다음 단계로 진행하므로 완료 신호만으로 위치 도달을 보장하지 않습니다.</p>
+          </div>
+          <figure class="case-figure">
+            <img src={asset('orientation-development.webp')} width="1280" height="664" loading="lazy" decoding="async" alt="노즐 도구 방향을 살펴본 서로 다른 초기 시뮬레이션 장면" />
+            <figcaption><span>초기 자세 확인 기록 · 통제된 전후 비교 아님</span><a href={asset('orientation-development.webp')} target="_blank" rel="noopener">화면 확대 ↗</a></figcaption>
+          </figure>
+        </div>
+        <figure class="case-figure">
+          <div class="case-diagram" role="region" aria-label="노즐 끝과 제어 링크의 기하 도식, 작은 화면에서 가로 스크롤" tabindex="0">
+            <img src={asset('approach-geometry.svg')} width="1200" height="1154" loading="lazy" decoding="async" alt="고정 접근축의 네 단계 목표와 노즐 끝에서 link_6로의 길이·장착 offset 보정" />
+          </div>
+          <figcaption><span>접근 경로와 제어점 변환</span><a href={asset('approach-geometry.svg')} target="_blank" rel="noopener">도식 확대 ↗</a></figcaption>
+        </figure>
+      </div>
+    </details>
+  </section>
+
+  <section class="case-result" id="results" aria-labelledby="results-title">
+    <div class="page-shell">
+      <p class="case-label">04 / Result &amp; next steps</p>
+      <h2 id="results-title">인식 좌표를 로봇이 실행할 경로로 연결했습니다</h2>
+      <p class="case-result__lead">팀 시연에서 캡 작업 → 노즐 접근·삽입 → 캡·덮개 복원 흐름을 구성했습니다. 저는 시뮬레이션 환경에서 주유구 목표를 지정하고, 노즐 끝과 제어 링크의 차이를 반영한 단계별 경로를 구현했습니다.</p>
+      <div class="case-result__grid">
+        <div><h3>구현으로 확인한 역량</h3><p>카메라·마커·world·도구의 서로 다른 기준을 연결하고, 목표 위치·접근 순서·자세 조건을 로봇 명령에 함께 반영했습니다. 환경 구성부터 움직임 확인까지 시뮬레이션 안에서 다뤘습니다.</p></div>
+        <div><h3>다음 검증 과제</h3><p>검출 목표와 fallback 사용 여부를 로그로 구분하고, timeout을 실패·재시도 상태로 나눌 필요가 있습니다. 다양한 차량 배치에서 위치 오차와 삽입 성공률을 반복 측정하는 것은 후속 과제입니다.</p></div>
       </div>
     </div>
   </section>
 
-  <nav class="next-project page-shell" aria-label="프로젝트 목록으로 이동">
-    <a href={withBase('/#projects')}><span>Project index</span><strong>Back to all projects</strong></a>
-  </nav>
+  <section class="case-appendix page-shell" aria-label="시연과 구현 범위">
+    <details class="case-details"><summary>시연 자료와 구현 버전의 범위</summary><div class="case-details__body">
+      <p>상단 영상은 두 로봇팔과 웹 화면을 포함한 최종 팀 시연입니다. 본문은 공개 저장소의 기본 실행 경로와 초기 개발 자료를 설명하며, 최종 Allegro 구성과 모든 동작이 같은 코드 버전이라는 의미는 아닙니다.</p>
+      <p>캡·덮개의 일부 움직임은 USD transform·visibility 제어로 표현했습니다. 캡 작업과 웹 화면은 팀 전체 공정의 맥락이며, 이 페이지에서 설명한 제 담당 범위는 주유구 위치·노즐 경로·시뮬레이션 환경입니다.</p>
+    </div></details>
+  </section>
+  <nav class="next-project page-shell" aria-label="다음 프로젝트"><a href={withBase('/projects/dume/')}><span>Next project / 03</span><strong>DUM-E</strong></a></nav>
 </BaseLayout>

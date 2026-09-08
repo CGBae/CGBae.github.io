@@ -1,0 +1,110 @@
+{
+  "automatic-fueling": {
+    "repository": "https://github.com/CGBae/ROKEY-Project-F4-1-",
+    "commit": "df90468e4597f014055d547a112e1f7aa73da8a0",
+    "links": {
+      "marker": {
+        "label": "ArUco 목표점 계산",
+        "href": "https://github.com/CGBae/ROKEY-Project-F4-1-/blob/df90468e4597f014055d547a112e1f7aa73da8a0/fuel_port_perception/src/fuel_port_perception/fuel_port_perception/aruco_marker_detector.py#L88"
+      },
+      "scene": {
+        "label": "환경과 로봇 초기화",
+        "href": "https://github.com/CGBae/ROKEY-Project-F4-1-/blob/df90468e4597f014055d547a112e1f7aa73da8a0/cobot3_ws/isaacpjt/M0609/multi_robot_oiling.py#L1247"
+      },
+      "interpolation": {
+        "label": "목표점 보간",
+        "href": "https://github.com/CGBae/ROKEY-Project-F4-1-/blob/df90468e4597f014055d547a112e1f7aa73da8a0/cobot3_ws/isaacpjt/M0609/multi_robot_oiling.py#L781"
+      },
+      "waypoint": {
+        "label": "노즐 waypoint 생성",
+        "href": "https://github.com/CGBae/ROKEY-Project-F4-1-/blob/df90468e4597f014055d547a112e1f7aa73da8a0/cobot3_ws/isaacpjt/M0609/multi_robot_oiling.py#L828"
+      },
+      "bridge": {
+        "label": "카메라·ROS2 그래프",
+        "href": "https://github.com/CGBae/ROKEY-Project-F4-1-/blob/df90468e4597f014055d547a112e1f7aa73da8a0/world.usda#L99"
+      }
+    }
+  },
+  "palpa": {
+    "repository": "https://github.com/CGBae/ROKEY-Project-F2-1",
+    "commit": "6413eb81fb0e299783d088c1e44feeed28c08f42",
+    "links": {
+      "api": {
+        "label": "웹 요청 연결",
+        "href": "https://github.com/CGBae/ROKEY-Project-F2-1/blob/6413eb81fb0e299783d088c1e44feeed28c08f42/palpa_project_final/core/api.py#L26"
+      },
+      "teaching": {
+        "label": "티칭 명령 처리",
+        "href": "https://github.com/CGBae/ROKEY-Project-F2-1/blob/6413eb81fb0e299783d088c1e44feeed28c08f42/palpa_project_final/core/jog.py#L17"
+      },
+      "motion": {
+        "label": "잔여각·모션 체이닝",
+        "href": "https://github.com/CGBae/ROKEY-Project-F2-1/blob/6413eb81fb0e299783d088c1e44feeed28c08f42/palpa_project_final/sequences/order.py#L206"
+      },
+      "settings": {
+        "label": "구간별 이동 설정",
+        "href": "https://github.com/CGBae/ROKEY-Project-F2-1/blob/6413eb81fb0e299783d088c1e44feeed28c08f42/palpa_project_final/config/motion.py#L121"
+      },
+      "store": {
+        "label": "작업점 저장",
+        "href": "https://github.com/CGBae/ROKEY-Project-F2-1/blob/6413eb81fb0e299783d088c1e44feeed28c08f42/palpa_project_final/core/store.py#L10"
+      },
+      "investigation": {
+        "label": "경로 개선 기록",
+        "href": "https://github.com/CGBae/ROKEY-Project-F2-1/blob/6413eb81fb0e299783d088c1e44feeed28c08f42/palpa_project_final/docs/PATH_OPTIMIZATION.md#L4"
+      }
+    }
+  },
+  "dume": {
+    "repository": "https://github.com/CGBae/ROKEY-Project-F2-2",
+    "commit": "dfaa5db30a0b25eb3e97b9b9cedee481bddd4238",
+    "links": {
+      "assessor": {
+        "label": "VLM 평가 입력·출력",
+        "href": "https://github.com/CGBae/ROKEY-Project-F2-2/blob/dfaa5db30a0b25eb3e97b9b9cedee481bddd4238/integrated_dum_e_project/assembly_copilot/multimodal_assessor.py#L41"
+      },
+      "context": {
+        "label": "현재 단계 어댑터",
+        "href": "https://github.com/CGBae/ROKEY-Project-F2-2/blob/dfaa5db30a0b25eb3e97b9b9cedee481bddd4238/integrated_dum_e_project/robot_skills/step_context.py#L35"
+      },
+      "state": {
+        "label": "작업 상태 관리",
+        "href": "https://github.com/CGBae/ROKEY-Project-F2-2/blob/dfaa5db30a0b25eb3e97b9b9cedee481bddd4238/integrated_dum_e_project/assembly_copilot/state_tracker.py#L11"
+      },
+      "validator": {
+        "label": "평가 조건 검사",
+        "href": "https://github.com/CGBae/ROKEY-Project-F2-2/blob/dfaa5db30a0b25eb3e97b9b9cedee481bddd4238/integrated_dum_e_project/assembly_copilot/assessment_validator.py#L8"
+      },
+      "bridge": {
+        "label": "ROS2 스킬 연결",
+        "href": "https://github.com/CGBae/ROKEY-Project-F2-2/blob/dfaa5db30a0b25eb3e97b9b9cedee481bddd4238/integrated_dum_e_project/robot_skills/ros_bridge.py#L23"
+      },
+      "inspect": {
+        "label": "로봇 검사 스킬",
+        "href": "https://github.com/CGBae/ROKEY-Project-F2-2/blob/dfaa5db30a0b25eb3e97b9b9cedee481bddd4238/integrated_dum_e_project/robot_skills/inspect_step.py#L33"
+      }
+    }
+  },
+  "turtlebot4": {
+    "repository": "https://github.com/CGBae/ROKEY-Project-F3-4-2",
+    "commit": "d5e02cbd62050f81444258577c5102382ec07722",
+    "links": {
+      "goal": {
+        "label": "로봇별 목표 생성",
+        "href": "https://github.com/CGBae/ROKEY-Project-F3-4-2/blob/d5e02cbd62050f81444258577c5102382ec07722/farmguard_bot/src/amr/amr/designator.py#L61"
+      },
+      "detection": {
+        "label": "탐지 결과·좌표 발행",
+        "href": "https://github.com/CGBae/ROKEY-Project-F3-4-2/blob/d5e02cbd62050f81444258577c5102382ec07722/farmguard_bot/src/webcam/webcam/tower_world_detector.py#L280"
+      },
+      "calibration": {
+        "label": "좌표 보정",
+        "href": "https://github.com/CGBae/ROKEY-Project-F3-4-2/blob/d5e02cbd62050f81444258577c5102382ec07722/farmguard_bot/src/webcam/webcam/calibrate_homography.py#L74"
+      },
+      "execution": {
+        "label": "Nav2 실행·미션 상태",
+        "href": "https://github.com/CGBae/ROKEY-Project-F3-4-2/blob/d5e02cbd62050f81444258577c5102382ec07722/farmguard_bot/src/amr/amr/robot_controller.py#L88"
+      }
+    }
+  }
+}
