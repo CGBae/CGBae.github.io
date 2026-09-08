@@ -129,22 +129,30 @@ import { withBase } from '@/utils/paths';
 
 <style>
   .about-hero {
-    grid-template-columns: minmax(180px, 0.28fr) minmax(0, 0.72fr);
+    grid-template-columns: minmax(225px, 0.28fr) minmax(0, 0.72fr);
     gap: clamp(3rem, 7vw, 6rem);
-    align-items: start;
+    align-items: stretch;
     padding-block: clamp(4rem, 8vw, 6rem);
   }
-  .about-hero__profile { display: grid; align-content: start; gap: 1.25rem; }
-  /* Grow the photo into the top gutter without moving the identity below it. */
-  .about-hero__portrait-frame {
-    display: flex;
-    align-items: flex-end;
-    height: clamp(236px, 20vw, 280px);
+  .about-hero__profile {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 1.25rem;
+    min-width: 0;
   }
-  .about-hero__portrait { width: clamp(200px, 19vw, 260px); height: auto; }
-  .about-hero__identity { display: grid; gap: 0.45rem; }
+  .about-hero__portrait-frame {
+    display: grid;
+    place-items: center;
+    min-width: 0;
+    padding: 1.25rem;
+    border: var(--rule);
+  }
+  /* Preserve the supplied photo's resolution and keep it inside its padded frame. */
+  .about-hero__portrait { width: 177px; max-width: 100%; height: auto; }
+  .about-hero__identity { display: grid; gap: 0.45rem; min-width: 0; }
   .about-hero__name { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.04em; }
-  .about-hero__role { max-width: 15rem; color: var(--muted); font-size: 0.86rem; word-break: keep-all; }
+  .about-hero__role { max-width: 15rem; color: var(--muted); font-size: 0.86rem; word-break: keep-all; overflow-wrap: anywhere; }
+  .about-hero__copy { display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
   .about-hero h1 {
     max-width: 10em;
     margin-top: 0;
@@ -153,6 +161,7 @@ import { withBase } from '@/utils/paths';
   }
   .about-hero__intro {
     display: grid;
+    align-self: stretch;
     gap: 1.15rem;
     max-width: 42rem;
     margin-top: 2rem;
@@ -163,11 +172,14 @@ import { withBase } from '@/utils/paths';
   }
   .about-hero__intro > p { color: var(--muted); }
   .about-hero__intro > .about-hero__lead { color: var(--ink); font-size: 1.16rem; }
+  @media (max-width: 960px) {
+    .about-hero { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+    .about-hero__profile { grid-template-columns: minmax(0, 225px) minmax(0, 1fr); grid-template-rows: auto; align-items: center; }
+  }
   @media (max-width: 760px) {
-    .about-hero { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; padding-block: 3rem 4rem; }
-    .about-hero__profile { grid-template-columns: 144px minmax(0, 1fr); align-items: center; gap: 1.2rem; }
-    .about-hero__portrait-frame { height: 165.333px; }
-    .about-hero__portrait { width: 144px; }
+    .about-hero { padding-block: 3rem 4rem; }
+    .about-hero__profile { grid-template-columns: minmax(0, 168px) minmax(0, 1fr); gap: 1.2rem; }
+    .about-hero__portrait-frame { padding: 12px; }
     .about-hero__name { font-size: 1.5rem; }
     .about-hero__role { font-size: 0.8rem; }
     .about-hero h1 { font-size: clamp(2.5rem, 10vw, 4rem); }
